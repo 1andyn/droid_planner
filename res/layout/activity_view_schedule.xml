@@ -10,23 +10,23 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/monthViewButton"
+            android:id="@+id/MonthViewButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Month" />
 
         <Button
-            android:id="@+id/addJokeButton"
+            android:id="@+id/DateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.30"
             android:text="Date" />
 
         <Button
-            android:id="@+id/addJokeButton"
+            android:id="@+id/addEventButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Map" />
+            android:text="+" />
     </LinearLayout>
     
     <!--Use this Specific ListView element for event objects-->
