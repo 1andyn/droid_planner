@@ -914,7 +914,9 @@ containing a value of this type.
     }
     public static final class id {
         public static final int DateButton=0x7f040033;
+        public static final int DescriptTextView=0x7f04003a;
         public static final int MonthViewButton=0x7f040032;
+        public static final int TitleTextView=0x7f040039;
         public static final int abs__action_bar=0x7f040020;
         public static final int abs__action_bar_container=0x7f04001f;
         public static final int abs__action_bar_subtitle=0x7f040011;
@@ -954,18 +956,21 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040013;
         public static final int abs__title=0x7f04001b;
         public static final int abs__up=0x7f04000b;
-        public static final int action_settings=0x7f040036;
+        public static final int action_settings=0x7f04003b;
         public static final int addEventButton=0x7f040034;
+        public static final int am_pm_indicator=0x7f040038;
         public static final int disableHome=0x7f040009;
         public static final int edit_query=0x7f040026;
         public static final int eventViewGroup=0x7f040035;
         public static final int homeAsUp=0x7f040006;
         public static final int listMode=0x7f040002;
         public static final int normal=0x7f040001;
+        public static final int ratingRadioGroup=0x7f040036;
         public static final int showCustom=0x7f040008;
         public static final int showHome=0x7f040005;
         public static final int showTitle=0x7f040007;
         public static final int tabMode=0x7f040003;
+        public static final int timeTextView=0x7f040037;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
     }
@@ -995,8 +1000,9 @@ containing a value of this type.
         public static final int abs__search_view=0x7f030013;
         public static final int abs__simple_dropdown_hint=0x7f030014;
         public static final int activity_view_schedule=0x7f030015;
-        public static final int sherlock_spinner_dropdown_item=0x7f030016;
-        public static final int sherlock_spinner_item=0x7f030017;
+        public static final int event_view=0x7f030016;
+        public static final int sherlock_spinner_dropdown_item=0x7f030017;
+        public static final int sherlock_spinner_item=0x7f030018;
     }
     public static final class menu {
         public static final int view_schedule=0x7f0b0000;
