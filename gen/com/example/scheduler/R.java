@@ -954,7 +954,6 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040013;
         public static final int abs__title=0x7f04001b;
         public static final int abs__up=0x7f04000b;
-        public static final int action_settings=0x7f040043;
         public static final int addEventButton=0x7f040034;
         public static final int am_pm=0x7f04003a;
         public static final int d_tview=0x7f04003d;
@@ -968,6 +967,8 @@ containing a value of this type.
         public static final int hr_tview=0x7f040037;
         public static final int listMode=0x7f040002;
         public static final int maininfogroup=0x7f04003b;
+        public static final int menu_edit=0x7f040044;
+        public static final int menu_remove=0x7f040043;
         public static final int min_eview=0x7f040041;
         public static final int min_tview=0x7f040039;
         public static final int normal=0x7f040001;
@@ -1011,9 +1012,11 @@ containing a value of this type.
         public static final int event_view=0x7f030016;
         public static final int sherlock_spinner_dropdown_item=0x7f030017;
         public static final int sherlock_spinner_item=0x7f030018;
+        public static final int todo_view=0x7f030019;
     }
     public static final class menu {
-        public static final int view_schedule=0x7f0b0000;
+        public static final int actionmenu=0x7f0b0000;
+        public static final int mainmenu=0x7f0b0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1055,6 +1058,8 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f090007;
+        public static final int action_edit=0x7f090011;
+        public static final int action_remove=0x7f090010;
         public static final int action_settings=0x7f09000e;
         public static final int app_name=0x7f09000d;
         public static final int hello_world=0x7f09000f;

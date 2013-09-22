@@ -2,10 +2,6 @@ package com.example.scheduler;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-
 /**
  * A Container object manages all events, and has the ability to repeat them.
  * 

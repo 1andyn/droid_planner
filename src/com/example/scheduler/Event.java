@@ -20,6 +20,7 @@ import android.view.Menu;
 
 public class Event{
 	
+	private int eventID;
 	private String eventName;
 	private String eventDesc;
 	private String eventColor;
@@ -69,6 +70,11 @@ public class Event{
 		return eventDate.getDay();
 	}
 	
+	public int GetID()
+	{
+		return eventID;
+	}
+	
 	
 	// mutators
 	public void setName(String givenName) {
@@ -93,6 +99,12 @@ public class Event{
 	public void setColor(String givenColor) {
 		eventColor = givenColor;
 	}
+	
+	public void setID(int id)
+	{
+		eventID = id;
+	}
+	
 }
 	
 

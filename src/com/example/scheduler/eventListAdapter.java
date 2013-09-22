@@ -34,12 +34,20 @@ public class eventListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int apos, View convertView, ViewGroup parent) {
+	public View getView(int pos, View convertView, ViewGroup parent) {
 		if(convertView == null)
 		{
-			
+			EventView eventer = new EventView(app_Context, (Event)getItem(pos));
+			return eventer;
 		}
-		return null;
+		else
+		{
+			convertView.setLongClickable(true);
+			convertView.setFocusable(true);
+			EventView e_view = (EventView)convertView;
+			e_view.setEvent((Event)getItem(pos));
+			return convertView;
+		}
 	}
 
 

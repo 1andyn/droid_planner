@@ -27,6 +27,10 @@ import android.widget.Toast;
 
 public class View_schedule extends SherlockActivity {
 
+	protected Button month_button;
+	protected Button date_button;
+	protected Button event_button;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -37,7 +41,7 @@ public class View_schedule extends SherlockActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getSupportMenuInflater().inflate(R.menu.view_schedule, menu);
+		getSupportMenuInflater().inflate(R.menu.actionmenu, menu);
 		return true;
 	}
 
