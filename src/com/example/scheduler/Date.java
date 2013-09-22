@@ -19,10 +19,9 @@ import android.view.Menu;
 
 public class Date{
 
-	// start and end times of date; 24 hour method?
-	private int startTime;
+	private int startTime; //military time
 	private int endTime;
-	private int day;			// mmddyy?
+	private int day; //MMDDYYYY
 	
 	// negative value only if data is not given
 	private static final int NONE = -1;
@@ -73,23 +72,6 @@ public class Date{
 	
 	public void setDay(int givenDay) {
 		day = givenDay;
-	}
-	
-	// deleters
-	public void rmTimes() {
-		// times can't be removed individually
-		startTime = NONE;
-		endTime = NONE;
-	}
-
-	// returns true if day was removed
-	public boolean rmDay() {
-		// day cannot be removed if times are valid
-		if(startTime == NONE | endTime == NONE) 
-			return false;
-		
-		day = NONE;
-		return true;
 	}
 	
 }

@@ -34,6 +34,7 @@
         android:id="@+id/eventViewGroup"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:longClickable="true">
-    </ListView>
+        android:longClickable="true"				    
+        android:divider="#C0C0C0"
+		android:dividerHeight="2sp"/>
 </LinearLayout>

@@ -20,59 +20,55 @@ import android.view.Menu;
 
 public class Event{
 	
-	private String eventName;	// add name and desc to Event class instead
+	private String eventName;
 	private String eventDesc;
-	private ArrayList<Date> eventDates;	// not an array
-	private ArrayList<Date> eventAlarms; // not an array
-	private String eventColor;	// char or string??
+	private String eventColor;
+	private Date eventDate;
+	private boolean alarm;
+
 	
 	private final String NONE = "null";
-	// constructors
-	
-	// accessors
-	public String getName() {
+
+	public String getName() 
+	{
 		return eventName;
 	}
 	
-	public String getDescription() {
+	public String getDescription() 
+	{
 		return eventDesc;
 	}
 	
-	// allows you to get event by date or individual time, if time is needed??
-	public Date getEvent(int givenDate) {
-		// search for event on specific date			// what happens if there's two in one day?
-														// make it an arraylist if two in one day?
-		for(int i = 0; i < eventDates.size(); i++) {
-			if(eventDates.get(i).getDay() == givenDate)
-				return eventDates.get(i);
-		}
-		
-		Date noneFound = new Date();
-		return noneFound;
-		
+	public Boolean getAlarm() 
+	{
+		return alarm;
 	}
 	
-	public Date getEvent(int givenDate, int givenTime) {
-		// search for events on given day AND time
-		for(int i = 0; i < eventDates.size(); i++) {
-			if(eventDates.get(i).getDay() == givenDate) {	// if date matches, check time
-				Date possibleFind = eventDates.get(i);
-				if(givenTime > possibleFind.getStartTime() && givenTime < possibleFind.getEndTime())
-					return possibleFind;
-			}
-		}
-		Date noneFound = new Date();
-		return noneFound;
-		
-	}
-	
-	public Date getAlarm() {
-		return eventAlarms.get(0);
-	}
-	
-	public String getColor() {
+	public String getColor() 
+	{
 		return eventColor;
 	}
+	
+	public Date GetDate()
+	{
+		return eventDate;
+	}
+	
+	public int GetStart()
+	{
+		return eventDate.getStartTime();
+	}
+	
+	public int GetEnd()
+	{
+		return eventDate.getEndTime();
+	}
+	
+	public int GetDay()
+	{
+		return eventDate.getDay();
+	}
+	
 	
 	// mutators
 	public void setName(String givenName) {
@@ -83,43 +79,20 @@ public class Event{
 		eventDesc = givenDesc;
 	}
 	
-	public void addDate(Date givenDate) {
-		eventDates.add(givenDate);
+	public void setDate(Date input)
+	{
+		eventDate.setDay(input.getDay());
+		eventDate.setStartTime(input.getStartTime());
+		eventDate.setEndTime(input.getEndTime());
 	}
 	
-	public void addAlarm(Date givenAlarm) {
-		eventAlarms.add(givenAlarm);
+	public void setAlarm(Boolean flag) {
+		alarm = flag;
 	}
 	
 	public void setColor(String givenColor) {
 		eventColor = givenColor;
 	}
-	
-	// deleters
-	public void rmName() {
-		eventName = NONE;
-	}
-	
-	// can't have description without a name?
-	public boolean rmDescription() {
-		if(eventName != NONE)
-			return false;
-		
-		eventDesc = NONE;
-		return true;
-	}
-	
-	public void rmDate() {
-		eventDates.get(0).rmTimes();
-		eventDates.get(0).rmDay();
-	}
-	
-	public void rmAlarm() {
-		eventAlarms.get(0).rmTimes();
-		eventAlarms.get(0).rmDay();
-	}
-	
-	public void rmColor() {
-		eventColor = NONE;
-	}
 }
+	
+

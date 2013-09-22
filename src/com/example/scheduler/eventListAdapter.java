@@ -8,30 +8,37 @@ import android.widget.BaseAdapter;
 
 public class eventListAdapter extends BaseAdapter {
 
+	//Context in which eventListAdapter is being used
 	private Context app_Context;
 	private List<Event> event_list;
 	
+	public eventListAdapter(Context c, List<Event> e_list)
+	{
+		app_Context = c;
+		event_list = e_list;
+	}
+	//returns size of eventlist
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return event_list.size();
 	}
 
 	@Override
-	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object getItem(int pos) {
+		return event_list.get(pos);
 	}
 
 	@Override
-	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long getItemId(int pos) {
+		return pos; //modify event IDs to have a certain unique ID
 	}
 
 	@Override
-	public View getView(int arg0, View arg1, ViewGroup arg2) {
-		// TODO Auto-generated method stub
+	public View getView(int apos, View convertView, ViewGroup parent) {
+		if(convertView == null)
+		{
+			
+		}
 		return null;
 	}
 

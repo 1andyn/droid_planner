@@ -16,16 +16,16 @@ import android.view.Menu;
  *
  */
 
-public class Container{
+public class EventList{
 	
 	private ArrayList<Event> allEvents;
 	
-	public void repeatEvents(int eventNum, ArrayList<Date> givenDates) {
-		for(int i = 0; i < givenDates.size(); i++) {
-			Date nextDate = givenDates.get(i);			// add each date to the event individually
-			allEvents.get(eventNum).addDate(nextDate);
-		}
-	}
+//	public void repeatEvents(int eventNum, ArrayList<Date> givenDates) {
+//		for(int i = 0; i < givenDates.size(); i++) {
+//			Date nextDate = givenDates.get(i);			// add each date to the event individually
+//			allEvents.get(eventNum).addDate(nextDate);
+//		}
+//	}
 	
 	public void getEvent(int eventNum) {
 		allEvents.get(eventNum);
