@@ -4,19 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 
-/**
- * A Date object contains its date in mmddyy format, its start time, and its end time.
- * 
- * Still needs: 
- * mmddyy format? 
- * 24 hour times?
- * Can you have a description without a name?
- * Can times be removed individually?
- * 
- * @author BP
- *
- */
-
 public class Date{
 
 	private int startTime; //military time

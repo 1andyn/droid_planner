@@ -6,19 +6,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 
-/**
- * An Event object contains its name, description, list of dates and alarms, and its background color.
- * 
- * Still needs: 
- * Not sure how to implement alarm?? Each date has an alarm instead?? Or alarms implemented in container?
- * Color in string or char?
- * Can you have a description without a name?
- * 
- * @author BP
- *
- */
-
 public class Event{
+	private final String NONE = null;
+	private final String HEX_WHITE = "FFFFFF";
+	private final int EMPTY = 0;
+
 	
 	private int eventID;
 	private String eventName;
@@ -27,8 +19,16 @@ public class Event{
 	private Date eventDate;
 	private boolean alarm;
 
-	
-	private final String NONE = "null";
+	/* Constructor */
+	public Event()
+	{
+		eventID = EMPTY;
+		eventName = null;
+		eventDesc = null;
+		eventColor = HEX_WHITE;
+		eventDate = new Date();
+		alarm = false;
+	}
 
 	public String getName() 
 	{

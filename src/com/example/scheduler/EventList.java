@@ -16,13 +16,6 @@ public class EventList{
 	
 	private ArrayList<Event> allEvents;
 	
-//	public void repeatEvents(int eventNum, ArrayList<Date> givenDates) {
-//		for(int i = 0; i < givenDates.size(); i++) {
-//			Date nextDate = givenDates.get(i);			// add each date to the event individually
-//			allEvents.get(eventNum).addDate(nextDate);
-//		}
-//	}
-	
 	public void getEvent(int eventNum) {
 		allEvents.get(eventNum);
 	}
@@ -33,5 +26,14 @@ public class EventList{
 	
 	public void deleteEvent(int eventNum) {
 		allEvents.remove(eventNum);
+	}
+
+	public int size() {
+		return allEvents.size();
+	}
+	
+	public Object get(int pos)
+	{
+	return allEvents.get(pos);
 	}
 }

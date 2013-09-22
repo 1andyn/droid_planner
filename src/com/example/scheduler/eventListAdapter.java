@@ -10,9 +10,9 @@ public class eventListAdapter extends BaseAdapter {
 
 	//Context in which eventListAdapter is being used
 	private Context app_Context;
-	private List<Event> event_list;
+	private EventList event_list;
 	
-	public eventListAdapter(Context c, List<Event> e_list)
+	public eventListAdapter(Context c, EventList e_list)
 	{
 		app_Context = c;
 		event_list = e_list;
