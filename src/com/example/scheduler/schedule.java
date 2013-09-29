@@ -6,21 +6,28 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
 
 import android.content.Context;
 /* Basic Android Imports*/
 import android.os.Bundle;
-import android.view.LayoutInflater;
+//import android.view.LayoutInflater; required library later
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 /* Java Utils Imports */
 import java.util.Vector;
 
-
 public class schedule extends SherlockFragmentActivity {
+	
+	/** DEBUG VALUES */
+	final int STR_TIME = 700;
+	final int END_TIME = 1200;
+	final int D_M = 9; // Test Month
+	final int D_D = 28; //Test Day
+	final int D_Y = 2013; //Test Year
+	/** END DEBUG VALUES */
 	
 	/* Application context */
 	final Context context=this;
@@ -119,32 +126,37 @@ public class schedule extends SherlockFragmentActivity {
 		
 		events = new Vector<Event>();
 		events_visible = new Vector<Event>();
-//		e_adapter = new eventListAdapter(this, events_visible);
-//		e_listview.setAdapter(e_adapter);
-//		e_listview.setLongClickable(true);
-//		e_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-//		e_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//			
-//            public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
-//            {
-//            	ListView myList = (ListView)findViewById(R.id.eventViewGroup);
-//            	Toast.makeText(View_schedule.this,myList.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
-//            	
-//            	selection_view = v;
-//            	
-//                if(m_Action != null)
-//                {
-//                	return false;
-//                }
-//                
-//                m_Action = schedule.this.startActionMode(m_ActionCall);
-//                //v.setBackgroundResource(color.highlight);
-//                selection_event = (Event) e_adapter.getItem(pos);
-//                adv.setSelection(pos);
-//                e_adapter.notifyDataSetChanged();
-//                return true;                
-//            }
-//		});
+		
+		
+		e_adapter = new eventListAdapter(this, events_visible);
+		e_listview.setAdapter(e_adapter);
+		e_listview.setLongClickable(true);
+		e_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		e_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			
+            public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
+            {
+            	ListView myList = (ListView)findViewById(R.id.eventViewGroup);
+            	Toast.makeText(schedule.this,"Test:" + myList.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
+            	
+            	selection_view = v;
+                if(m_Action != null)
+                {
+                	return false;
+                }
+                
+                m_Action = schedule.this.startActionMode(m_ActionCall);
+                //v.setBackgroundResource(color.highlight);
+                selection_event = (Event) e_adapter.getItem(pos);
+                adv.setSelection(pos);
+                e_adapter.notifyDataSetChanged();
+                return true;                
+            }
+		});
+		
+		events.add(debug_fake_event());
+		Toast.makeText(schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
+		
 		
 	}
 
@@ -160,6 +172,7 @@ public class schedule extends SherlockFragmentActivity {
 	protected void initalizeLayout()
 	{
 		setContentView(R.layout.schedule_view);
+		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		config_actionbar();
 	}
 	
@@ -169,12 +182,35 @@ public class schedule extends SherlockFragmentActivity {
 		ActionBar ab = getSupportActionBar();
 		ab.setDisplayShowTitleEnabled(false); 
 		ab.setDisplayShowHomeEnabled(false);
-//	    LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//	    View v =inflater.inflate(R.layout.top_bar_view, null, true);
-//	    ab.setCustomView(v);
-//		
-//		ab.setDisplayShowCustomEnabled(true);
+		
+		/* Will re-implement last
+		LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    View v =inflater.inflate(R.layout.top_bar_view, null, true);
+	    ab.setCustomView(v);
+		ab.setDisplayShowCustomEnabled(true);
+		
+		*/
 	}
+	
+	protected Event debug_fake_event()
+	{
+		Event temp = new Event();
+		temp.setAlarm(false);
+		temp.setID(events.size());
+		temp.setName("Test Event");
+		temp.setDescription("Description for test Event");
+		temp.setDate(debug_fake_date());
+		return temp;
+	}
+	
+	protected Date debug_fake_date()
+	{
+		Date temp = new Date(STR_TIME, END_TIME, D_M, D_D, D_Y);
+		return temp;
+	}
+	
+	
+	
 	
 
 }

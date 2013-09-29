@@ -13,6 +13,17 @@ public class Event{
 	private boolean alarm;
 
 	/* Constructor */
+	public Event(int id, String name)
+	{
+		eventID = id;
+		eventName = name;
+		eventDesc = null;
+		eventColor = HEX_WHITE;
+		eventDate = new Date();
+		alarm = false;
+	}
+	
+	
 	public Event()
 	{
 		eventID = EMPTY;
@@ -63,11 +74,20 @@ public class Event{
 		return eventDate.getDay();
 	}
 	
+	public int GetMonth()
+	{
+		return eventDate.getMonth();
+	}
+	
+	public int GetYear()
+	{
+		return eventDate.getYear();
+	}
+	
 	public int GetID()
 	{
 		return eventID;
 	}
-	
 	
 	// mutators
 	public void setName(String givenName) {
@@ -80,7 +100,9 @@ public class Event{
 	
 	public void setDate(Date input)
 	{
+		eventDate.setMth(input.getMonth());
 		eventDate.setDay(input.getDay());
+		eventDate.setYr(input.getYear());
 		eventDate.setStartTime(input.getStartTime());
 		eventDate.setEndTime(input.getEndTime());
 	}

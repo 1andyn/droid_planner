@@ -15,7 +15,7 @@ public class eventListAdapter extends BaseAdapter {
 	public eventListAdapter(Context c, Vector<Event> e_list)
 	{
 		app_Context = c;
-		event_list = new Vector<Event>();
+		event_list = e_list;
 	}
 	//returns size of eventlist
 	@Override
@@ -30,7 +30,7 @@ public class eventListAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int pos) {
-		return pos; //modify event IDs to have a certain unique ID
+		return event_list.get(pos).GetID(); 
 	}
 
 	@Override

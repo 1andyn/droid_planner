@@ -2,30 +2,31 @@ package com.example.scheduler;
 
 public class Date{
 
-	private int startTime; //military time
+	private int startTime; /* military time */
 	private int endTime;
-	private int day; //MMDDYYYY
+	private cal_date date;
 	
 	private static final int NONE = -1;
 	
+	/* Default Constructor */
 	public Date() {
 		startTime = NONE;
 		endTime = NONE;
-		day = NONE;
+		date = new cal_date();
 	}
 	
-	// only day given
-	public Date(int givenDay) {
+	/* only day month year  given */
+	public Date(int m, int d, int y) {
 		startTime = NONE;
 		endTime = NONE;
-		day = givenDay;
+		date = new cal_date(m,d,y);
 	}
 	
 	// all data given
-	public Date(int givenStart, int givenEnd, int givenDay) {
+	public Date(int givenStart, int givenEnd, int m, int d, int y) {
 		startTime = givenStart;
 		endTime = givenEnd;
-		day = givenDay;
+		date = new cal_date(m,d,y);
 	}
 
 	// accessors
@@ -38,9 +39,19 @@ public class Date{
 	}
 	
 	public int getDay() {
-		return day;
+		return date.get_day();
 	}
 	
+	public int getMonth()
+	{
+		return date.get_month();
+	}
+	
+	public int getYear()
+	{
+		return date.get_year();
+	}
+		
 	// mutators
 	public void setStartTime(int givenStart) {
 		startTime = givenStart;
@@ -51,7 +62,16 @@ public class Date{
 	}
 	
 	public void setDay(int givenDay) {
-		day = givenDay;
+		date.set_day(givenDay);
 	}
 	
+	public void setMth(int month)
+	{
+		date.set_month(month);
+	}
+	
+	public void setYr (int year)
+	{
+		date.set_year(year);
+	}
 }
