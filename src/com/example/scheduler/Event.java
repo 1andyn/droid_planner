@@ -1,16 +1,9 @@
 package com.example.scheduler;
 
-import java.util.ArrayList;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-
 public class Event{
 	private final String NONE = null;
 	private final String HEX_WHITE = "FFFFFF";
 	private final int EMPTY = 0;
-
 	
 	private int eventID;
 	private String eventName;

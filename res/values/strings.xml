@@ -6,5 +6,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_remove">Remove</string>
     <string name="action_edit">Edit Event</string>
+    <string name="tb_add">+ Event</string>
+    <string name="tb_date">Jan 1, 2013</string>
+    <string name="tb_month">Month</string>
 
 </resources>

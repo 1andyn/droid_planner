@@ -1,6 +1,6 @@
 package com.example.scheduler;
 
-import java.util.List;
+import java.util.Vector;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +10,12 @@ public class eventListAdapter extends BaseAdapter {
 
 	//Context in which eventListAdapter is being used
 	private Context app_Context;
-	private EventList event_list;
+	private Vector<Event> event_list;
 	
-	public eventListAdapter(Context c, EventList e_list)
+	public eventListAdapter(Context c, Vector<Event> e_list)
 	{
 		app_Context = c;
-		event_list = e_list;
+		event_list = new Vector<Event>();
 	}
 	//returns size of eventlist
 	@Override

@@ -1,38 +1,33 @@
 package com.example.scheduler;
 
-/* Action Bar Sherlock Imports*/
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.SubMenu;
 import com.actionbarsherlock.view.Window;
 
+import android.content.Context;
 /* Basic Android Imports*/
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Context;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class View_schedule extends SherlockActivity {
+/* Java Utils Imports */
+import java.util.Vector;
 
-	/* Buttons */
-	protected Button month_button;
-	protected Button date_button;
-	protected Button event_button;
+
+public class schedule extends SherlockFragmentActivity {
 	
-	protected EventList events;
-	protected EventList events_visible;
+	/* Application context */
+	final Context context=this;
+
+	/* Data Structures */
+	protected Vector<Event> events;
+	protected Vector<Event> events_visible;
 	protected eventListAdapter e_adapter;
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	
@@ -40,17 +35,15 @@ public class View_schedule extends SherlockActivity {
 	protected View selection_view;
 	protected Event selection_event;
 	
-	/* Primary Menu */
-	protected Menu primary_menu;
-	
 	/* Contextual menu code */
+	/** This code is used to open a menu when long-clicking an item */
 	protected com.actionbarsherlock.view.ActionMode m_Action; 
 	protected com.actionbarsherlock.view.ActionMode.Callback m_ActionCall = new ActionMode.Callback() 
 	{
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 			MenuInflater inflater = mode.getMenuInflater();
-			inflater.inflate(R.menu.actionmenu, menu);
+			inflater.inflate(R.menu.option_menu, menu);
 			return true;
 		}
 
@@ -64,17 +57,17 @@ public class View_schedule extends SherlockActivity {
 			switch(item.getItemId()){
 			case R.id.menu_remove:
 				/* Some Code to Delete Event */
-            	Toast.makeText(View_schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
+            	Toast.makeText(schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
 				mode.finish();
 				return true;
 			case R.id.menu_edit:
 				/* Some Code to Edit Event */
 				/* This toast is for testing purposes only since view will be swapped for editing Events*/
-            	Toast.makeText(View_schedule.this, "Editing selection", Toast.LENGTH_SHORT).show();
+            	Toast.makeText(schedule.this, "Editing selection", Toast.LENGTH_SHORT).show();
 				mode.finish();
 				return true;
 			default:
-				Toast.makeText(View_schedule.this, "Canceling..", Toast.LENGTH_SHORT).show();
+				Toast.makeText(schedule.this, "Canceling..", Toast.LENGTH_SHORT).show();
 				return false;
 			}
 		}
@@ -86,15 +79,46 @@ public class View_schedule extends SherlockActivity {
 		}
 		
 	};
+	/* End Contextual menu code */
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+	    int id = item.getItemId();
+
+	    switch(id)
+	    {
+		    case R.id.tb_add:
+		    {
+		    	Toast.makeText(schedule.this, "Event Add button was pressed!", Toast.LENGTH_SHORT).show();
+		    	return false;
+		    }
+		    case R.id.tb_month:
+		    {
+		    	Toast.makeText(schedule.this, "Month was pressed!", Toast.LENGTH_SHORT).show();
+		    	return false;
+
+		    }
+		    case R.id.tb_date:
+		    {
+		    	Toast.makeText(schedule.this, "Date was pressed!", Toast.LENGTH_SHORT).show();
+		    	return false;
+		    }
+
+		    default:
+		    {
+		        return super.onOptionsItemSelected(item);
+		    }
+	    }
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		requestWindowFeature(Window.FEATURE_NO_TITLE); /* Removes Application Title from Top*/
 		super.onCreate(savedInstanceState);
 		initalizeLayout();
 		
-//		events = new EventList();
-//		events_visible = new EventList();
+		events = new Vector<Event>();
+		events_visible = new Vector<Event>();
 //		e_adapter = new eventListAdapter(this, events_visible);
 //		e_listview.setAdapter(e_adapter);
 //		e_listview.setLongClickable(true);
@@ -113,12 +137,11 @@ public class View_schedule extends SherlockActivity {
 //                	return false;
 //                }
 //                
-//                m_Action = View_schedule.this.startActionMode(m_ActionCall);
+//                m_Action = schedule.this.startActionMode(m_ActionCall);
 //                //v.setBackgroundResource(color.highlight);
 //                selection_event = (Event) e_adapter.getItem(pos);
 //                adv.setSelection(pos);
 //                e_adapter.notifyDataSetChanged();
-//
 //                return true;                
 //            }
 //		});
@@ -127,31 +150,31 @@ public class View_schedule extends SherlockActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		MenuInflater inflater = getSupportMenuInflater();
-		primary_menu = menu;
-		inflater.inflate(R.menu.actionmenu, menu);
-		return super.onCreateOptionsMenu(menu);
+		inflater.inflate(R.menu.topbar, menu);
+//		return super.onCreateOptionsMenu(menu);
+		return true;
 	}
 	
-	/* Sets Layout to be used by primary screen, Connects Buttons from XML to Java */
+	/* Configures everything Visual*/
 	protected void initalizeLayout()
 	{
-		setContentView(R.layout.activity_view_schedule);
-		month_button = (Button)findViewById(R.id.MonthViewButton);
-		date_button = (Button)findViewById(R.id.DateButton);
-		event_button = (Button)findViewById(R.id.addEventButton);
+		setContentView(R.layout.schedule_view);
+		config_actionbar();
 	}
 	
-	protected void initEventButtonListeners() {
-		event_button.setOnClickListener(new OnClickListener() {
-		
-			@Override
-			public void onClick(View view) {
-	        Toast.makeText(View_schedule.this, "Add Event Pressed!", Toast.LENGTH_SHORT).show();
-		  } 
-		}
-	); 
-	
+	/* ActionBar Configuration */
+	protected void config_actionbar()
+	{
+		ActionBar ab = getSupportActionBar();
+		ab.setDisplayShowTitleEnabled(false); 
+		ab.setDisplayShowHomeEnabled(false);
+//	    LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//	    View v =inflater.inflate(R.layout.top_bar_view, null, true);
+//	    ab.setCustomView(v);
+//		
+//		ab.setDisplayShowCustomEnabled(true);
 	}
+	
+
 }

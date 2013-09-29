@@ -1,20 +1,13 @@
 package com.example.scheduler;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-
 public class Date{
 
 	private int startTime; //military time
 	private int endTime;
 	private int day; //MMDDYYYY
 	
-	// negative value only if data is not given
 	private static final int NONE = -1;
 	
-	// constructors
-	// no due date given
 	public Date() {
 		startTime = NONE;
 		endTime = NONE;

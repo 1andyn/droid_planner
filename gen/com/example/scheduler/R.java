@@ -913,8 +913,6 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020070;
     }
     public static final class id {
-        public static final int DateButton=0x7f040033;
-        public static final int MonthViewButton=0x7f040032;
         public static final int abs__action_bar=0x7f040020;
         public static final int abs__action_bar_container=0x7f04001f;
         public static final int abs__action_bar_subtitle=0x7f040011;
@@ -954,32 +952,34 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040013;
         public static final int abs__title=0x7f04001b;
         public static final int abs__up=0x7f04000b;
-        public static final int addEventButton=0x7f040034;
-        public static final int am_pm=0x7f04003a;
-        public static final int d_tview=0x7f04003d;
+        public static final int am_pm=0x7f040036;
+        public static final int d_tview=0x7f040039;
         public static final int disableHome=0x7f040009;
-        public static final int e_am_pm=0x7f040042;
+        public static final int e_am_pm=0x7f04003e;
         public static final int edit_query=0x7f040026;
-        public static final int end_str=0x7f04003e;
-        public static final int eventViewGroup=0x7f040035;
+        public static final int end_str=0x7f04003a;
+        public static final int eventViewGroup=0x7f04003f;
         public static final int homeAsUp=0x7f040006;
-        public static final int hr_eview=0x7f04003f;
-        public static final int hr_tview=0x7f040037;
+        public static final int hr_eview=0x7f04003b;
+        public static final int hr_tview=0x7f040033;
         public static final int listMode=0x7f040002;
-        public static final int maininfogroup=0x7f04003b;
+        public static final int maininfogroup=0x7f040037;
         public static final int menu_edit=0x7f040044;
         public static final int menu_remove=0x7f040043;
-        public static final int min_eview=0x7f040041;
-        public static final int min_tview=0x7f040039;
+        public static final int min_eview=0x7f04003d;
+        public static final int min_tview=0x7f040035;
         public static final int normal=0x7f040001;
-        public static final int semicolon=0x7f040038;
+        public static final int semicolon=0x7f040034;
         public static final int showCustom=0x7f040008;
         public static final int showHome=0x7f040005;
         public static final int showTitle=0x7f040007;
-        public static final int t_semi=0x7f040040;
-        public static final int t_tview=0x7f04003c;
+        public static final int t_semi=0x7f04003c;
+        public static final int t_tview=0x7f040038;
         public static final int tabMode=0x7f040003;
-        public static final int timeGroup=0x7f040036;
+        public static final int tb_add=0x7f040042;
+        public static final int tb_date=0x7f040041;
+        public static final int tb_month=0x7f040040;
+        public static final int timeGroup=0x7f040032;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
     }
@@ -1008,15 +1008,16 @@ containing a value of this type.
         public static final int abs__search_dropdown_item_icons_2line=0x7f030012;
         public static final int abs__search_view=0x7f030013;
         public static final int abs__simple_dropdown_hint=0x7f030014;
-        public static final int activity_view_schedule=0x7f030015;
-        public static final int event_view=0x7f030016;
+        public static final int event_view=0x7f030015;
+        public static final int schedule_view=0x7f030016;
         public static final int sherlock_spinner_dropdown_item=0x7f030017;
         public static final int sherlock_spinner_item=0x7f030018;
         public static final int todo_view=0x7f030019;
+        public static final int top_bar_view=0x7f03001a;
     }
     public static final class menu {
-        public static final int actionmenu=0x7f0b0000;
-        public static final int mainmenu=0x7f0b0001;
+        public static final int option_menu=0x7f0b0000;
+        public static final int topbar=0x7f0b0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1063,6 +1064,9 @@ containing a value of this type.
         public static final int action_settings=0x7f09000e;
         public static final int app_name=0x7f09000d;
         public static final int hello_world=0x7f09000f;
+        public static final int tb_add=0x7f090012;
+        public static final int tb_date=0x7f090013;
+        public static final int tb_month=0x7f090014;
     }
     public static final class style {
         /** 
