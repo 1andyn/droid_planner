@@ -1,5 +1,6 @@
 package com.example.scheduler;
 
+/* ActionBarSherlock Imports */
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.ActionMode;
@@ -7,17 +8,18 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import android.content.Context;
 /* Basic Android Imports*/
 import android.os.Bundle;
-//import android.view.LayoutInflater; required library later
+import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+//import android.view.LayoutInflater; required library later
 
 /* Java Utils Imports */
 import java.util.Vector;
+import java.util.Random;
 
 public class schedule extends SherlockFragmentActivity {
 	
@@ -65,6 +67,7 @@ public class schedule extends SherlockFragmentActivity {
 			case R.id.menu_remove:
 				/* Some Code to Delete Event */
             	Toast.makeText(schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
+            	
 				mode.finish();
 				return true;
 			case R.id.menu_edit:
@@ -97,7 +100,7 @@ public class schedule extends SherlockFragmentActivity {
 	    {
 		    case R.id.tb_add:
 		    {
-		    	Toast.makeText(schedule.this, "Event Add button was pressed!", Toast.LENGTH_SHORT).show();
+		    	add_event();
 		    	return false;
 		    }
 		    case R.id.tb_month:
@@ -137,7 +140,7 @@ public class schedule extends SherlockFragmentActivity {
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
             {
             	ListView myList = (ListView)findViewById(R.id.eventViewGroup);
-            	Toast.makeText(schedule.this,"Test:" + myList.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
+            	Toast.makeText(schedule.this, myList.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
             	
             	selection_view = v;
                 if(m_Action != null)
@@ -154,9 +157,10 @@ public class schedule extends SherlockFragmentActivity {
             }
 		});
 		
-		events.add(debug_fake_event());
-		Toast.makeText(schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
-		
+//		events.add(debug_fake_event());
+//		events_visible.add(debug_fake_event());
+//		Toast.makeText(schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
+//		e_adapter.notifyDataSetChanged();
 		
 	}
 
@@ -197,20 +201,35 @@ public class schedule extends SherlockFragmentActivity {
 		Event temp = new Event();
 		temp.setAlarm(false);
 		temp.setID(events.size());
-		temp.setName("Test Event");
-		temp.setDescription("Description for test Event");
+		temp.setName("Test Event " + events.size());
+		temp.setDescription(this.getString(R.string.test_desc));
 		temp.setDate(debug_fake_date());
 		return temp;
 	}
 	
+	/** Debug Code */
 	protected Date debug_fake_date()
 	{
-		Date temp = new Date(STR_TIME, END_TIME, D_M, D_D, D_Y);
+		Random generator = new Random();
+		int start, end, dm, dd, dy;
+		start = generator.nextInt(2400);
+		end = generator.nextInt(2400);
+		dm = generator.nextInt(11)+1;
+		dd = generator.nextInt(30)+1;
+		dy = generator.nextInt(9999);
+		Date temp = new Date(start, end, dm, dd, dy);
 		return temp;
 	}
+	/** Debug Code */
 	
-	
-	
-	
+	/** Debug Code */ // Needs to be rewritten for final version
+	protected void add_event()
+	{
+		events.add(debug_fake_event());
+		events_visible.add(debug_fake_event());
+		e_adapter.notifyDataSetChanged();
+		Toast.makeText(schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
+	}
+	/** Debug Code */
 
 }

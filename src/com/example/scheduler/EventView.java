@@ -8,10 +8,14 @@ import android.widget.TextView;
 
 public class EventView extends LinearLayout{
 	
+	/* Primary Event Object */
+	private Event event_o;
+	
 	final int PMCHECK = 1200;	
-	final int NOON_HOUR = 12;
+	final int MIDNIGHT = 12;
 	final int START = 0;
 	final int END = 1;
+	final int TENS_DIGIT = 10;
 	
 	/* Text view for Start Time*/
 	private TextView hr_str;
@@ -30,7 +34,7 @@ public class EventView extends LinearLayout{
 	public EventView (Context con, Event ev)
 	{
 		super(con);
-		LayoutInflater inflater = (LayoutInflater)con.getSystemService(con.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = (LayoutInflater)con.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.event_view, this, true);
 		
 		hr_str = (TextView)findViewById(R.id.hr_tview);
@@ -50,10 +54,11 @@ public class EventView extends LinearLayout{
 	
 	public void setEvent(Event ev)
 	{
-		ev_name.setText(ev.getName());
-		des_name.setText(ev.getDescription());
+		event_o = ev;
+		ev_name.setText(event_o.getName());
+		des_name.setText(event_o.getDescription());
 		
-		Date temp = ev.GetDate();
+		Date temp = event_o.GetDate();
 		int s_temp = temp.getStartTime();
 		int e_temp = temp.getEndTime();
 		
@@ -66,20 +71,21 @@ public class EventView extends LinearLayout{
 		/* Set AM/PM Values*/
 		pm_switch(s_temp, START);
 		pm_switch(e_temp, END);
-	
-		
 	}
 	
-	public int converted_hr(int input)
+	public String converted_hr(int input)
 	{
 		/* extract hour from time input */
 		int time = ((input/100)% 12);
-		return time;
+		
+		/* reset back to 12 if time is 0 */
+		if(time == 0) time = MIDNIGHT;
+		return String.valueOf(time);
 	}
 	
-	public int converted_min(int input)
+	public String converted_min(int input)
 	{
-		return (input % 100);
+		return digit_test((input % 100));
 	}
 	
 	
@@ -106,6 +112,20 @@ public class EventView extends LinearLayout{
 			case END:
 				eampm_tag.setText("AM");
 			}
+		}
+	}
+	
+	public String digit_test(int value)
+	{
+		String s_val;
+		if(value < TENS_DIGIT)
+		{
+			s_val = "0"  + value;
+			return s_val;
+		}
+		else
+		{
+			return String.valueOf(value);
 		}
 	}
 	

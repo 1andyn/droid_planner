@@ -9,5 +9,6 @@
     <string name="tb_add">+ Event</string>
     <string name="tb_date">Jan 1, 2013</string>
     <string name="tb_month">Month</string>
+    <string name="test_desc">This is a really long description to test the capacity of the EvenView XML layout for padding issues, wrapping issues or any other layout problems.</string>
 
 </resources>

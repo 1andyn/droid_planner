@@ -1067,6 +1067,7 @@ containing a value of this type.
         public static final int tb_add=0x7f090012;
         public static final int tb_date=0x7f090013;
         public static final int tb_month=0x7f090014;
+        public static final int test_desc=0x7f090015;
     }
     public static final class style {
         /** 
