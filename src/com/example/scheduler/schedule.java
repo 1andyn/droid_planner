@@ -155,13 +155,7 @@ public class schedule extends SherlockFragmentActivity {
                 e_adapter.notifyDataSetChanged();
                 return true;                
             }
-		});
-		
-//		events.add(debug_fake_event());
-//		events_visible.add(debug_fake_event());
-//		Toast.makeText(schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
-//		e_adapter.notifyDataSetChanged();
-		
+		});		
 	}
 
 	@Override
