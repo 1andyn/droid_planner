@@ -3,5 +3,12 @@
     <!-- You must fill in the menu items here. -->
     <item android:id="@+id/tb_month" android:showAsAction="always" android:title="@string/tb_month"></item>
     <item android:id="@+id/tb_date" android:showAsAction="always" android:title="@string/tb_date"/>
-    <item android:id="@+id/tb_add"  android:showAsAction="always" android:title="@string/tb_add"/>
+    
+    <item android:id="@+id/tb_add"  android:showAsAction="always" android:title="@string/tb_add">
+		<!--  Sub Menu for Adding Events and ToDos -->
+		<menu>
+	    <item android:id="@+id/tb_sub_ev" android:showAsAction="always" android:title="@string/tb_aev"/>
+	    <item android:id="@+id/tb_sub_td" android:showAsAction="always" android:title="@string/tb_atd"/>
+	    </menu>    
+    </item>
 </menu>
