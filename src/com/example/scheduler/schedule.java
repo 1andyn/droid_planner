@@ -7,10 +7,12 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.example.scheduler.R.color;
 
 /* Basic Android Imports*/
 import android.os.Bundle;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -41,7 +43,7 @@ public class schedule extends SherlockFragmentActivity {
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	
 	/* Corresponding View and Events for selection */
-	protected View selection_view;
+	protected View selected_view;
 	protected Event selection_event;
 	
 	/* Contextual menu code */
@@ -85,7 +87,7 @@ public class schedule extends SherlockFragmentActivity {
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
 			m_Action = null;
-			selection_view.setBackgroundResource(android.R.color.transparent);	
+			selected_view.setBackgroundResource(android.R.color.transparent);	
 		}
 		
 	};
@@ -100,7 +102,7 @@ public class schedule extends SherlockFragmentActivity {
 	    {
 		    case R.id.tb_add:
 		    {
-		    	// add_event();
+		    	 add_event();
 		    	switch(item.getItemId())
 		    	{
 			    	case R.id.tb_sub_ev:
@@ -152,16 +154,16 @@ public class schedule extends SherlockFragmentActivity {
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
             {
             	ListView myList = (ListView)findViewById(R.id.eventViewGroup);
-            	Toast.makeText(schedule.this, myList.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
+            	Toast.makeText(schedule.this, "Position is:" + pos + " ID is: " + id, Toast.LENGTH_SHORT).show();
             	
-            	selection_view = v;
+            	selected_view = v;
                 if(m_Action != null)
                 {
                 	return false;
                 }
                 
                 m_Action = schedule.this.startActionMode(m_ActionCall);
-                //v.setBackgroundResource(color.highlight);
+                v.setBackgroundResource(color.highlight);
                 selection_event = (Event) e_adapter.getItem(pos);
                 adv.setSelection(pos);
                 e_adapter.notifyDataSetChanged();
