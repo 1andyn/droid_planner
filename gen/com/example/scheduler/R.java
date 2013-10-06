@@ -979,6 +979,8 @@ containing a value of this type.
         public static final int tb_add=0x7f040042;
         public static final int tb_date=0x7f040041;
         public static final int tb_month=0x7f040040;
+        public static final int tb_sub_ev=0x7f040045;
+        public static final int tb_sub_td=0x7f040046;
         public static final int timeGroup=0x7f040032;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
@@ -1065,6 +1067,8 @@ containing a value of this type.
         public static final int app_name=0x7f09000d;
         public static final int hello_world=0x7f09000f;
         public static final int tb_add=0x7f090012;
+        public static final int tb_aev=0x7f090016;
+        public static final int tb_atd=0x7f090017;
         public static final int tb_date=0x7f090013;
         public static final int tb_month=0x7f090014;
         public static final int test_desc=0x7f090015;

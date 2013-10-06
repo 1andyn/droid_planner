@@ -308,6 +308,8 @@ int id tabMode 0x7f040003
 int id tb_add 0x7f040042
 int id tb_date 0x7f040041
 int id tb_month 0x7f040040
+int id tb_sub_ev 0x7f040045
+int id tb_sub_td 0x7f040046
 int id timeGroup 0x7f040032
 int id useLogo 0x7f040004
 int id wrap_content 0x7f040000
@@ -360,6 +362,8 @@ int string action_settings 0x7f09000e
 int string app_name 0x7f09000d
 int string hello_world 0x7f09000f
 int string tb_add 0x7f090012
+int string tb_aev 0x7f090016
+int string tb_atd 0x7f090017
 int string tb_date 0x7f090013
 int string tb_month 0x7f090014
 int string test_desc 0x7f090015
