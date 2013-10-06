@@ -100,8 +100,20 @@ public class schedule extends SherlockFragmentActivity {
 	    {
 		    case R.id.tb_add:
 		    {
-		    	add_event();
-		    	return false;
+		    	// add_event();
+		    	switch(item.getItemId())
+		    	{
+			    	case R.id.tb_sub_ev:
+			    	{
+			    		Toast.makeText(schedule.this, "Create Event was Pressed", Toast.LENGTH_SHORT).show();
+			    	}
+			    	case R.id.tb_sub_td:
+			    	{
+			    		Toast.makeText(schedule.this, "Add new ToDo was Pressed", Toast.LENGTH_SHORT).show();
+			    	}
+			    	default: return false;
+		    	}
+		    	
 		    }
 		    case R.id.tb_month:
 		    {
