@@ -1,19 +1,8 @@
 package com.example.scheduler;
 
-import java.util.Random;
-import java.util.Vector;
-
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuInflater;
-
+import com.actionbarsherlock.view.Window;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 public class Add_activity  extends SherlockFragmentActivity {
 
@@ -27,8 +16,9 @@ public class Add_activity  extends SherlockFragmentActivity {
 	/* Configures everything Visual*/
 	protected void initalizeLayout()
 	{
+		//config_actionbar();
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.creation_activity);
-		config_actionbar();
 	}
 	
 	/* ActionBar Configuration */

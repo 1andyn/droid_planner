@@ -1,8 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+	android:layout_height="match_parent">
+	
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+	
+	    <TextView
+	        android:id="@+id/ce_name"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/ce_name"
+	        android:textSize="15sp" />
+	
+	    <EditText
+	        android:paddingBottom="10sp"
+	        android:id="@+id/et_name"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:hint="@string/event_hint" />
+	
+	    <TextView
+	        android:id="@+id/ce_desc"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/ce_desc"
+	        android:textSize="15sp" />
+	
+	    <EditText
+	        android:paddingBottom="10sp"
+	        android:id="@+id/et_desc"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:hint="@string/desc_hint" />
+	
+		 <TextView
+		     android:id="@+id/ce_sttv"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:layout_gravity="center"
+		     android:text="@string/ce_stime"
+		     android:textSize="15sp" />
+	
+		 <TimePicker
+		     android:padding="30sp"
+		     android:id="@+id/time_start"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:layout_gravity="center_horizontal" />
+		
+		<TextView
+		    android:id="@+id/ce_ettv"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"
+		    android:text="@string/ce_etime"
+		    android:textSize="15sp" />
+	
+	    <TimePicker
+	        android:padding="30sp"
+	        android:id="@+id/time_end"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal" />
+	
+	    <TextView
+	        android:id="@+id/ce_doe"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:text="@string/ce_doe"
+	        android:textSize="15sp" />
+	
+	    <DatePicker
+	        android:padding="30sp"
+	        android:id="@+id/datePicker1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center" />
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal">
+		    
+		    <ToggleButton
+		        android:id="@+id/ce_alarm"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/ce_alarm"
+		        android:textOff="@string/ce_d_ala"
+		        android:textOn="@string/ce_e_ala" />
+		    
+	    </LinearLayout>
 
-
-</LinearLayout>
+	</LinearLayout>
+</ScrollView>

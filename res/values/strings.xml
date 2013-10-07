@@ -13,5 +13,15 @@
     <string name="tb_aev">Create an Event</string>
     <string name="tb_atd">Add to ToDo List</string>
     <string name="title_activity_add_activity">Create an Event</string>
+    <string name="ce_name">Name of Event:</string>
+    <string name="ce_desc">Event Description:</string>
+    <string name="event_hint">Beach Party</string>
+    <string name="desc_hint">Going to have a BBQ</string>
+    <string name="ce_stime">Event Starts at:</string>
+    <string name="ce_etime">Event Ends at:</string>
+    <string name="ce_doe">Date of Event:</string>
+    <string name="ce_alarm">Alarm</string>
+    <string name="ce_e_ala">Alarm Enabled</string>
+    <string name="ce_d_ala">Alarm Disabled</string>
 
 </resources>
