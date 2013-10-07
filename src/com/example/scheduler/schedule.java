@@ -119,9 +119,9 @@ public class schedule extends SherlockFragmentActivity {
 		    }
 	    	case R.id.tb_sub_ev:
 	    	{
-	    		Toast.makeText(schedule.this, "Create Event was Pressed", Toast.LENGTH_SHORT).show();
 	    		event_creation = new Intent(this, Add_activity.class);
 	    		startActivity(event_creation);
+	    		e_adapter.notifyDataSetChanged();
 	    		return false;
 	    	}
 	    	case R.id.tb_sub_td:

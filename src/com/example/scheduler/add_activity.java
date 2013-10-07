@@ -2,10 +2,16 @@ package com.example.scheduler;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
+
+import edu.calpoly.android.lab3.Joke;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 
 public class Add_activity  extends SherlockFragmentActivity {
-
+	/* Necessary Data for Resources */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,8 +43,25 @@ public class Add_activity  extends SherlockFragmentActivity {
 		*/
 	}
 	
+	protected void initAddJokeListeners() {
+		button.setOnClickListener(new OnClickListener() {
+		
+			@Override
+			public void onClick(View view) {
+			if(edittext.getText().toString().trim().length() > 0)
+			{
+				Event temp = new Event();
+//				temp.setJoke(m_vwJokeEditText.getText().toString());
+//				temp.setAuthor(m_strAuthorName);
+				add_event(temp);
+			}
+		  } 
+		}
+	); 
+	}
+	
 
-	protected void add_event()
+	protected void add_event(Event ev)
 	{
 
 	}
