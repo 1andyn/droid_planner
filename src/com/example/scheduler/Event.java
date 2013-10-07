@@ -119,7 +119,11 @@ public class Event{
 	{
 		eventID = id;
 	}
-	
+
+	public boolean isEqual(Event ev1, Event ev2)
+	{
+		return(ev1.GetID() == ev2.GetID());
+	}
 }
 	
 
