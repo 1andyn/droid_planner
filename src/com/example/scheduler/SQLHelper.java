@@ -8,13 +8,9 @@ public class SQLHelper extends SQLiteOpenHelper {
 
 	/* This is just a Skeleton Class, Needs to be Updated */
     private static final int DATABASE_VERSION = 2;
-    private static final String DICTIONARY_TABLE_NAME = "USREVENTS";
+    private static final String TABLE_NAME = "USREVENTS";
 	private static final String KEY_WORD = null;
 	private static final String KEY_DEFINITION = null;
-    private static final String DICTIONARY_TABLE_CREATE =
-                "CREATE TABLE " + DICTIONARY_TABLE_NAME + " (" +
-                KEY_WORD + " TEXT, " +
-                KEY_DEFINITION + " TEXT);";
 	private static final String DATABASE_NAME = null;
 
     SQLHelper(Context context) {

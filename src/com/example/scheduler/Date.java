@@ -4,7 +4,7 @@ public class Date{
 
 	private int startTime; /* military time */
 	private int endTime;
-	private Cal_date date;
+	private Cal_Date date;
 	
 	private static final int NONE = -1;
 	
@@ -12,21 +12,21 @@ public class Date{
 	public Date() {
 		startTime = NONE;
 		endTime = NONE;
-		date = new Cal_date();
+		date = new Cal_Date();
 	}
 	
 	/* only day month year  given */
 	public Date(int m, int d, int y) {
 		startTime = NONE;
 		endTime = NONE;
-		date = new Cal_date(m,d,y);
+		date = new Cal_Date(m,d,y);
 	}
 	
 	// all data given
 	public Date(int givenStart, int givenEnd, int m, int d, int y) {
 		startTime = givenStart;
 		endTime = givenEnd;
-		date = new Cal_date(m,d,y);
+		date = new Cal_Date(m,d,y);
 	}
 
 	// accessors

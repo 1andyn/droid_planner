@@ -2,7 +2,7 @@ package com.example.scheduler;
 
 import java.util.Arrays;
 
-public class Cal_date {
+public class Cal_Date {
 	
 	final int SIZE_OF_ARRAY = 3;
 	final int MONTH_INDEX = 0;
@@ -13,13 +13,13 @@ public class Cal_date {
 	private int[] cal_array;
 	
 	/* Main Constructor */
-	public Cal_date()
+	public Cal_Date()
 	{
 		cal_array = new int[SIZE_OF_ARRAY];
 		Arrays.fill(cal_array, EMPTY); /* Sets all values to EMPTY */
 	}
 	
-	public Cal_date(int m, int d, int y)
+	public Cal_Date(int m, int d, int y)
 	{
 		cal_array = new int[SIZE_OF_ARRAY];
 		cal_array[MONTH_INDEX] = m;
