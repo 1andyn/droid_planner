@@ -66,8 +66,6 @@ public class Add_activity  extends SherlockFragmentActivity {
 			if(name_et.getText().toString().trim().length() > 0)
 			{
 				Event temp = new Event();
-//				temp.setJoke(m_vwJokeEditText.getText().toString());
-//				temp.setAuthor(m_strAuthorName);
 				add_event(temp);
 			}
 		  } 
