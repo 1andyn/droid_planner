@@ -120,7 +120,7 @@ public class Schedule extends SherlockFragmentActivity {
 		    }
 	    	case R.id.tb_sub_ev:
 	    	{
-	    		event_creation = new Intent(this, Add_activity.class);
+	    		event_creation = new Intent(this, Add_Activity.class);
 	    		startActivity(event_creation);
 	    		e_adapter.notifyDataSetChanged();
 	    		return false;

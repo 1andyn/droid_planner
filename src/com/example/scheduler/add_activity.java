@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
-public class Add_activity  extends SherlockFragmentActivity {
+public class Add_Activity  extends SherlockFragmentActivity {
 	/* Necessary Data for Resources */
 	protected EditText name_et;
 	protected EditText desc_et;

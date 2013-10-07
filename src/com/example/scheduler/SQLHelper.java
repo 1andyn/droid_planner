@@ -2,17 +2,14 @@ package com.example.scheduler;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class SQLHelper extends SQLiteOpenHelper {
-	
-	/* Class used for Getting Email Data*/
-	private final Email_Fetcher e_f = new Email_Fetcher();
-	private String identifier;
-	
+		
 	/* This is just a Skeleton Class, Needs to be Updated */
+	public static final String COLUMN_USR = "user";
+	public static final String COLUMN_CON = "counter";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NAME = "name";
 	public static final String COLUMN_DESC = "desc";
@@ -21,13 +18,26 @@ public class SQLHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_DAY = "day";
 	public static final String COLUMN_YEAR = "year";
 	public static final String COLUMN_START = "start_time";
-	public static final String COLUNMN_END = "end_time";
+	public static final String COLUMN_END = "end_time";
 	
 	 
 	private static final int DATABASE_VERSION = 2;
     private static final String TABLE_NAME = "USREVENTS";
 	private final static String DATABASE_NAME = "Events.db";
 		
+	private static final String DATABASE_CREATE = "CREATE TABLE "
+		      + TABLE_NAME 
+		      + "(" + COLUMN_CON + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+		      + COLUMN_ID + " INT NOT NULL, "
+		      + COLUMN_NAME + " TEXT NOT NULL, "
+		      + COLUMN_DESC + " TEXT NOT NULL, "
+		      + COLUMN_ALARM + " INT NOT NULL, "
+		      + COLUMN_MONTH + " INT NOT NULL, "
+		      + COLUMN_DAY + " INT NOT NULL, "
+		      + COLUMN_YEAR + " INT NOT NULL, "
+		      + COLUMN_START + " INT NOT NULL, "
+		      + COLUMN_END  + " INT NOT NULL);";
+	
 	  public SQLHelper(Context context) {
 		    super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		  }
@@ -42,7 +52,7 @@ public class SQLHelper extends SQLiteOpenHelper {
 	    Log.w(SQLHelper.class.getName(),
 	        "Upgrading database from version " + oldVersion + " to "
 	            + newVersion + ", which will destroy all old data");
-	    db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENTS);
+	    db.execSQL("DROP TABLE IF EXISTS " + COLUMN_USR);
 	    onCreate(db);
 	  }
 }
