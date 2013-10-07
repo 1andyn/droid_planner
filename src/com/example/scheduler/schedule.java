@@ -100,23 +100,13 @@ public class schedule extends SherlockFragmentActivity {
 
 	    switch(id)
 	    {
+	    	/* Keeping this here for structure purposes, this can be removed later in final version*/
 		    case R.id.tb_add:
 		    {
-		    	 add_event();
-		    	switch(item.getItemId())
-		    	{
-			    	case R.id.tb_sub_ev:
-			    	{
-			    		Toast.makeText(schedule.this, "Create Event was Pressed", Toast.LENGTH_SHORT).show();
-			    	}
-			    	case R.id.tb_sub_td:
-			    	{
-			    		Toast.makeText(schedule.this, "Add new ToDo was Pressed", Toast.LENGTH_SHORT).show();
-			    	}
-			    	default: return false;
-		    	}
-		    	
+		    	/* Do Nothing */
 		    }
+	    	/* Keeping this here for structure purposes, this can be removed later in final version*/
+		    
 		    case R.id.tb_month:
 		    {
 		    	Toast.makeText(schedule.this, "Month was pressed!", Toast.LENGTH_SHORT).show();
@@ -128,7 +118,14 @@ public class schedule extends SherlockFragmentActivity {
 		    	Toast.makeText(schedule.this, "Date was pressed!", Toast.LENGTH_SHORT).show();
 		    	return false;
 		    }
-
+	    	case R.id.tb_sub_ev:
+	    	{
+	    		Toast.makeText(schedule.this, "Create Event was Pressed", Toast.LENGTH_SHORT).show();
+	    	}
+	    	case R.id.tb_sub_td:
+	    	{
+	    		Toast.makeText(schedule.this, "Add new ToDo was Pressed", Toast.LENGTH_SHORT).show();
+	    	}
 		    default:
 		    {
 		        return super.onOptionsItemSelected(item);
@@ -154,7 +151,10 @@ public class schedule extends SherlockFragmentActivity {
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
             {
             	ListView myList = (ListView)findViewById(R.id.eventViewGroup);
+            	
+            	/** Debug Toast*/
             	Toast.makeText(schedule.this, "Position is:" + pos + " ID is: " + id, Toast.LENGTH_SHORT).show();
+            	/** Debug Toast*/
             	
             	selected_view = v;
                 if(m_Action != null)
