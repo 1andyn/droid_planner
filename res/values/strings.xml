@@ -23,5 +23,6 @@
     <string name="ce_alarm">Alarm</string>
     <string name="ce_e_ala">Alarm Enabled</string>
     <string name="ce_d_ala">Alarm Disabled</string>
+    <string name="ce_alatv">Event Alarm: </string>
 
 </resources>
