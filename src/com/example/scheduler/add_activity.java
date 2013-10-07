@@ -88,6 +88,10 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			{
 				add_event();
 			}
+			else
+			{
+				
+			}
 		  } 
 		}
 	); 
@@ -96,18 +100,29 @@ public class Add_Activity  extends SherlockFragmentActivity {
 
 	protected void add_event()
 	{
+		/* Actually we might not even need to Create an Event since the Data is stored directly into SQLDB*/
 		Event temp = new Event();
+		Date time = new Date();
 		temp.setName(name_et.getText().toString());
 		temp.setDescription(desc_et.getText().toString());
-	
 		
+		int s_hour = start_tp.getCurrentHour();
+		int s_min = start_tp.getCurrentMinute();
+		String start = "" + s_hour + s_min;
+		time.setStartTime(Integer.parseInt(start));
 		
+		int e_hour = end_tp.getCurrentHour();
+		int e_min = end_tp.getCurrentMinute();
+		String end = "" + e_hour + e_min;
+		time.setEndTime(Integer.parseInt(end));
+		
+		time.setDay(r_dp.getDayOfMonth());
+		time.setMth(r_dp.getMonth());
+		time.setYr(r_dp.getYear());
+		
+		/* Some Code here to Write to SQL Database*/
 	}
 	
-	protected void check_issues()
-	{
-		
-	}
 
 
 }
