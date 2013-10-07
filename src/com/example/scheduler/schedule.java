@@ -45,7 +45,8 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	/* Corresponding View and Events for selection */
 	protected View selected_view;
-	protected Event selection_event;
+	protected Event selected_event;
+	protected Event empty_event = new Event(); // Empty event for null purposes
 	
 	/* Intents for separate Activities*/
 	protected Intent event_creation;
@@ -74,7 +75,7 @@ public class Schedule extends SherlockFragmentActivity {
 			case R.id.menu_remove:
 				/* Some Code to Delete Event */
             	Toast.makeText(Schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
-            	
+            	remove_event(selected_event);
 				mode.finish();
 				return true;
 			case R.id.menu_edit:
@@ -171,7 +172,7 @@ public class Schedule extends SherlockFragmentActivity {
                 
                 m_Action = Schedule.this.startActionMode(m_ActionCall);
                // v.setBackgroundResource(color.highlight);
-                selection_event = (Event) e_adapter.getItem(pos);
+                selected_event = (Event) e_adapter.getItem(pos);
                 adv.setSelection(pos);
                 e_adapter.notifyDataSetChanged();
                 return true;                
@@ -248,4 +249,35 @@ public class Schedule extends SherlockFragmentActivity {
 	}
 	/** Debug Code */
 
+	protected void remove_event(Event e)
+	{
+		// Check if Selected Event is not an Empty Event
+			if(!e.isEqual(empty_event))
+			{
+				// Remove Event from Visible List
+				for(int x = 0; x < events_visible.size(); x++)
+				{
+					if(events_visible.get(x).equals(e))
+					{
+						events_visible.remove(x);
+					}
+				}
+				
+				// Remove Event from Primary List
+				for(int x = 0; x < events.size(); x++)
+				{
+					if(events.get(x).equals(e))
+					{
+						events.remove(x);
+					}
+				}
+				
+				// Update View List
+				e_adapter.notifyDataSetChanged();
+				
+				// Set Selection back to Null Event
+				selected_event = empty_event;
+			}
+	}
+	
 }

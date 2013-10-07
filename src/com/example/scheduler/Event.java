@@ -120,9 +120,9 @@ public class Event{
 		eventID = id;
 	}
 
-	public boolean isEqual(Event ev1, Event ev2)
+	public boolean isEqual(Event ev)
 	{
-		return(ev1.GetID() == ev2.GetID());
+		return(ev.GetID() == this.GetID());
 	}
 }
 	
