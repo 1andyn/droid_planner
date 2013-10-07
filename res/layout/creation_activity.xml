@@ -81,11 +81,12 @@
 	        android:textSize="20sp" />
 
 	    <DatePicker
-	        android:id="@+id/datePicker1"
+	        android:id="@+id/date_sel"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
-	        android:padding="30sp" />
+	        android:padding="30sp"
+	        android:calendarViewShown="false" />
 
 	    <LinearLayout
 	        android:layout_width="wrap_content"

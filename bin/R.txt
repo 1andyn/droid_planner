@@ -432,7 +432,7 @@ int id ce_ettv 0x7f040038
 int id ce_name 0x7f040032
 int id ce_sttv 0x7f040036
 int id d_tview 0x7f040045
-int id datePicker1 0x7f04003b
+int id date_sel 0x7f04003b
 int id disableHome 0x7f040009
 int id e_am_pm 0x7f04004a
 int id edit_query 0x7f040026

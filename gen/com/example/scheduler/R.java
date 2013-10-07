@@ -1103,7 +1103,7 @@ containing a value of this type.
         public static final int ce_name=0x7f040032;
         public static final int ce_sttv=0x7f040036;
         public static final int d_tview=0x7f040045;
-        public static final int datePicker1=0x7f04003b;
+        public static final int date_sel=0x7f04003b;
         public static final int disableHome=0x7f040009;
         public static final int e_am_pm=0x7f04004a;
         public static final int edit_query=0x7f040026;
