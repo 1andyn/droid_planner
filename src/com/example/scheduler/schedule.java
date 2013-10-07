@@ -87,7 +87,7 @@ public class schedule extends SherlockFragmentActivity {
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
 			m_Action = null;
-			selected_view.setBackgroundResource(android.R.color.transparent);	
+			//selected_view.setBackgroundResource(android.R.color.transparent);	
 		}
 		
 	};
@@ -163,7 +163,7 @@ public class schedule extends SherlockFragmentActivity {
                 }
                 
                 m_Action = schedule.this.startActionMode(m_ActionCall);
-                v.setBackgroundResource(color.highlight);
+               // v.setBackgroundResource(color.highlight);
                 selection_event = (Event) e_adapter.getItem(pos);
                 adv.setSelection(pos);
                 e_adapter.notifyDataSetChanged();
@@ -208,7 +208,8 @@ public class schedule extends SherlockFragmentActivity {
 	{
 		Event temp = new Event();
 		temp.setAlarm(false);
-		temp.setID(events.size());
+		//temp.setID(events.size());
+		temp.setID(System.currentTimeMillis()/1000);
 		temp.setName("Test Event " + events.size());
 		temp.setDescription(this.getString(R.string.test_desc));
 		temp.setDate(debug_fake_date());

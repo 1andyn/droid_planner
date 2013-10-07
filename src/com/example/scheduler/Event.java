@@ -5,7 +5,7 @@ public class Event{
 	private final String HEX_WHITE = "FFFFFF";
 	private final int EMPTY = 0;
 	
-	private int eventID;
+	private long eventID;
 	private String eventName;
 	private String eventDesc;
 	private String eventColor;
@@ -13,7 +13,7 @@ public class Event{
 	private boolean alarm;
 
 	/* Constructor */
-	public Event(int id, String name)
+	public Event(long id, String name)
 	{
 		eventID = id;
 		eventName = name;
@@ -84,7 +84,7 @@ public class Event{
 		return eventDate.getYear();
 	}
 	
-	public int GetID()
+	public long GetID()
 	{
 		return eventID;
 	}
@@ -115,7 +115,7 @@ public class Event{
 		eventColor = givenColor;
 	}
 	
-	public void setID(int id)
+	public void setID(long id)
 	{
 		eventID = id;
 	}
