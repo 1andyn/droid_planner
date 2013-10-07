@@ -12,6 +12,7 @@ import com.example.scheduler.R.color;
 /* Basic Android Imports*/
 import android.os.Bundle;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,6 +46,10 @@ public class schedule extends SherlockFragmentActivity {
 	/* Corresponding View and Events for selection */
 	protected View selected_view;
 	protected Event selection_event;
+	
+	/* Intents for separate Activities*/
+	protected Intent event_creation;
+	protected Intent todo_creation;
 	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
@@ -99,14 +104,7 @@ public class schedule extends SherlockFragmentActivity {
 	    int id = item.getItemId();
 
 	    switch(id)
-	    {
-	    	/* Keeping this here for structure purposes, this can be removed later in final version*/
-		    case R.id.tb_add:
-		    {
-		    	/* Do Nothing */
-		    }
-	    	/* Keeping this here for structure purposes, this can be removed later in final version*/
-		    
+	    {		    
 		    case R.id.tb_month:
 		    {
 		    	Toast.makeText(schedule.this, "Month was pressed!", Toast.LENGTH_SHORT).show();
@@ -121,10 +119,14 @@ public class schedule extends SherlockFragmentActivity {
 	    	case R.id.tb_sub_ev:
 	    	{
 	    		Toast.makeText(schedule.this, "Create Event was Pressed", Toast.LENGTH_SHORT).show();
+	    		event_creation = new Intent(this, Add_activity.class);
+	    		startActivity(event_creation);
+	    		return false;
 	    	}
 	    	case R.id.tb_sub_td:
 	    	{
 	    		Toast.makeText(schedule.this, "Add new ToDo was Pressed", Toast.LENGTH_SHORT).show();
+	    		return false;
 	    	}
 		    default:
 		    {
@@ -140,7 +142,6 @@ public class schedule extends SherlockFragmentActivity {
 		
 		events = new Vector<Event>();
 		events_visible = new Vector<Event>();
-		
 		
 		e_adapter = new eventListAdapter(this, events_visible);
 		e_listview.setAdapter(e_adapter);

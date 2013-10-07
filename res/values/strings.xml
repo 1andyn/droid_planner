@@ -12,5 +12,6 @@
     <string name="test_desc">This is a really long description to test the capacity of the EvenView XML layout for padding issues, wrapping issues or any other layout problems.</string>
     <string name="tb_aev">Create an Event</string>
     <string name="tb_atd">Add to ToDo List</string>
+    <string name="title_activity_add_activity">Create an Event</string>
 
 </resources>

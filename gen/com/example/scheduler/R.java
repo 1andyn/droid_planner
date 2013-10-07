@@ -1093,6 +1093,7 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040013;
         public static final int abs__title=0x7f04001b;
         public static final int abs__up=0x7f04000b;
+        public static final int action_settings=0x7f040043;
         public static final int am_pm=0x7f040036;
         public static final int d_tview=0x7f040039;
         public static final int disableHome=0x7f040009;
@@ -1105,8 +1106,8 @@ containing a value of this type.
         public static final int hr_tview=0x7f040033;
         public static final int listMode=0x7f040002;
         public static final int maininfogroup=0x7f040037;
-        public static final int menu_edit=0x7f040044;
-        public static final int menu_remove=0x7f040043;
+        public static final int menu_edit=0x7f040045;
+        public static final int menu_remove=0x7f040044;
         public static final int min_eview=0x7f04003d;
         public static final int min_tview=0x7f040035;
         public static final int normal=0x7f040001;
@@ -1120,8 +1121,8 @@ containing a value of this type.
         public static final int tb_add=0x7f040042;
         public static final int tb_date=0x7f040041;
         public static final int tb_month=0x7f040040;
-        public static final int tb_sub_ev=0x7f040045;
-        public static final int tb_sub_td=0x7f040046;
+        public static final int tb_sub_ev=0x7f040046;
+        public static final int tb_sub_td=0x7f040047;
         public static final int timeGroup=0x7f040032;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
@@ -1151,16 +1152,18 @@ containing a value of this type.
         public static final int abs__search_dropdown_item_icons_2line=0x7f030012;
         public static final int abs__search_view=0x7f030013;
         public static final int abs__simple_dropdown_hint=0x7f030014;
-        public static final int event_view=0x7f030015;
-        public static final int schedule_view=0x7f030016;
-        public static final int sherlock_spinner_dropdown_item=0x7f030017;
-        public static final int sherlock_spinner_item=0x7f030018;
-        public static final int todo_view=0x7f030019;
-        public static final int top_bar_view=0x7f03001a;
+        public static final int creation_activity=0x7f030015;
+        public static final int event_view=0x7f030016;
+        public static final int schedule_view=0x7f030017;
+        public static final int sherlock_spinner_dropdown_item=0x7f030018;
+        public static final int sherlock_spinner_item=0x7f030019;
+        public static final int todo_view=0x7f03001a;
+        public static final int top_bar_view=0x7f03001b;
     }
     public static final class menu {
-        public static final int option_menu=0x7f0b0000;
-        public static final int topbar=0x7f0b0001;
+        public static final int add_activity=0x7f0b0000;
+        public static final int option_menu=0x7f0b0001;
+        public static final int topbar=0x7f0b0002;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1213,6 +1216,7 @@ containing a value of this type.
         public static final int tb_date=0x7f090013;
         public static final int tb_month=0x7f090014;
         public static final int test_desc=0x7f090015;
+        public static final int title_activity_add_activity=0x7f090018;
     }
     public static final class style {
         /** 
