@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class eventListAdapter extends BaseAdapter {
+public class EventListAdapter extends BaseAdapter {
 
 	//Context in which eventListAdapter is being used
 	private Context app_Context;
 	private Vector<Event> event_list;
 	
-	public eventListAdapter(Context c, Vector<Event> e_list)
+	public EventListAdapter(Context c, Vector<Event> e_list)
 	{
 		app_Context = c;
 		event_list = e_list;

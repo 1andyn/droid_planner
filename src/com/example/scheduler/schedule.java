@@ -24,7 +24,7 @@ import android.widget.Toast;
 import java.util.Vector;
 import java.util.Random;
 
-public class schedule extends SherlockFragmentActivity {
+public class Schedule extends SherlockFragmentActivity {
 	
 	/** DEBUG VALUES */
 	final int STR_TIME = 700;
@@ -40,7 +40,7 @@ public class schedule extends SherlockFragmentActivity {
 	/* Data Structures */
 	protected Vector<Event> events;
 	protected Vector<Event> events_visible;
-	protected eventListAdapter e_adapter;
+	protected EventListAdapter e_adapter;
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	
 	/* Corresponding View and Events for selection */
@@ -73,18 +73,18 @@ public class schedule extends SherlockFragmentActivity {
 			switch(item.getItemId()){
 			case R.id.menu_remove:
 				/* Some Code to Delete Event */
-            	Toast.makeText(schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
+            	Toast.makeText(Schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
             	
 				mode.finish();
 				return true;
 			case R.id.menu_edit:
 				/* Some Code to Edit Event */
 				/* This toast is for testing purposes only since view will be swapped for editing Events*/
-            	Toast.makeText(schedule.this, "Editing selection", Toast.LENGTH_SHORT).show();
+            	Toast.makeText(Schedule.this, "Editing selection", Toast.LENGTH_SHORT).show();
 				mode.finish();
 				return true;
 			default:
-				Toast.makeText(schedule.this, "Canceling..", Toast.LENGTH_SHORT).show();
+				Toast.makeText(Schedule.this, "Canceling..", Toast.LENGTH_SHORT).show();
 				return false;
 			}
 		}
@@ -108,13 +108,13 @@ public class schedule extends SherlockFragmentActivity {
 
 		    case R.id.tb_month:
 		    {
-		    	Toast.makeText(schedule.this, "Month was pressed!", Toast.LENGTH_SHORT).show();
+		    	Toast.makeText(Schedule.this, "Month was pressed!", Toast.LENGTH_SHORT).show();
 		    	return false;
 
 		    }
 		    case R.id.tb_date:
 		    {
-		    	Toast.makeText(schedule.this, "Date was pressed!", Toast.LENGTH_SHORT).show();
+		    	Toast.makeText(Schedule.this, "Date was pressed!", Toast.LENGTH_SHORT).show();
 		    	return false;
 		    }
 	    	case R.id.tb_sub_ev:
@@ -126,7 +126,7 @@ public class schedule extends SherlockFragmentActivity {
 	    	}
 	    	case R.id.tb_sub_td:
 	    	{
-	    		Toast.makeText(schedule.this, "Add new ToDo was Pressed", Toast.LENGTH_SHORT).show();
+	    		Toast.makeText(Schedule.this, "Add new ToDo was Pressed", Toast.LENGTH_SHORT).show();
 	    		return false;
 	    	}
 	    	case R.id.tb_sub_qe:
@@ -149,7 +149,7 @@ public class schedule extends SherlockFragmentActivity {
 		events = new Vector<Event>();
 		events_visible = new Vector<Event>();
 		
-		e_adapter = new eventListAdapter(this, events_visible);
+		e_adapter = new EventListAdapter(this, events_visible);
 		e_listview.setAdapter(e_adapter);
 		e_listview.setLongClickable(true);
 		e_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -160,7 +160,7 @@ public class schedule extends SherlockFragmentActivity {
             	ListView myList = (ListView)findViewById(R.id.eventViewGroup);
             	
             	/** Debug Toast*/
-            	Toast.makeText(schedule.this, "Position is:" + pos + " ID is: " + id, Toast.LENGTH_SHORT).show();
+            	Toast.makeText(Schedule.this, "Position is:" + pos + " ID is: " + id, Toast.LENGTH_SHORT).show();
             	/** Debug Toast*/
             	
             	selected_view = v;
@@ -169,7 +169,7 @@ public class schedule extends SherlockFragmentActivity {
                 	return false;
                 }
                 
-                m_Action = schedule.this.startActionMode(m_ActionCall);
+                m_Action = Schedule.this.startActionMode(m_ActionCall);
                // v.setBackgroundResource(color.highlight);
                 selection_event = (Event) e_adapter.getItem(pos);
                 adv.setSelection(pos);
@@ -244,7 +244,7 @@ public class schedule extends SherlockFragmentActivity {
 		events.add(debug_fake_event());
 		events_visible.add(debug_fake_event());
 		e_adapter.notifyDataSetChanged();
-		Toast.makeText(schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
+		Toast.makeText(Schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
 	}
 	/** Debug Code */
 

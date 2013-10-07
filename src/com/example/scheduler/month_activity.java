@@ -1,5 +1,5 @@
 package com.example.scheduler;
 
-public class month_activity {
+public class Month_activity {
 
 }

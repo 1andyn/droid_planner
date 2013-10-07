@@ -2,7 +2,7 @@ package com.example.scheduler;
 
 import java.util.GregorianCalendar;
 
-public class calendar extends GregorianCalendar {
+public class Calendar extends GregorianCalendar {
 	
 	private final String E1 = "Error C1";
 	private final String E2 = "Error C2";
