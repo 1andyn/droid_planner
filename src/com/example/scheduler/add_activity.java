@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class Add_Activity  extends SherlockFragmentActivity {
@@ -32,7 +33,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initalizeLayout();
-		
+		add_Event_Listener();
 	}
 	
 	/* Configures everything Visual*/
@@ -78,7 +79,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		*/
 	}
 	
-	protected void initAddJokeListeners() {
+	protected void add_Event_Listener() {
 		creation_b.setOnClickListener(new OnClickListener() {
 		
 			@Override
@@ -90,7 +91,9 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			}
 			else
 			{
-				
+				name_et.requestFocus();
+				Toast.makeText(Add_Activity.this,"Event cannot have an Empty Name!",
+                        Toast.LENGTH_SHORT).show();
 			}
 		  } 
 		}
@@ -120,7 +123,10 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		time.setMth(r_dp.getMonth());
 		time.setYr(r_dp.getYear());
 		
+		
 		/* Some Code here to Write to SQL Database*/
+		
+		finish();
 	}
 	
 

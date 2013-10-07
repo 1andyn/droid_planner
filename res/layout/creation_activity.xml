@@ -40,7 +40,7 @@
 	        android:ems="10"
 	        android:hint="@string/desc_hint"
 	        android:inputType="textPersonName"
-	        android:imeOptions="actionNext" />
+	        android:imeOptions="actionDone" />
 
 	    <TextView
 	        android:id="@+id/ce_sttv"
