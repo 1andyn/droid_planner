@@ -36,9 +36,17 @@ public class Add_activity  extends SherlockFragmentActivity {
 	/* Configures everything Visual*/
 	protected void initalizeLayout()
 	{
+		config_resources();
 		//config_actionbar();
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.creation_activity);
+	}
+	
+	
+	protected void config_resources()
+	{
+		start_tp = (TimePicker) findViewById(R.id.time_start);
+		end_tp = (TimePicker) findViewById(R.id.time_end);
 	}
 	
 	/* ActionBar Configuration */
@@ -76,7 +84,7 @@ public class Add_activity  extends SherlockFragmentActivity {
 
 	protected void add_event(Event ev)
 	{
-
+		
 	}
 
 
