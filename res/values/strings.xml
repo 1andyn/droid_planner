@@ -24,4 +24,5 @@
     <string name="ce_d_ala">Alarm Disabled</string>
     <string name="ce_alatv">Event Alarm: </string>
     <string name="ce_create">Create Event</string>
+    <string name="tb_aqe">Quick Event</string>
 </resources>

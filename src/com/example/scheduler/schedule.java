@@ -105,6 +105,7 @@ public class schedule extends SherlockFragmentActivity {
 
 	    switch(id)
 	    {		    
+
 		    case R.id.tb_month:
 		    {
 		    	Toast.makeText(schedule.this, "Month was pressed!", Toast.LENGTH_SHORT).show();
@@ -126,6 +127,11 @@ public class schedule extends SherlockFragmentActivity {
 	    	case R.id.tb_sub_td:
 	    	{
 	    		Toast.makeText(schedule.this, "Add new ToDo was Pressed", Toast.LENGTH_SHORT).show();
+	    		return false;
+	    	}
+	    	case R.id.tb_sub_qe:
+	    	{
+	    		add_event();
 	    		return false;
 	    	}
 		    default:

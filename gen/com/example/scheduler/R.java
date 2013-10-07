@@ -1093,7 +1093,7 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040013;
         public static final int abs__title=0x7f04001b;
         public static final int abs__up=0x7f04000b;
-        public static final int action_settings=0x7f040050;
+        public static final int action_settings=0x7f040051;
         public static final int am_pm=0x7f040043;
         public static final int ce_alarm=0x7f04003d;
         public static final int ce_alatv=0x7f04003c;
@@ -1111,14 +1111,14 @@ containing a value of this type.
         public static final int end_str=0x7f040047;
         public static final int et_desc=0x7f040035;
         public static final int et_name=0x7f040033;
-        public static final int eventViewGroup=0x7f04004c;
+        public static final int eventViewGroup=0x7f04004d;
         public static final int homeAsUp=0x7f040006;
         public static final int hr_eview=0x7f040048;
         public static final int hr_tview=0x7f040040;
         public static final int listMode=0x7f040002;
         public static final int maininfogroup=0x7f040044;
-        public static final int menu_edit=0x7f040052;
-        public static final int menu_remove=0x7f040051;
+        public static final int menu_edit=0x7f040053;
+        public static final int menu_remove=0x7f040052;
         public static final int min_eview=0x7f04004a;
         public static final int min_tview=0x7f040042;
         public static final int normal=0x7f040001;
@@ -1129,14 +1129,16 @@ containing a value of this type.
         public static final int t_semi=0x7f040049;
         public static final int t_tview=0x7f040045;
         public static final int tabMode=0x7f040003;
-        public static final int tb_add=0x7f04004f;
-        public static final int tb_date=0x7f04004e;
-        public static final int tb_month=0x7f04004d;
-        public static final int tb_sub_ev=0x7f040053;
-        public static final int tb_sub_td=0x7f040054;
+        public static final int tb_add=0x7f040050;
+        public static final int tb_date=0x7f04004f;
+        public static final int tb_month=0x7f04004e;
+        public static final int tb_sub_ev=0x7f040054;
+        public static final int tb_sub_qe=0x7f040056;
+        public static final int tb_sub_td=0x7f040055;
         public static final int timeGroup=0x7f04003f;
         public static final int time_end=0x7f040039;
         public static final int time_start=0x7f040037;
+        public static final int todoViewGroup=0x7f04004c;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
     }
@@ -1237,6 +1239,7 @@ containing a value of this type.
         public static final int hello_world=0x7f09000f;
         public static final int tb_add=0x7f090012;
         public static final int tb_aev=0x7f090016;
+        public static final int tb_aqe=0x7f090025;
         public static final int tb_atd=0x7f090017;
         public static final int tb_date=0x7f090013;
         public static final int tb_month=0x7f090014;

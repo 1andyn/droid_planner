@@ -34,6 +34,12 @@
                 
     <!--Use this Specific ListView element for event objects-->
     <ListView
+        android:id="@+id/todoViewGroup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:longClickable="true"				    
+		android:dividerHeight="1sp"/>
+    <ListView
         android:id="@+id/eventViewGroup"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
