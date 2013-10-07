@@ -19,7 +19,6 @@ public class SQLHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_YEAR = "year";
 	public static final String COLUMN_START = "start_time";
 	public static final String COLUMN_END = "end_time";
-	
 	 
 	private static final int DATABASE_VERSION = 2;
     private static final String TABLE_NAME = "USREVENTS";

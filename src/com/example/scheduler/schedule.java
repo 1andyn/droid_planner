@@ -7,13 +7,10 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.scheduler.R.color;
-
 /* Basic Android Imports*/
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -42,6 +39,10 @@ public class Schedule extends SherlockFragmentActivity {
 	protected Vector<Event> events_visible;
 	protected EventListAdapter e_adapter;
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
+	
+	protected Vector<Event> todos;
+	protected Vector<Event> todos_visible;
+	protected ToDoListAdapter t_adapter;
 	
 	/* Corresponding View and Events for selection */
 	protected View selected_view;

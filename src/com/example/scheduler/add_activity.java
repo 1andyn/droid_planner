@@ -46,6 +46,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	protected void config_resources()
 	{
+		name_et = (EditText) findViewById(R.id.ce_name);
+		desc_et = (EditText) findViewById(R.id.ce_desc);
 		start_tp = (TimePicker) findViewById(R.id.time_start);
 		end_tp = (TimePicker) findViewById(R.id.time_end);
 		r_dp = (DatePicker) findViewById(R.id.date_sel);
@@ -95,6 +97,9 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	protected void add_event()
 	{
 		Event temp = new Event();
+		temp.setName(name_et.getText().toString());
+		temp.setDescription(desc_et.getText().toString());
+	
 		
 		
 	}
