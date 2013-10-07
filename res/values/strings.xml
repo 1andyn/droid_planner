@@ -25,4 +25,8 @@
     <string name="ce_alatv">Event Alarm: </string>
     <string name="ce_create">Create Event</string>
     <string name="tb_aqe">Quick Event</string>
+    <string name="td_name">Name of ToDo Activity:</string>
+    <string name="td_button">Create ToDo</string>
+    <string name="td_time">Time of Event/Time Due:</string>
+    <string name="td_date">Date of ToDo:</string>
 </resources>
