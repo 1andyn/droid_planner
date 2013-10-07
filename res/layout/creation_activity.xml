@@ -92,7 +92,8 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
-	        android:orientation="horizontal" >
+	        android:orientation="horizontal"
+	        android:padding="30sp" >
 
 	        <TextView
 	            android:id="@+id/ce_alatv"
@@ -110,6 +111,15 @@
 	            android:textOff="@string/ce_d_ala"
 	            android:textOn="@string/ce_e_ala" />
 	    </LinearLayout>
-	</LinearLayout>
+	    
+	    <!-- Add Color Selection Code -->
 
+	    <Button
+	        android:id="@+id/ce_create"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:text="@string/ce_create" />
+	    
+	</LinearLayout>
 </ScrollView>
