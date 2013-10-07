@@ -41,11 +41,6 @@
 	        android:inputType="textPersonName"
 	        android:imeOptions="actionNext" />
 
-	    <View
-	        android:layout_width="1dp"
-	        android:layout_height="match_parent"
-	        android:background="@color/SlateBlue" />
-
 	    <TextView
 	        android:id="@+id/ce_sttv"
 	        android:layout_width="wrap_content"
@@ -61,11 +56,6 @@
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center_horizontal"
 	        android:padding="30sp" />
-
-	    <View
-	        android:layout_width="1dp"
-	        android:layout_height="match_parent"
-	        android:background="@color/SlateBlue" />
 
 	    <TextView
 	        android:id="@+id/ce_ettv"
