@@ -1,5 +1,7 @@
 package com.example.scheduler;
 
+import java.util.Calendar;
+
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
 
@@ -36,17 +38,26 @@ public class Add_activity  extends SherlockFragmentActivity {
 	/* Configures everything Visual*/
 	protected void initalizeLayout()
 	{
-		config_resources();
-		//config_actionbar();
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.creation_activity);
+		config_resources();
+		//config_actionbar();
 	}
-	
 	
 	protected void config_resources()
 	{
 		start_tp = (TimePicker) findViewById(R.id.time_start);
 		end_tp = (TimePicker) findViewById(R.id.time_end);
+		r_dp = (DatePicker) findViewById(R.id.date_sel);
+		alarm_tb = (ToggleButton) findViewById(R.id.ce_alarm);
+		creation_b = (Button) findViewById(R.id.ce_create); 
+		
+		final Calendar c = Calendar.getInstance();
+		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
+		if(c.get(Calendar.HOUR_OF_DAY) < 23)
+		{
+			end_tp.setCurrentHour(c.get(Calendar.HOUR_OF_DAY) + 1);
+		}
 	}
 	
 	/* ActionBar Configuration */
@@ -73,8 +84,7 @@ public class Add_activity  extends SherlockFragmentActivity {
 				/* Checks for Empty name as it is a Requirement */
 			if(name_et.getText().toString().trim().length() > 0)
 			{
-				Event temp = new Event();
-				add_event(temp);
+				add_event();
 			}
 		  } 
 		}
@@ -82,7 +92,14 @@ public class Add_activity  extends SherlockFragmentActivity {
 	}
 	
 
-	protected void add_event(Event ev)
+	protected void add_event()
+	{
+		Event temp = new Event();
+		
+		
+	}
+	
+	protected void check_issues()
 	{
 		
 	}
