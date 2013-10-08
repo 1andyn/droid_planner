@@ -1,5 +1,9 @@
 package com.example.scheduler;
 
+/* Parse Cloud Imports */
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+
 /* ActionBarSherlock Imports */
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -282,6 +286,11 @@ public class Schedule extends SherlockFragmentActivity {
 				// Set Selection back to Null Event
 				selected_event = empty_event;
 			}
+	}
+	
+	protected void acquire_email()
+	{
+		
 	}
 	
 }

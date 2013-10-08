@@ -1,5 +1,7 @@
 package com.example.scheduler;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
 import java.util.Calendar;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;

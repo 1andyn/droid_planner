@@ -5,10 +5,7 @@ public class SQL_Data {
 		/* This is the data structure used by SQLite DB*/
 		
         /* Class used for Getting Email Data*/
-        private final Email_Fetcher e_f = new Email_Fetcher();
-        private String identifier;
         
-        private String user;
         private long counter; /* Used as Index of Database */
         private long id;
         private String name;
