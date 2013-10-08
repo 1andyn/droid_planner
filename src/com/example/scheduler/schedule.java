@@ -3,6 +3,7 @@ package com.example.scheduler;
 /* Parse Cloud Imports */
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
 
 /* ActionBarSherlock Imports */
 import com.actionbarsherlock.app.ActionBar;
@@ -39,7 +40,7 @@ public class Schedule extends SherlockFragmentActivity {
 	/** END DEBUG VALUES */
 	
 	/* Application context */
-	final Context context=this;
+	final Context main_context = this;
 
 	/* Data Structures */
 	protected ArrayList<Event> events;
@@ -153,6 +154,7 @@ public class Schedule extends SherlockFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		parse_cloud_init();
 		initalizeLayout();
 		
 		events = new ArrayList<Event>();
@@ -212,7 +214,7 @@ public class Schedule extends SherlockFragmentActivity {
 		ab.setDisplayShowHomeEnabled(false);
 		
 		/* Will re-implement last
-		LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater=(LayoutInflater) main_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    View v =inflater.inflate(R.layout.top_bar_view, null, true);
 	    ab.setCustomView(v);
 		ab.setDisplayShowCustomEnabled(true);
@@ -288,9 +290,12 @@ public class Schedule extends SherlockFragmentActivity {
 			}
 	}
 	
-	protected void acquire_email()
+	protected void parse_cloud_init()
 	{
-		
+		ParseAnalytics.trackAppOpened(getIntent());
+		ParseObject testObject = new ParseObject("TestObject");
+		testObject.put("foo", "bar");
+		testObject.saveInBackground();
 	}
 	
 }
