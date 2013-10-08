@@ -292,6 +292,7 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	protected void parse_cloud_init()
 	{
+		Parse.initialize(this, "oUi6DEolQ95K8EyHni3HlWNJWyUYeQZG7G142RdQ", "9k0t1vS9INswCXDd7EeLpeGWQJ0RMoyPBxnMjsYi");
 		ParseAnalytics.trackAppOpened(getIntent());
 		ParseObject testObject = new ParseObject("TestObject");
 		testObject.put("foo", "bar");
