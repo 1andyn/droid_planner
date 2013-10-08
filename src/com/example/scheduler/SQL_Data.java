@@ -2,6 +2,7 @@ package com.example.scheduler;
 
 public class SQL_Data {
         
+		/* Unsure if this coded is even needed */
 		/* This is the data structure used by SQLite DB*/
 		
         /* Class used for Getting Email Data*/
