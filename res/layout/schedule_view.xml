@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
                 
-    <!--Use this Specific ListView element for event objects-->
-    <ListView
-        android:id="@+id/todoViewGroup"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:longClickable="true"				    
-		android:dividerHeight="1sp"/>
-    <ListView
-        android:id="@+id/eventViewGroup"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:longClickable="true"				    
-        android:divider="#EEEEEE"
-		android:dividerHeight="1sp"/>
+    <LinearLayout android:layout_weight="1" 
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+	    <!--Use this Specific ListView element for todo objects-->
+	    <ListView
+	        android:id="@+id/todoViewGroup"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:longClickable="true"
+	        android:divider="#EEEEEE"				    
+			android:dividerHeight="1sp"/>
+    </LinearLayout>
+    
+   	<View
+		android:layout_width="fill_parent"
+		android:layout_height="1dp"
+		android:background="@android:color/darker_gray"/>
+    
+    <LinearLayout android:layout_weight=".4" 
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent">
+	    <!--Use this Specific ListView element for event objects-->
+	    <ListView
+	        android:id="@+id/eventViewGroup"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:longClickable="true"				    
+	        android:divider="#EEEEEE"
+			android:dividerHeight="1sp"/>
+	    </LinearLayout>
+	    
 </LinearLayout>

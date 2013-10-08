@@ -8,7 +8,8 @@
 	    	android:id="@+id/timeGroup"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:padding="8dp"
+	        android:paddingLeft="5sp"
+	        android:paddingTop="1dp"
 	        android:layout_marginRight="5dp">
 		    <LinearLayout
 		        android:layout_width="wrap_content"
@@ -40,20 +41,18 @@
 		        android:layout_width="wrap_content"
 		        android:paddingLeft="20dp"
 		        android:text="AM"
-		        android:textAlignment="6"
 		        android:textStyle="bold" />
-		    
 	    </RadioGroup>
 
 	    <RadioGroup
 	        android:id="@+id/maininfogroup"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="8dp"
-	        android:layout_marginRight="2dp" >
+	        android:layout_marginTop="12dp"
+	        android:layout_marginRight="2dp"
+	        android:layout_marginLeft="6sp" >
 
 	        <TextView
-	            android:paddingTop="2sp"
 	            android:id="@+id/td_tview"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
