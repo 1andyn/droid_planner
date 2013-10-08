@@ -22,6 +22,10 @@ import java.util.Random;
 
 public class Schedule extends SherlockFragmentActivity {
 	
+	/** Get email for SQLite DB name */
+    private final Email_Fetcher e_f = new Email_Fetcher();
+    private String identifier;
+	
 	/** DEBUG VALUES */
 	final int STR_TIME = 700;
 	final int END_TIME = 1200;
