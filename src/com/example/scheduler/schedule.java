@@ -17,8 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 //import android.view.LayoutInflater; required library later
 
-/* Java Utils Imports */
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Schedule extends SherlockFragmentActivity {
@@ -35,13 +34,13 @@ public class Schedule extends SherlockFragmentActivity {
 	final Context context=this;
 
 	/* Data Structures */
-	protected Vector<Event> events;
-	protected Vector<Event> events_visible;
+	protected ArrayList<Event> events;
+	protected ArrayList<Event> events_visible;
 	protected EventListAdapter e_adapter;
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	
-	protected Vector<Event> todos;
-	protected Vector<Event> todos_visible;
+	protected ArrayList<Event> todos;
+	protected ArrayList<Event> todos_visible;
 	protected ToDoListAdapter t_adapter;
 	
 	/* Corresponding View and Events for selection */
@@ -148,8 +147,8 @@ public class Schedule extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		initalizeLayout();
 		
-		events = new Vector<Event>();
-		events_visible = new Vector<Event>();
+		events = new ArrayList<Event>();
+		events_visible = new ArrayList<Event>();
 		
 		e_adapter = new EventListAdapter(this, events_visible);
 		e_listview.setAdapter(e_adapter);

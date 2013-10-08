@@ -1,6 +1,6 @@
 package com.example.scheduler;
 
-import java.util.Vector;
+import java.util.ArrayList;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +10,9 @@ public class ToDoListAdapter extends BaseAdapter {
 
 	//Context in which eventListAdapter is being used
 	private Context app_Context;
-	private Vector<Event> event_list;
+	private ArrayList<Event> event_list;
 	
-	public ToDoListAdapter(Context c, Vector<Event> e_list)
+	public ToDoListAdapter(Context c, ArrayList<Event> e_list)
 	{
 		app_Context = c;
 		event_list = e_list;
