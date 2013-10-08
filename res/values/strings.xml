@@ -29,4 +29,5 @@
     <string name="td_button">Create ToDo</string>
     <string name="td_time">Time of Event/Time Due:</string>
     <string name="td_date">Date of ToDo:</string>
+    <string name="tb_aqt">Quick ToDo</string>
 </resources>

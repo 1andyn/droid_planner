@@ -467,6 +467,7 @@ int id tb_date 0x7f04005d
 int id tb_month 0x7f04005c
 int id tb_sub_ev 0x7f040061
 int id tb_sub_qe 0x7f040063
+int id tb_sub_qt 0x7f040064
 int id tb_sub_td 0x7f040062
 int id td_alarm 0x7f040056
 int id td_alatv 0x7f040055
@@ -549,6 +550,7 @@ int string hello_world 0x7f09000f
 int string tb_add 0x7f090012
 int string tb_aev 0x7f090016
 int string tb_aqe 0x7f090025
+int string tb_aqt 0x7f09002a
 int string tb_atd 0x7f090017
 int string tb_date 0x7f090013
 int string tb_month 0x7f090014

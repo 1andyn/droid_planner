@@ -44,8 +44,8 @@ public class ToDoListAdapter extends BaseAdapter {
 		{
 			convertView.setLongClickable(true);
 			convertView.setFocusable(true);
-			EventView e_view = (EventView)convertView;
-			e_view.setEvent((Event)getItem(pos));
+			ToDoView t_view = (ToDoView)convertView;
+			t_view.setEvent((Event)getItem(pos));
 			return convertView;
 		}
 	}

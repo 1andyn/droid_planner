@@ -134,6 +134,10 @@ public class Schedule extends SherlockFragmentActivity {
 	    		e_adapter.notifyDataSetChanged();
 	    		return false;
 	    	}
+	    	case R.id.tb_sub_qt:
+	    		add_todo();
+	    		return false;
+	    	
 	    	case R.id.tb_sub_td:
 	    	{
 	    		Toast.makeText(Schedule.this, "Add new ToDo was Pressed", Toast.LENGTH_SHORT).show();
@@ -255,9 +259,20 @@ public class Schedule extends SherlockFragmentActivity {
 		events.add(debug_fake_event());
 		events_visible.add(debug_fake_event());
 		e_adapter.notifyDataSetChanged();
-		Toast.makeText(Schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
+		//Toast.makeText(Schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
 	}
 	/** Debug Code */
+	
+	/** Debug Code */ // Needs to be rewritten for final version
+	protected void add_todo()
+	{
+		todos.add(debug_fake_event());
+		todos_visible.add(debug_fake_event());
+		t_adapter.notifyDataSetChanged();
+		//Toast.makeText(Schedule.this,"Size of todo Array: " + events.size(), Toast.LENGTH_SHORT).show();
+	}
+	/** Debug Code */
+	
 
 	protected void remove_event(Event e)
 	{

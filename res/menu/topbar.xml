@@ -10,6 +10,7 @@
 	    <item android:id="@+id/tb_sub_ev" android:showAsAction="always" android:title="@string/tb_aev"/>
 	    <item android:id="@+id/tb_sub_td" android:showAsAction="always" android:title="@string/tb_atd"/>
 	    <item android:id="@+id/tb_sub_qe" android:showAsAction="always" android:title="@string/tb_aqe"/>
+	    <item android:id="@+id/tb_sub_qt" android:showAsAction="always" android:title="@string/tb_aqt"/>
 	    </menu>    
     </item>
 </menu>
