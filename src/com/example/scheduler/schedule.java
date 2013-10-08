@@ -46,7 +46,9 @@ public class Schedule extends SherlockFragmentActivity {
 	protected ArrayList<Event> events;
 	protected ArrayList<Event> events_visible;
 	protected EventListAdapter e_adapter;
+	
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
+	protected ListView t_listview; /* Contains list of Views that displays each ToDo */
 	
 	protected ArrayList<Event> todos;
 	protected ArrayList<Event> todos_visible;
@@ -107,6 +109,53 @@ public class Schedule extends SherlockFragmentActivity {
 		
 	};
 	/* End Contextual menu code */
+	
+	
+	/** This code is used to open a menu when long-clicking an item */
+	protected com.actionbarsherlock.view.ActionMode m_Action2; 
+	protected com.actionbarsherlock.view.ActionMode.Callback m_ActionCall2 = new ActionMode.Callback() 
+	{
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			MenuInflater inflater = mode.getMenuInflater();
+			inflater.inflate(R.menu.option_menu, menu);
+			return true;
+		}
+
+		@Override
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			return false;
+		}
+
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			switch(item.getItemId()){
+			case R.id.menu_remove:
+				/* Some Code to Delete Event */
+            	Toast.makeText(Schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
+            	remove_todo(selected_event);
+				mode.finish();
+				return true;
+			case R.id.menu_edit:
+				/* Some Code to Edit Event */
+				/* This toast is for testing purposes only since view will be swapped for editing Events*/
+            	Toast.makeText(Schedule.this, "Editing selection", Toast.LENGTH_SHORT).show();
+				mode.finish();
+				return true;
+			default:
+				Toast.makeText(Schedule.this, "Canceling..", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+		}
+
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			m_Action2 = null;
+			//selected_view.setBackgroundResource(android.R.color.transparent);	
+		}
+		
+	};
+	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
@@ -169,10 +218,9 @@ public class Schedule extends SherlockFragmentActivity {
 		e_listview.setLongClickable(true);
 		e_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		e_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-			
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
             {
-            	ListView myList = (ListView)findViewById(R.id.eventViewGroup);
+            	ListView event_list = (ListView)findViewById(R.id.eventViewGroup);
             	
             	/** Debug Toast*/
             	Toast.makeText(Schedule.this, "Position is:" + pos + " ID is: " + id, Toast.LENGTH_SHORT).show();
@@ -192,6 +240,39 @@ public class Schedule extends SherlockFragmentActivity {
                 return true;                
             }
 		});		
+		
+		todos = new ArrayList<Event>();
+		todos_visible = new ArrayList<Event>();
+
+		t_adapter = new ToDoListAdapter(this, todos_visible);
+		t_listview.setAdapter(t_adapter);
+		t_listview.setLongClickable(true);
+		t_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		t_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
+            {
+            	ListView todo_list = (ListView)findViewById(R.id.todoViewGroup);
+            	
+            	/** Debug Toast*/
+            	Toast.makeText(Schedule.this, "Position is:" + pos + " ID is: " + id, Toast.LENGTH_SHORT).show();
+            	/** Debug Toast*/
+            	
+            	selected_view = v;
+                if(m_Action2 != null)
+                {
+                	return false;
+                }
+                
+                m_Action2 = Schedule.this.startActionMode(m_ActionCall2);
+               // v.setBackgroundResource(color.highlight);
+                selected_event = (Event) t_adapter.getItem(pos);
+                adv.setSelection(pos);
+                t_adapter.notifyDataSetChanged();
+                return true;                
+            }
+		});	
+		
+		
 	}
 
 	@Override
@@ -207,6 +288,7 @@ public class Schedule extends SherlockFragmentActivity {
 	{
 		setContentView(R.layout.schedule_view);
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
+		t_listview = (ListView)findViewById(R.id.todoViewGroup);
 		config_actionbar();
 	}
 	
@@ -299,6 +381,37 @@ public class Schedule extends SherlockFragmentActivity {
 				
 				// Update View List
 				e_adapter.notifyDataSetChanged();
+				
+				// Set Selection back to Null Event
+				selected_event = empty_event;
+			}
+	}
+	
+	protected void remove_todo(Event e)
+	{
+		// Check if Selected Event is not an Empty Event
+			if(!e.isEqual(empty_event))
+			{
+				// Remove Event from Visible List
+				for(int x = 0; x < todos_visible.size(); x++)
+				{
+					if(todos_visible.get(x).equals(e))
+					{
+						todos_visible.remove(x);
+					}
+				}
+				
+				// Remove Event from Primary List
+				for(int x = 0; x < todos.size(); x++)
+				{
+					if(todos.get(x).equals(e))
+					{
+						todos.remove(x);
+					}
+				}
+				
+				// Update View List
+				t_adapter.notifyDataSetChanged();
 				
 				// Set Selection back to Null Event
 				selected_event = empty_event;
