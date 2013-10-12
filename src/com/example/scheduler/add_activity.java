@@ -126,6 +126,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		time.setYr(r_dp.getYear());
 		
 		
+		
 		/* Some Code here to Write to SQL Database*/
 		
 		finish();

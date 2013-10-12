@@ -178,9 +178,7 @@ public class Schedule extends SherlockFragmentActivity {
 		    }
 	    	case R.id.tb_sub_ev:
 	    	{
-	    		event_creation = new Intent(this, Add_Activity.class);
-	    		startActivity(event_creation);
-	    		e_adapter.notifyDataSetChanged();
+	    		switch_add_activity();
 	    		return false;
 	    	}
 	    	case R.id.tb_sub_qt:
@@ -189,7 +187,12 @@ public class Schedule extends SherlockFragmentActivity {
 	    	
 	    	case R.id.tb_sub_td:
 	    	{
-	    		Toast.makeText(Schedule.this, "Add new ToDo was Pressed", Toast.LENGTH_SHORT).show();
+	    		/*
+	    		todo_creation = new Intent(this, TD_Add_Activity.class);
+	    		startActivity(todo_creation);
+	    		t_adapter.notifyDataSetChanged();
+	    		*/
+		    	Toast.makeText(Schedule.this, "Create Todo was pressed!", Toast.LENGTH_SHORT).show();
 	    		return false;
 	    	}
 	    	case R.id.tb_sub_qe:
@@ -425,6 +428,14 @@ public class Schedule extends SherlockFragmentActivity {
 		//ParseObject testObject = new ParseObject("TestObject");
 		//testObject.put("foo", "bar");
 		//testObject.saveInBackground();
+	}
+	
+	protected void switch_add_activity()
+	{
+		event_creation = new Intent(this, Add_Activity.class);
+		startActivity(event_creation);
+		e_adapter.notifyDataSetChanged();
+	
 	}
 	
 }

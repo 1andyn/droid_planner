@@ -60,5 +60,55 @@ public class SQL_Data {
 			this.end_time = et;
 		}
 		
-
+		
+        public long get_count()
+        {
+        	return counter;
+        }
+        
+        public long get_id()
+        {
+        	return id;
+        }
+        
+        public String get_name()
+        {
+        	return name;
+        }
+        
+        public String get_desc()
+        {
+        	return desc;
+        }
+        
+        public int get_alarm()
+        {
+        	return alarm;
+        }
+        
+        public int get_month()
+        {
+        	return month;
+        }
+        
+        public int get_day()
+        {
+        	return day;
+        }
+        
+        public int get_year()
+        {
+        	return year;
+        }
+        
+        public int getST()
+        {
+        	return start_time;
+        }
+        
+        public int getET()
+        {
+        	return end_time;
+        }
+		
 }
