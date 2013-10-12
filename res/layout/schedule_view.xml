@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
                 
     <LinearLayout 
         android:id="@+id/adjustableTodo"
         android:layout_weight="1" 
-	    android:layout_height="wrap_content" 
-	    android:layout_width="fill_parent">
+	    android:layout_height="match_parent" 
+	    android:layout_width="match_parent">
 	    <!--Use this Specific ListView element for todo objects-->
 	    <ListView
 	        android:id="@+id/todoViewGroup"
-	        android:layout_width="fill_parent"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:longClickable="true"
 	        android:divider="#EEEEEE"				    
@@ -20,20 +20,21 @@
     </LinearLayout>
     
    	<View
-		android:layout_width="fill_parent"
+		android:layout_width="match_parent"
 		android:layout_height="1dp"
 		android:background="@android:color/darker_gray"/>
     
+   	<!--  Weight needs to be adjusted -->
     <LinearLayout 
         android:id="@+id/adjustableLayout"
-        android:layout_weight="0" 
-	    android:layout_height="fill_parent" 
-	    android:layout_width="fill_parent">
+        android:layout_weight=".4" 
+	    android:layout_height="match_parent" 
+	    android:layout_width="match_parent">
 	    <!--Use this Specific ListView element for event objects-->
 	    <ListView
 	        android:id="@+id/eventViewGroup"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
 	        android:longClickable="true"				    
 	        android:divider="#EEEEEE"
 			android:dividerHeight="1sp"/>

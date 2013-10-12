@@ -153,7 +153,7 @@ public class Schedule extends SherlockFragmentActivity {
 				/* Some Code to Delete Event */
             	Toast.makeText(Schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
             	remove_todo(selected_event);
-            	weight_adjustment();
+            	//weight_adjustment();
 				mode.finish();
 				return true;
 			case R.id.menu_edit:
@@ -200,7 +200,7 @@ public class Schedule extends SherlockFragmentActivity {
 		    	events_visible.clear();
 		    	e_adapter.notifyDataSetChanged();
 		    	t_adapter.notifyDataSetChanged();
-		    	weight_adjustment();
+		    	//weight_adjustment();
 		    	return false;
 		    }
 	    	case R.id.tb_sub_ev:
@@ -209,7 +209,7 @@ public class Schedule extends SherlockFragmentActivity {
 	    		return false;
 	    	}
 	    	case R.id.tb_sub_qt:
-            	weight_adjustment();
+            	//weight_adjustment();
 	    		add_todo();
 	    		return false;
 	    	
@@ -220,7 +220,7 @@ public class Schedule extends SherlockFragmentActivity {
 	    		startActivity(todo_creation);
 	    		t_adapter.notifyDataSetChanged();
 	    		*/
-            	weight_adjustment();
+            	//weight_adjustment();
 		    	Toast.makeText(Schedule.this, "Create Todo was pressed!", Toast.LENGTH_SHORT).show();
 	    		return false;
 	    	}
