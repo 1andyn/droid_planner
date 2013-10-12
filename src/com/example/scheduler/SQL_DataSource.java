@@ -1,5 +1,7 @@
 package com.example.scheduler;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -64,9 +66,29 @@ public class SQL_DataSource {
 		return newEvent;
 	}
 		
-	public void deleteEvent(Event e){
-		
+	public void deleteEvent(Event e)
+	{
+		long id = e.GetID();
+		System.out.println("Comment deleted with id: " + id);
+		database.delete(SQLHelper.TABLE_NAME, SQLHelper.COLUMN_ID + " = " + id, null);
 	}
+	
+	public ArrayList<Event> getAllEvents()
+	{
+		ArrayList<Event> allEvents = new ArrayList<Event>();
+		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
+				null, null, null ,null, null);
+		curse.moveToFirst();
+		while(!curse.isAfterLast())
+		{
+			Event event = cursorToEvent(curse);
+			allEvents.add(event);
+			curse.moveToNext();
+		}
+		curse.close();
+		return allEvents;
+	}
+	
 	
 	private Event cursorToEvent(Cursor curs)
 	{
