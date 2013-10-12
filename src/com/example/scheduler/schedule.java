@@ -54,6 +54,9 @@ public class Schedule extends SherlockFragmentActivity {
 	protected ArrayList<Event> todos_visible;
 	protected ToDoListAdapter t_adapter;
 	
+	/*SQL Data Source */
+	protected SQL_DataSource datasource;
+	
 	/* Corresponding View and Events for selection */
 	protected View selected_view;
 	protected Event selected_event;
@@ -213,6 +216,7 @@ public class Schedule extends SherlockFragmentActivity {
 		parse_cloud_init();
 		initalizeLayout();
 		
+		/* Primary List */
 		events = new ArrayList<Event>();
 		events_visible = new ArrayList<Event>();
 		
@@ -236,7 +240,6 @@ public class Schedule extends SherlockFragmentActivity {
                 }
                 
                 m_Action = Schedule.this.startActionMode(m_ActionCall);
-               // v.setBackgroundResource(color.highlight);
                 selected_event = (Event) e_adapter.getItem(pos);
                 adv.setSelection(pos);
                 e_adapter.notifyDataSetChanged();
@@ -244,6 +247,7 @@ public class Schedule extends SherlockFragmentActivity {
             }
 		});		
 		
+		/* Secondary List */
 		todos = new ArrayList<Event>();
 		todos_visible = new ArrayList<Event>();
 
@@ -267,7 +271,6 @@ public class Schedule extends SherlockFragmentActivity {
                 }
                 
                 m_Action2 = Schedule.this.startActionMode(m_ActionCall2);
-               // v.setBackgroundResource(color.highlight);
                 selected_event = (Event) t_adapter.getItem(pos);
                 adv.setSelection(pos);
                 t_adapter.notifyDataSetChanged();
@@ -275,6 +278,8 @@ public class Schedule extends SherlockFragmentActivity {
             }
 		});	
 		
+		/* SQL Source */
+		datasource = new SQL_DataSource(this);
 		
 	}
 
@@ -311,6 +316,8 @@ public class Schedule extends SherlockFragmentActivity {
 		*/
 	}
 	
+	/** Debug Code *************************************************************/
+	
 	protected Event debug_fake_event()
 	{
 		Event temp = new Event();
@@ -323,7 +330,18 @@ public class Schedule extends SherlockFragmentActivity {
 		return temp;
 	}
 	
-	/** Debug Code */
+	protected Event debug_fake_todo()
+	{
+		Event temp = new Event();
+		temp.setAlarm("N");
+		//temp.setID(events.size());
+		temp.setID(System.currentTimeMillis()/1000);
+		temp.setName("Test Event " + todos.size());
+		temp.setDescription(this.getString(R.string.test_desc));
+		temp.setDate(debug_fake_tododate());
+		return temp;
+	}
+
 	protected Date debug_fake_date()
 	{
 		Random generator = new Random();
@@ -334,6 +352,19 @@ public class Schedule extends SherlockFragmentActivity {
 		dd = generator.nextInt(30)+1;
 		dy = generator.nextInt(9999);
 		Date temp = new Date(start, end, dm, dd, dy);
+		return temp;
+	}
+	
+	protected Date debug_fake_tododate()
+	{
+		Random generator = new Random();
+		int NONE = -1;
+		int start, dm, dd, dy;
+		start = generator.nextInt(2400);
+		dm = generator.nextInt(11)+1;
+		dd = generator.nextInt(30)+1;
+		dy = generator.nextInt(9999);
+		Date temp = new Date(start, NONE, dm, dd, dy);
 		return temp;
 	}
 	/** Debug Code */
@@ -356,7 +387,7 @@ public class Schedule extends SherlockFragmentActivity {
 		t_adapter.notifyDataSetChanged();
 		//Toast.makeText(Schedule.this,"Size of todo Array: " + events.size(), Toast.LENGTH_SHORT).show();
 	}
-	/** Debug Code */
+	/** Debug Code ****************************************************/
 	
 
 	protected void remove_event(Event e)
@@ -435,7 +466,25 @@ public class Schedule extends SherlockFragmentActivity {
 		event_creation = new Intent(this, Add_Activity.class);
 		startActivity(event_creation);
 		e_adapter.notifyDataSetChanged();
+	}
 	
+	protected void load_from_database()
+	{
+		ArrayList<Event> temp = datasource.getAllEvents();
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		datasource.open();
+		super.onResume();
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		datasource.close();
+		super.onPause();
 	}
 	
 }

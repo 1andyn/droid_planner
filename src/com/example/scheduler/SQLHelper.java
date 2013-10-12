@@ -28,13 +28,13 @@ public class SQLHelper extends SQLiteOpenHelper {
 		      + TABLE_NAME 
 		      + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 		      + COLUMN_NAME + " TEXT NOT NULL, "
-		      + COLUMN_DESC + " TEXT NOT NULL, "
+		      + COLUMN_DESC + " TEXT, "
 		      + COLUMN_ALARM + " TEXT NOT NULL, "
 		      + COLUMN_MONTH + " INT NOT NULL, "
 		      + COLUMN_DAY + " INT NOT NULL, "
 		      + COLUMN_YEAR + " INT NOT NULL, "
 		      + COLUMN_START + " INT NOT NULL, "
-		      + COLUMN_END  + " INT NOT NULL, " 
+		      + COLUMN_END  + " INT, " 
 		      + COLUMN_COLOR + "TEXT NOT NULL);";
 	
 	  public SQLHelper(Context context) {

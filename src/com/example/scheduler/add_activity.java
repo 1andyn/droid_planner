@@ -1,7 +1,10 @@
 package com.example.scheduler;
 
+/* Cloud Based Imports */
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+
+
 import java.util.Calendar;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -18,6 +21,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class Add_Activity  extends SherlockFragmentActivity {
+	private SQL_DataSource datasource;
+	
 	/* Necessary Data for Resources */
 	protected EditText name_et;
 	protected EditText desc_et;
@@ -49,6 +54,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	protected void config_resources()
 	{
+		/* Layout Configuration */
 		name_et = (EditText) findViewById(R.id.et_name);
 		desc_et = (EditText) findViewById(R.id.et_desc);
 		start_tp = (TimePicker) findViewById(R.id.time_start);
@@ -57,12 +63,17 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		alarm_tb = (ToggleButton) findViewById(R.id.ce_alarm);
 		creation_b = (Button) findViewById(R.id.ce_create); 
 		
-		final Calendar c = Calendar.getInstance();
 		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
+		final Calendar c = Calendar.getInstance();
 		if(c.get(Calendar.HOUR_OF_DAY) < 23)
 		{
 			end_tp.setCurrentHour(c.get(Calendar.HOUR_OF_DAY) + 1);
 		}
+		
+		/* SQL Configuration */
+		datasource = new SQL_DataSource(this);
+		datasource.open();
+		
 	}
 	
 	/* ActionBar Configuration */
@@ -125,13 +136,40 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		time.setMth(r_dp.getMonth());
 		time.setYr(r_dp.getYear());
 		
+		temp.setAlarm(check_toggle());
 		
+		/* SQL_Database Code */
+		datasource.createEvent(temp);
 		
-		/* Some Code here to Write to SQL Database*/
-		
+		/* Return to Primary Activity*/
 		finish();
 	}
 	
-
+	protected String check_toggle()
+	{
+		if(alarm_tb.isChecked())
+		{
+			return "Y";
+		}
+		else
+		{
+			return "N";
+		}
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		datasource.open();
+		super.onResume();
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		datasource.close();
+		super.onPause();
+	}
+	
 
 }
