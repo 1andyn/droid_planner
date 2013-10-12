@@ -17,7 +17,9 @@ import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 //import android.view.LayoutInflater; required library later
@@ -31,6 +33,18 @@ public class Schedule extends SherlockFragmentActivity {
     private final Email_Fetcher e_f = new Email_Fetcher();
     private String identifier;
 	
+    /* Final Values for Integers */
+    final static int NONE = -1;
+    final static float NO_SHOW = 0;
+    final static float SMALL_SHOW = .2f;
+    final static float FULL_SHOW = .4f;
+    
+    /* TODO SIZE CASES */
+    final static int EMPTY = 0;
+    final static int SINGLE = 1;
+    final static int DOUBLE = 2;
+    final static int MULTI = 3;
+    
 	/** DEBUG VALUES */
 	final int STR_TIME = 700;
 	final int END_TIME = 1200;
@@ -47,6 +61,7 @@ public class Schedule extends SherlockFragmentActivity {
 	protected ArrayList<Event> events_visible;
 	protected EventListAdapter e_adapter;
 	
+	protected LinearLayout sub_layout; /* adjustable layout for todos*/
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	protected ListView t_listview; /* Contains list of Views that displays each ToDo */
 	
@@ -137,6 +152,7 @@ public class Schedule extends SherlockFragmentActivity {
 				/* Some Code to Delete Event */
             	Toast.makeText(Schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
             	remove_todo(selected_event);
+            	weight_adjustment();
 				mode.finish();
 				return true;
 			case R.id.menu_edit:
@@ -185,6 +201,7 @@ public class Schedule extends SherlockFragmentActivity {
 	    		return false;
 	    	}
 	    	case R.id.tb_sub_qt:
+            	weight_adjustment();
 	    		add_todo();
 	    		return false;
 	    	
@@ -195,6 +212,7 @@ public class Schedule extends SherlockFragmentActivity {
 	    		startActivity(todo_creation);
 	    		t_adapter.notifyDataSetChanged();
 	    		*/
+            	weight_adjustment();
 		    	Toast.makeText(Schedule.this, "Create Todo was pressed!", Toast.LENGTH_SHORT).show();
 	    		return false;
 	    	}
@@ -287,7 +305,6 @@ public class Schedule extends SherlockFragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.topbar, menu);
-//		return super.onCreateOptionsMenu(menu);
 		return true;
 	}
 	
@@ -297,6 +314,7 @@ public class Schedule extends SherlockFragmentActivity {
 		setContentView(R.layout.schedule_view);
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
+		sub_layout = (LinearLayout)findViewById(R.id.adjustableLayout);
 		config_actionbar();
 	}
 	
@@ -358,7 +376,6 @@ public class Schedule extends SherlockFragmentActivity {
 	protected Date debug_fake_tododate()
 	{
 		Random generator = new Random();
-		int NONE = -1;
 		int start, dm, dd, dy;
 		start = generator.nextInt(2400);
 		dm = generator.nextInt(11)+1;
@@ -472,6 +489,28 @@ public class Schedule extends SherlockFragmentActivity {
 	{
 		ArrayList<Event> temp = datasource.getAllEvents();
 	}
+	
+	/* Changes Weight of Todo Layout Depending on Size of ArrayList */
+	protected void weight_adjustment()
+	{
+		int SIZE = todos_visible.size();
+		if(SIZE == EMPTY)
+		{
+			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 
+				LayoutParams.WRAP_CONTENT, NO_SHOW));
+		}
+		else if (SIZE == DOUBLE || SIZE == SINGLE)
+		{
+			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 
+					LayoutParams.WRAP_CONTENT, SMALL_SHOW));
+		}
+		else
+		{
+			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 
+					LayoutParams.WRAP_CONTENT, FULL_SHOW));
+		}
+	}
+	
 	
 	@Override
 	protected void onResume()
