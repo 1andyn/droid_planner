@@ -382,8 +382,8 @@ public class Schedule extends SherlockFragmentActivity {
 	/** Debug Code */ // Needs to be rewritten for final version
 	protected void add_todo()
 	{
-		todos.add(debug_fake_event());
-		todos_visible.add(debug_fake_event());
+		todos.add(debug_fake_todo());
+		todos_visible.add(debug_fake_todo());
 		t_adapter.notifyDataSetChanged();
 		//Toast.makeText(Schedule.this,"Size of todo Array: " + events.size(), Toast.LENGTH_SHORT).show();
 	}
