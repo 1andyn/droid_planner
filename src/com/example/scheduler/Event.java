@@ -10,7 +10,7 @@ public class Event{
 	private String eventDesc;
 	private String eventColor;
 	private Date eventDate;
-	private boolean alarm;
+	private String alarm;
 
 	/* Constructor */
 	public Event(long id, String name)
@@ -20,7 +20,7 @@ public class Event{
 		eventDesc = null;
 		eventColor = HEX_WHITE;
 		eventDate = new Date();
-		alarm = false;
+		alarm = "N";
 	}
 	
 	
@@ -31,7 +31,7 @@ public class Event{
 		eventDesc = null;
 		eventColor = HEX_WHITE;
 		eventDate = new Date();
-		alarm = false;
+		alarm = "N";
 	}
 
 	public String getName() 
@@ -44,7 +44,7 @@ public class Event{
 		return eventDesc;
 	}
 	
-	public Boolean getAlarm() 
+	public String getAlarm() 
 	{
 		return alarm;
 	}
@@ -107,7 +107,7 @@ public class Event{
 		eventDate.setEndTime(input.getEndTime());
 	}
 	
-	public void setAlarm(Boolean flag) {
+	public void setAlarm(String flag) {
 		alarm = flag;
 	}
 	

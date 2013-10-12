@@ -314,7 +314,7 @@ public class Schedule extends SherlockFragmentActivity {
 	protected Event debug_fake_event()
 	{
 		Event temp = new Event();
-		temp.setAlarm(false);
+		temp.setAlarm("N");
 		//temp.setID(events.size());
 		temp.setID(System.currentTimeMillis()/1000);
 		temp.setName("Test Event " + events.size());

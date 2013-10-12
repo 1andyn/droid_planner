@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class SQLHelper extends SQLiteOpenHelper {
 		
-	/* This is just a Skeleton Class, Needs to be Updated */
+	///* This is just a Skeleton Class, Needs to be Updated */
 	public static final String COLUMN_USR = "user";
 	public static final String COLUMN_CON = "counter";
 	public static final String COLUMN_ID = "_id";
@@ -21,7 +21,7 @@ public class SQLHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_END = "end_time";
 	 
 	private static final int DATABASE_VERSION = 2;
-    private static final String TABLE_NAME = "USREVENTS";
+    public static final String TABLE_NAME = "USREVENTS";
 	private final static String DATABASE_NAME = "Events.db";
 		
 	private static final String DATABASE_CREATE = "CREATE TABLE "
