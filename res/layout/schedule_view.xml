@@ -4,8 +4,10 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
                 
-    <LinearLayout android:layout_weight="1" 
-	    android:layout_height="fill_parent" 
+    <LinearLayout 
+        android:id="@+id/adjustableTodo"
+        android:layout_weight="1" 
+	    android:layout_height="wrap_content" 
 	    android:layout_width="fill_parent">
 	    <!--Use this Specific ListView element for todo objects-->
 	    <ListView
@@ -31,7 +33,7 @@
 	    <ListView
 	        android:id="@+id/eventViewGroup"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="fill_parent"
 	        android:longClickable="true"				    
 	        android:divider="#EEEEEE"
 			android:dividerHeight="1sp"/>

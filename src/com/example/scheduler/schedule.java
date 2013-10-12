@@ -36,7 +36,7 @@ public class Schedule extends SherlockFragmentActivity {
     /* Final Values for Integers */
     final static int NONE = -1;
     final static float NO_SHOW = 0;
-    final static float SMALL_SHOW = .2f;
+    final static float SMALL_SHOW = .3f;
     final static float FULL_SHOW = .4f;
     
     /* TODO SIZE CASES */
@@ -61,7 +61,8 @@ public class Schedule extends SherlockFragmentActivity {
 	protected ArrayList<Event> events_visible;
 	protected EventListAdapter e_adapter;
 	
-	protected LinearLayout sub_layout; /* adjustable layout for todos*/
+	protected LinearLayout sub_layout; /* adjustable layout for event*/
+	protected LinearLayout sub_layout_todo; /* adjustable layout fot todo*/
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	protected ListView t_listview; /* Contains list of Views that displays each ToDo */
 	
@@ -192,7 +193,14 @@ public class Schedule extends SherlockFragmentActivity {
 		    }
 		    case R.id.tb_date:
 		    {
-		    	Toast.makeText(Schedule.this, "Date was pressed!", Toast.LENGTH_SHORT).show();
+		    	Toast.makeText(Schedule.this, "Date was pressed! Using as Clear ALL for now", Toast.LENGTH_SHORT).show();
+		    	events.clear();
+		    	todos.clear();
+		    	todos_visible.clear();
+		    	events_visible.clear();
+		    	e_adapter.notifyDataSetChanged();
+		    	t_adapter.notifyDataSetChanged();
+		    	weight_adjustment();
 		    	return false;
 		    }
 	    	case R.id.tb_sub_ev:
@@ -315,6 +323,7 @@ public class Schedule extends SherlockFragmentActivity {
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
 		sub_layout = (LinearLayout)findViewById(R.id.adjustableLayout);
+		sub_layout_todo = (LinearLayout)findViewById(R.id.adjustableTodo);
 		config_actionbar();
 	}
 	
@@ -496,21 +505,20 @@ public class Schedule extends SherlockFragmentActivity {
 		int SIZE = todos_visible.size();
 		if(SIZE == EMPTY)
 		{
-			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 
+			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 
 				LayoutParams.WRAP_CONTENT, NO_SHOW));
 		}
 		else if (SIZE == DOUBLE || SIZE == SINGLE)
 		{
-			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 
+			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 
 					LayoutParams.WRAP_CONTENT, SMALL_SHOW));
 		}
 		else
 		{
-			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 
+			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 
 					LayoutParams.WRAP_CONTENT, FULL_SHOW));
 		}
 	}
-	
 	
 	@Override
 	protected void onResume()
