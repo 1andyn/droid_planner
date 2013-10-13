@@ -21,6 +21,10 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class Add_Activity  extends SherlockFragmentActivity {
+	
+	final static int TEN_MINUTES = 10;
+	final static int ZERO = 0;
+	
 	private SQL_DataSource datasource;
 	
 	/* Necessary Data for Resources */
@@ -129,12 +133,12 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		int s_hour = start_tp.getCurrentHour();
 		int s_min = start_tp.getCurrentMinute();
-		String start = "" + s_hour + s_min;
+		String start = "" + s_hour + minutes(s_min);
 		time.setStartTime(Integer.parseInt(start));
 		
 		int e_hour = end_tp.getCurrentHour();
 		int e_min = end_tp.getCurrentMinute();
-		String end = "" + e_hour + e_min;
+		String end = "" + e_hour + minutes(e_min);
 		time.setEndTime(Integer.parseInt(end));
 		
 		time.setDay(r_dp.getDayOfMonth());
@@ -149,6 +153,21 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		/* Return to Primary Activity*/
 		finish();
+	}
+	
+	protected String minutes(int min)
+	{
+		String time;
+		if(min < TEN_MINUTES)
+		{
+			time = "" + ZERO + min;
+			return time; 
+		}
+		else
+		{
+			time = "" + min;
+			return time;
+		}
 	}
 	
 	protected String check_toggle()

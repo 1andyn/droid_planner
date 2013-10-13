@@ -197,7 +197,6 @@ public class Schedule extends SherlockFragmentActivity {
 	    	case R.id.tb_sub_ev:
 	    	{
 	    		switch_add_activity();
-	    		//load_from_database();
 	    		return false;
 	    	}
 	    	case R.id.tb_sub_qt:
@@ -446,6 +445,7 @@ public class Schedule extends SherlockFragmentActivity {
 						todos_visible.remove(x);
 					}
 				}
+				datasource.deleteEvent(e);
 								
 				// Update View List
 				t_adapter.notifyDataSetChanged();
@@ -468,12 +468,17 @@ public class Schedule extends SherlockFragmentActivity {
 	{
 		event_creation = new Intent(this, Add_Activity.class);
 		startActivity(event_creation);
-		e_adapter.notifyDataSetChanged();
+		load_from_database();
 	}
 	
 	protected void load_from_database()
 	{
-		events_visible = datasource.getAllEvents();
+		ArrayList<Event> temp = datasource.getAllEvents();
+		events_visible.clear();
+		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
+		{
+			events_visible.add(temp.get(INDEX));
+		}
 		e_adapter.notifyDataSetChanged();
 	}
 	
@@ -511,6 +516,7 @@ public class Schedule extends SherlockFragmentActivity {
 	protected void onResume()
 	{
 		datasource.open();
+		load_from_database();
 		super.onResume();
 	}
 	
