@@ -57,7 +57,6 @@ public class Schedule extends SherlockFragmentActivity {
 	final Context main_context = this;
 
 	/* Data Structures */
-	//protected ArrayList<Event> events;
 	protected ArrayList<Event> events_visible;
 	protected EventListAdapter e_adapter;
 	
@@ -66,7 +65,6 @@ public class Schedule extends SherlockFragmentActivity {
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	protected ListView t_listview; /* Contains list of Views that displays each ToDo */
 	
-	//protected ArrayList<Event> todos;
 	protected ArrayList<Event> todos_visible;
 	protected ToDoListAdapter t_adapter;
 	
@@ -193,16 +191,13 @@ public class Schedule extends SherlockFragmentActivity {
 		    case R.id.tb_date:
 		    {
 		    	Toast.makeText(Schedule.this, "Date was pressed! Using as Clear ALL for now", Toast.LENGTH_SHORT).show();
-		    	todos_visible.clear();
-		    	events_visible.clear();
-		    	e_adapter.notifyDataSetChanged();
-		    	t_adapter.notifyDataSetChanged();
+		    	CLEAR_EVERYTHING();
 		    	return false;
 		    }
 	    	case R.id.tb_sub_ev:
 	    	{
 	    		switch_add_activity();
-	    		load_from_database();
+	    		//load_from_database();
 	    		return false;
 	    	}
 	    	case R.id.tb_sub_qt:
@@ -239,8 +234,11 @@ public class Schedule extends SherlockFragmentActivity {
 		parse_cloud_init();
 		initalizeLayout();
 		
+//		/* SQL Source */
+		datasource = new SQL_DataSource(this);
+		datasource.open();
+		
 		/* Primary List */
-//		events = new ArrayList<Event>();
 		events_visible = new ArrayList<Event>();
 		
 		e_adapter = new EventListAdapter(this, events_visible);
@@ -271,7 +269,6 @@ public class Schedule extends SherlockFragmentActivity {
 		});		
 		
 		/* Secondary List */
-//		todos = new ArrayList<Event>();
 		todos_visible = new ArrayList<Event>();
 
 		t_adapter = new ToDoListAdapter(this, todos_visible);
@@ -301,9 +298,7 @@ public class Schedule extends SherlockFragmentActivity {
             }
 		});	
 		
-		/* SQL Source */
-		datasource = new SQL_DataSource(this);
-		
+		load_from_database();
 	}
 
 	@Override
@@ -321,7 +316,7 @@ public class Schedule extends SherlockFragmentActivity {
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
 		sub_layout = (LinearLayout)findViewById(R.id.adjustableLayout);
 		sub_layout_todo = (LinearLayout)findViewById(R.id.adjustableTodo);
-		load_from_database();
+		//load_from_database();
 		config_actionbar();
 	}
 	
@@ -430,16 +425,6 @@ public class Schedule extends SherlockFragmentActivity {
 				}
 				datasource.deleteEvent(e);
 				
-				
-//				// Remove Event from Primary List
-//				for(int x = 0; x < events.size(); x++)
-//				{
-//					if(events.get(x).equals(e))
-//					{
-//						events.remove(x);
-//					}
-//				}
-				
 				// Update View List
 				e_adapter.notifyDataSetChanged();
 				
@@ -461,16 +446,7 @@ public class Schedule extends SherlockFragmentActivity {
 						todos_visible.remove(x);
 					}
 				}
-				
-//				// Remove Event from Primary List
-//				for(int x = 0; x < todos.size(); x++)
-//				{
-//					if(todos.get(x).equals(e))
-//					{
-//						todos.remove(x);
-//					}
-//				}
-				
+								
 				// Update View List
 				t_adapter.notifyDataSetChanged();
 				
@@ -522,6 +498,15 @@ public class Schedule extends SherlockFragmentActivity {
 		}
 	}
 	
+	protected void CLEAR_EVERYTHING()
+	{
+		datasource.clear_table();
+    	todos_visible.clear();
+    	events_visible.clear();
+    	e_adapter.notifyDataSetChanged();
+    	t_adapter.notifyDataSetChanged();
+	}
+	
 	@Override
 	protected void onResume()
 	{
@@ -529,7 +514,7 @@ public class Schedule extends SherlockFragmentActivity {
 		super.onResume();
 	}
 	
-	@Override
+	@Override	
 	protected void onPause()
 	{
 		datasource.close();

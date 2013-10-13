@@ -110,9 +110,11 @@ public class SQL_DataSource {
 		return newEvent;
 	}
 	
-	public void drop_table()
+	public void clear_table()
 	{
-		database.execSQL("DROP TABLE IF EXISTS " + SQLHelper.TABLE_NAME);
+		database.delete(SQLHelper.TABLE_NAME, null, null);
+		System.out.println("Removed all Table Elements");
 	}
+	
 	
 }
