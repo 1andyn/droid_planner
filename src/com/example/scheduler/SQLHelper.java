@@ -8,7 +8,6 @@ import android.util.Log;
 public class SQLHelper extends SQLiteOpenHelper {
 		
 	///* This is just a Skeleton Class, Needs to be Updated */
-	public static final String COLUMN_USR = "user";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_NAME = "name";
 	public static final String COLUMN_DESC = "desc";
@@ -34,8 +33,8 @@ public class SQLHelper extends SQLiteOpenHelper {
 		      + COLUMN_DAY + " INT NOT NULL, "
 		      + COLUMN_YEAR + " INT NOT NULL, "
 		      + COLUMN_START + " INT NOT NULL, "
-		      + COLUMN_END  + " INT, " 
-		      + COLUMN_COLOR + "TEXT NOT NULL);";
+		      + COLUMN_END + " INT NOT NULL, "
+		      + COLUMN_COLOR + " TEXT NOT NULL );";
 	
 	  public SQLHelper(Context context) {
 		    super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,7 +50,7 @@ public class SQLHelper extends SQLiteOpenHelper {
 	    Log.w(SQLHelper.class.getName(),
 	        "Upgrading database from version " + oldVersion + " to "
 	            + newVersion + ", which will destroy all old data");
-	    db.execSQL("DROP TABLE IF EXISTS " + COLUMN_USR);
+	    db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 	    onCreate(db);
 	  }
 }

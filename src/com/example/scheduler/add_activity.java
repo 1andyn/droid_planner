@@ -57,11 +57,16 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		/* Layout Configuration */
 		name_et = (EditText) findViewById(R.id.et_name);
 		desc_et = (EditText) findViewById(R.id.et_desc);
+		
 		start_tp = (TimePicker) findViewById(R.id.time_start);
+		start_tp.setIs24HourView(false);
 		end_tp = (TimePicker) findViewById(R.id.time_end);
+		end_tp.setIs24HourView(false);
+		
 		r_dp = (DatePicker) findViewById(R.id.date_sel);
 		alarm_tb = (ToggleButton) findViewById(R.id.ce_alarm);
 		creation_b = (Button) findViewById(R.id.ce_create); 
+		
 		
 		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
 		final Calendar c = Calendar.getInstance();
@@ -137,6 +142,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		time.setYr(r_dp.getYear());
 		
 		temp.setAlarm(check_toggle());
+		temp.setDate(time);
 		
 		/* SQL_Database Code */
 		datasource.createEvent(temp);

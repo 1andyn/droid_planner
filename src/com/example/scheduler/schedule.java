@@ -57,7 +57,7 @@ public class Schedule extends SherlockFragmentActivity {
 	final Context main_context = this;
 
 	/* Data Structures */
-	protected ArrayList<Event> events;
+	//protected ArrayList<Event> events;
 	protected ArrayList<Event> events_visible;
 	protected EventListAdapter e_adapter;
 	
@@ -66,7 +66,7 @@ public class Schedule extends SherlockFragmentActivity {
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	protected ListView t_listview; /* Contains list of Views that displays each ToDo */
 	
-	protected ArrayList<Event> todos;
+	//protected ArrayList<Event> todos;
 	protected ArrayList<Event> todos_visible;
 	protected ToDoListAdapter t_adapter;
 	
@@ -171,7 +171,6 @@ public class Schedule extends SherlockFragmentActivity {
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
 			m_Action2 = null;
-			//selected_view.setBackgroundResource(android.R.color.transparent);	
 		}
 		
 	};
@@ -194,23 +193,21 @@ public class Schedule extends SherlockFragmentActivity {
 		    case R.id.tb_date:
 		    {
 		    	Toast.makeText(Schedule.this, "Date was pressed! Using as Clear ALL for now", Toast.LENGTH_SHORT).show();
-		    	events.clear();
-		    	todos.clear();
 		    	todos_visible.clear();
 		    	events_visible.clear();
 		    	e_adapter.notifyDataSetChanged();
 		    	t_adapter.notifyDataSetChanged();
-		    	//weight_adjustment();
 		    	return false;
 		    }
 	    	case R.id.tb_sub_ev:
 	    	{
 	    		switch_add_activity();
+	    		load_from_database();
 	    		return false;
 	    	}
 	    	case R.id.tb_sub_qt:
             	//weight_adjustment();
-	    		add_todo();
+//	    		add_todo();
 	    		return false;
 	    	
 	    	case R.id.tb_sub_td:
@@ -226,7 +223,7 @@ public class Schedule extends SherlockFragmentActivity {
 	    	}
 	    	case R.id.tb_sub_qe:
 	    	{
-	    		add_event();
+//	    		add_event();
 	    		return false;
 	    	}
 		    default:
@@ -243,7 +240,7 @@ public class Schedule extends SherlockFragmentActivity {
 		initalizeLayout();
 		
 		/* Primary List */
-		events = new ArrayList<Event>();
+//		events = new ArrayList<Event>();
 		events_visible = new ArrayList<Event>();
 		
 		e_adapter = new EventListAdapter(this, events_visible);
@@ -274,7 +271,7 @@ public class Schedule extends SherlockFragmentActivity {
 		});		
 		
 		/* Secondary List */
-		todos = new ArrayList<Event>();
+//		todos = new ArrayList<Event>();
 		todos_visible = new ArrayList<Event>();
 
 		t_adapter = new ToDoListAdapter(this, todos_visible);
@@ -324,6 +321,7 @@ public class Schedule extends SherlockFragmentActivity {
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
 		sub_layout = (LinearLayout)findViewById(R.id.adjustableLayout);
 		sub_layout_todo = (LinearLayout)findViewById(R.id.adjustableTodo);
+		load_from_database();
 		config_actionbar();
 	}
 	
@@ -343,77 +341,78 @@ public class Schedule extends SherlockFragmentActivity {
 		*/
 	}
 	
-	/** Debug Code *************************************************************/
 	
-	protected Event debug_fake_event()
-	{
-		Event temp = new Event();
-		temp.setAlarm("N");
-		//temp.setID(events.size());
-		temp.setID(System.currentTimeMillis()/1000);
-		temp.setName("Test Event " + events.size());
-		temp.setDescription(this.getString(R.string.test_desc));
-		temp.setDate(debug_fake_date());
-		return temp;
-	}
-	
-	protected Event debug_fake_todo()
-	{
-		Event temp = new Event();
-		temp.setAlarm("N");
-		//temp.setID(events.size());
-		temp.setID(System.currentTimeMillis()/1000);
-		temp.setName("Test Event " + todos.size());
-		temp.setDescription(this.getString(R.string.test_desc));
-		temp.setDate(debug_fake_tododate());
-		return temp;
-	}
-
-	protected Date debug_fake_date()
-	{
-		Random generator = new Random();
-		int start, end, dm, dd, dy;
-		start = generator.nextInt(2400);
-		end = generator.nextInt(2400);
-		dm = generator.nextInt(11)+1;
-		dd = generator.nextInt(30)+1;
-		dy = generator.nextInt(9999);
-		Date temp = new Date(start, end, dm, dd, dy);
-		return temp;
-	}
-	
-	protected Date debug_fake_tododate()
-	{
-		Random generator = new Random();
-		int start, dm, dd, dy;
-		start = generator.nextInt(2400);
-		dm = generator.nextInt(11)+1;
-		dd = generator.nextInt(30)+1;
-		dy = generator.nextInt(9999);
-		Date temp = new Date(start, NONE, dm, dd, dy);
-		return temp;
-	}
-	/** Debug Code */
-	
-	/** Debug Code */ // Needs to be rewritten for final version
-	protected void add_event()
-	{
-		events.add(debug_fake_event());
-		events_visible.add(debug_fake_event());
-		e_adapter.notifyDataSetChanged();
-		//Toast.makeText(Schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
-	}
-	/** Debug Code */
-	
-	/** Debug Code */ // Needs to be rewritten for final version
-	protected void add_todo()
-	{
-		todos.add(debug_fake_todo());
-		todos_visible.add(debug_fake_todo());
-		t_adapter.notifyDataSetChanged();
-		//Toast.makeText(Schedule.this,"Size of todo Array: " + events.size(), Toast.LENGTH_SHORT).show();
-	}
-	/** Debug Code ****************************************************/
+//	/** Debug Code *************************************************************/
+//	
+//	protected Event debug_fake_event()
+//	{
+//		Event temp = new Event();
+//		temp.setAlarm("N");
+//		//temp.setID(events.size());
+//		temp.setID(System.currentTimeMillis()/1000);
+//		temp.setName("Test Event " + events.size());
+//		temp.setDescription(this.getString(R.string.test_desc));
+//		temp.setDate(debug_fake_date());
+//		return temp;
+//	}
+//	
+//	protected Event debug_fake_todo()
+//	{
+//		Event temp = new Event();
+//		temp.setAlarm("N");
+//		//temp.setID(events.size());
+//		temp.setID(System.currentTimeMillis()/1000);
+//		temp.setName("Test Event " + todos.size());
+//		temp.setDescription(this.getString(R.string.test_desc));
+//		temp.setDate(debug_fake_tododate());
+//		return temp;
+//	}
+//
+//	protected Date debug_fake_date()
+//	{
+//		Random generator = new Random();
+//		int start, end, dm, dd, dy;
+//		start = generator.nextInt(2400);
+//		end = generator.nextInt(2400);
+//		dm = generator.nextInt(11)+1;
+//		dd = generator.nextInt(30)+1;
+//		dy = generator.nextInt(9999);
+//		Date temp = new Date(start, end, dm, dd, dy);
+//		return temp;
+//	}
+//	
+//	protected Date debug_fake_tododate()
+//	{
+//		Random generator = new Random();
+//		int start, dm, dd, dy;
+//		start = generator.nextInt(2400);
+//		dm = generator.nextInt(11)+1;
+//		dd = generator.nextInt(30)+1;
+//		dy = generator.nextInt(9999);
+//		Date temp = new Date(start, NONE, dm, dd, dy);
+//		return temp;
+//	}
+//	/** Debug Code */
+//	
+//	/** Debug Code */ // Needs to be rewritten for final version
+//	protected void add_event()
+//	{
+//		events.add(debug_fake_event());
+//		events_visible.add(debug_fake_event());
+//		e_adapter.notifyDataSetChanged();
+//		//Toast.makeText(Schedule.this,"Size of events Array: " + events.size(), Toast.LENGTH_SHORT).show();
+//	}
+//	/** Debug Code */
+//	
+//	/** Debug Code */ // Needs to be rewritten for final version
+//	protected void add_todo()
+//	{
+//		todos.add(debug_fake_todo());
+//		todos_visible.add(debug_fake_todo());
+//		t_adapter.notifyDataSetChanged();
+//		//Toast.makeText(Schedule.this,"Size of todo Array: " + events.size(), Toast.LENGTH_SHORT).show();
+//	}
+//	/** Debug Code ****************************************************/
 	
 
 	protected void remove_event(Event e)
@@ -429,15 +428,17 @@ public class Schedule extends SherlockFragmentActivity {
 						events_visible.remove(x);
 					}
 				}
+				datasource.deleteEvent(e);
 				
-				// Remove Event from Primary List
-				for(int x = 0; x < events.size(); x++)
-				{
-					if(events.get(x).equals(e))
-					{
-						events.remove(x);
-					}
-				}
+				
+//				// Remove Event from Primary List
+//				for(int x = 0; x < events.size(); x++)
+//				{
+//					if(events.get(x).equals(e))
+//					{
+//						events.remove(x);
+//					}
+//				}
 				
 				// Update View List
 				e_adapter.notifyDataSetChanged();
@@ -461,14 +462,14 @@ public class Schedule extends SherlockFragmentActivity {
 					}
 				}
 				
-				// Remove Event from Primary List
-				for(int x = 0; x < todos.size(); x++)
-				{
-					if(todos.get(x).equals(e))
-					{
-						todos.remove(x);
-					}
-				}
+//				// Remove Event from Primary List
+//				for(int x = 0; x < todos.size(); x++)
+//				{
+//					if(todos.get(x).equals(e))
+//					{
+//						todos.remove(x);
+//					}
+//				}
 				
 				// Update View List
 				t_adapter.notifyDataSetChanged();
@@ -496,7 +497,8 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	protected void load_from_database()
 	{
-		ArrayList<Event> temp = datasource.getAllEvents();
+		events_visible = datasource.getAllEvents();
+		e_adapter.notifyDataSetChanged();
 	}
 	
 	/* Changes Weight of Todo Layout Depending on Size of ArrayList */

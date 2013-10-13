@@ -25,9 +25,9 @@ public class SQL_DataSource {
 	
 	private SQLHelper dbhelper;
 	private SQLiteDatabase database;
-	private String[] allColumns = {SQLHelper.COLUMN_ID, SQLHelper.COLUMN_NAME, SQLHelper.COLUMN_DESC, 
+	private String[] allColumns = { SQLHelper.COLUMN_ID, SQLHelper.COLUMN_NAME, SQLHelper.COLUMN_DESC, 
 			SQLHelper.COLUMN_ALARM, SQLHelper.COLUMN_MONTH, SQLHelper.COLUMN_DAY, SQLHelper.COLUMN_YEAR, 
-			SQLHelper.COLUMN_START,SQLHelper.COLUMN_END, SQLHelper.COLUMN_COLOR};
+			SQLHelper.COLUMN_START, SQLHelper.COLUMN_END, SQLHelper.COLUMN_COLOR };
 	
 	public SQL_DataSource(Context context)
 	{
@@ -110,6 +110,9 @@ public class SQL_DataSource {
 		return newEvent;
 	}
 	
-	
+	public void drop_table()
+	{
+		database.execSQL("DROP TABLE IF EXISTS " + SQLHelper.TABLE_NAME);
+	}
 	
 }
