@@ -395,6 +395,7 @@ public class Schedule extends SherlockFragmentActivity {
 	{
 		ArrayList<Event> temp = datasource.getAllEvents();
 		events_visible.clear();
+		todos_visible.clear();
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
 		{
 			if(temp.get(INDEX).GetStart() == NONE) todos_visible.add(temp.get(INDEX));
