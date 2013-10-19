@@ -45,13 +45,13 @@ public class ToDoView extends LinearLayout{
 		ev_name.setText(event_o.getName());
 		
 		Date temp = event_o.GetDate();
-		int s_temp = temp.getStartTime();
+		int e_temp = temp.getEndTime();
 		
-		hr_str.setText(converted_hr(s_temp));
-		min_str.setText(converted_min(s_temp));
+		hr_str.setText(converted_hr(e_temp));
+		min_str.setText(converted_min(e_temp));
 		
 		/* Set AM/PM Values*/
-		pm_switch(s_temp);
+		pm_switch(e_temp);
 	}
 	
 	public String converted_hr(int input)
