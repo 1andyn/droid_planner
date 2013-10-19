@@ -1139,8 +1139,6 @@ containing a value of this type.
         public static final int tb_date=0x7f04005f;
         public static final int tb_month=0x7f04005e;
         public static final int tb_sub_ev=0x7f040063;
-        public static final int tb_sub_qe=0x7f040065;
-        public static final int tb_sub_qt=0x7f040066;
         public static final int tb_sub_td=0x7f040064;
         public static final int td_alarm=0x7f040058;
         public static final int td_alatv=0x7f040057;

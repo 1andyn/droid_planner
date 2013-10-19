@@ -191,10 +191,6 @@ public class Schedule extends SherlockFragmentActivity {
 	    		switch_add_activity();
 	    		return false;
 	    	}
-	    	case R.id.tb_sub_qt:
-            	//weight_adjustment();
-//	    		add_todo();
-	    		return false;
 	    	
 	    	case R.id.tb_sub_td:
 	    	{
@@ -205,11 +201,6 @@ public class Schedule extends SherlockFragmentActivity {
 	    		*/
             	//weight_adjustment();
 		    	Toast.makeText(Schedule.this, "Create Todo was pressed!", Toast.LENGTH_SHORT).show();
-	    		return false;
-	    	}
-	    	case R.id.tb_sub_qe:
-	    	{
-//	    		add_event();
 	    		return false;
 	    	}
 		    default:

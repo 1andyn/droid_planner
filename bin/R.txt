@@ -468,8 +468,6 @@ int id tb_add 0x7f040060
 int id tb_date 0x7f04005f
 int id tb_month 0x7f04005e
 int id tb_sub_ev 0x7f040063
-int id tb_sub_qe 0x7f040065
-int id tb_sub_qt 0x7f040066
 int id tb_sub_td 0x7f040064
 int id td_alarm 0x7f040058
 int id td_alatv 0x7f040057
