@@ -58,12 +58,12 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	protected void config_resources()
 	{
 		/* Layout Configuration */
-		name_et = (EditText) findViewById(R.id.td_name);
+		name_et = (EditText) findViewById(R.id.et_tdname);
 		
 		end_tp = (TimePicker) findViewById(R.id.td_end);
 		end_tp.setIs24HourView(false);
 		
-		r_dp = (DatePicker) findViewById(R.id.td_doe);
+		r_dp = (DatePicker) findViewById(R.id.date_td);
 		alarm_tb = (ToggleButton) findViewById(R.id.td_alarm);
 		creation_b = (Button) findViewById(R.id.td_create); 
 		
