@@ -125,7 +125,6 @@ public class Add_Activity  extends SherlockFragmentActivity {
 
 	protected void add_event()
 	{
-		/* Actually we might not even need to Create an Event since the Data is stored directly into SQLDB*/
 		Event temp = new Event();
 		Date time = new Date();
 		temp.setName(name_et.getText().toString());

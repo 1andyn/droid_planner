@@ -121,14 +121,12 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 
 	protected void add_event()
 	{
-		/* Actually we might not even need to Create an Event since the Data is stored directly into SQLDB*/
 		Event temp = new Event();
 		Date time = new Date();
 		temp.setName(name_et.getText().toString());
 		temp.setDescription(null);
 		
 		time.setStartTime(NONE);
-		
 		int e_hour = end_tp.getCurrentHour();
 		int e_min = end_tp.getCurrentMinute();
 		String end = "" + e_hour + minutes(e_min);
