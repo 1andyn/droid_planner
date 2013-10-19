@@ -1265,6 +1265,7 @@ containing a value of this type.
         public static final int td_time=0x7f090028;
         public static final int test_desc=0x7f090015;
         public static final int title_activity_add_activity=0x7f090018;
+        public static final int title_activity_month_activity=0x7f09002c;
         public static final int title_activity_todo_activity=0x7f09002b;
     }
     public static final class style {

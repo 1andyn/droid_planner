@@ -42,6 +42,7 @@ public class Schedule extends SherlockFragmentActivity {
     /* ENUMERATION FOR TD/EVENT */
     final static int EVENT_CASE = 0;
     final static int TODO_CASE = 1;
+    final static int MONTH_CASE = 2;
     
     /* TODO SIZE CASES */
     final static int EMPTY = 0;
@@ -75,7 +76,7 @@ public class Schedule extends SherlockFragmentActivity {
 	/* Intents for separate Activities*/
 	protected Intent event_INTENT;
 	protected Intent todo_INTENT;
-	protected Intent calendar_INTENT;
+	protected Intent month_INTENT;
 	
 	/* Data for Storing Selected Date */ 
 	protected Cal_Date selected_CD;
@@ -184,7 +185,7 @@ public class Schedule extends SherlockFragmentActivity {
 
 		    case R.id.tb_month:
 		    {
-		    	Toast.makeText(Schedule.this, "Month was pressed!", Toast.LENGTH_SHORT).show();
+		    	switch_activity(MONTH_CASE);
 		    	return false;
 
 		    }
@@ -218,9 +219,11 @@ public class Schedule extends SherlockFragmentActivity {
 		parse_cloud_init();
 		initalizeLayout();
 		
-//		/* SQL Source */
+		/* SQL Source */
 		datasource = new SQL_DataSource(this);
 		datasource.open();
+		
+		selected_CD = new Cal_Date();
 		
 		/* Primary List */
 		events_visible = new ArrayList<Event>();
@@ -392,6 +395,12 @@ public class Schedule extends SherlockFragmentActivity {
 				load_from_database();
 				break;
 			}
+			case MONTH_CASE:
+			{
+				month_INTENT = new Intent(this, Month_Activity.class);
+				startActivity(month_INTENT);
+				break;
+			}
 		}
 	}
 	
@@ -453,5 +462,11 @@ public class Schedule extends SherlockFragmentActivity {
 		datasource.close();
 		super.onPause();
 	}
+	
+	private void initialize_day()
+	{
+		Mod_Calendar temp = new Mod_Calendar();
+	}
+	
 	
 }

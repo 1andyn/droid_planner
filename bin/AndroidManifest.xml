@@ -36,6 +36,10 @@
             android:name="com.example.scheduler.TD_Add_Activity"
             android:label="@string/title_activity_todo_activity">
         </activity>
+        <activity
+            android:name="com.example.scheduler.Month_Activity"
+            android:label="@string/title_activity_month_activity">
+        </activity>
     </application>
 
 </manifest>

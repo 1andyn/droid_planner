@@ -12,13 +12,13 @@ public class Mod_Calendar extends GregorianCalendar {
 	{
 		GregorianCalendar c = new GregorianCalendar(y, m, d);
 		switch(c.get(c.DAY_OF_WEEK)){
-			case 1:	return "Sunday";
-			case 2: return "Monday";
-			case 3: return "Tuesday";
-			case 4: return "Wednesday";
-			case 5: return "Thursday";
-			case 6: return "Friday";
-			case 7: return "Sunday";
+			case 1:	return "SUN";
+			case 2: return "MON";
+			case 3: return "TUES";
+			case 4: return "WED";
+			case 5: return "THR";
+			case 6: return "FRI";
+			case 7: return "SAT";
 			default:return E1;
 		}
 	}
@@ -27,20 +27,20 @@ public class Mod_Calendar extends GregorianCalendar {
 	public String get_mon(int m)
 	{
 		switch(m){
-		case 1:	return "January";
-		case 2: return "February";
-		case 3: return "March";
-		case 4: return "April";
-		case 5: return "May";
-		case 6: return "June";
-		case 7: return "July";
-		case 8: return "August";
-		case 9: return "September";
-		case 10: return "October";
-		case 11: return "Novemeber";
-		case 12: return "December";
+		case 0:	return "JANUARY";
+		case 1: return "FEBRUARY";
+		case 2: return "MARCH";
+		case 3: return "APRIL";
+		case 4: return "MAY";
+		case 5: return "JUNE";
+		case 6: return "JULY";
+		case 7: return "AUGUST";
+		case 8: return "SEPTEMBER";
+		case 9: return "OCTOBER";
+		case 10: return "NOVEMBER";
+		case 11: return "DECEMBER";
 		default:return E2;
-	}
+		}
 	}
 	
 }
