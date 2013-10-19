@@ -73,8 +73,12 @@ public class Schedule extends SherlockFragmentActivity {
 	protected Event empty_event = new Event(); // Empty event for null purposes
 	
 	/* Intents for separate Activities*/
-	protected Intent event_creation;
-	protected Intent todo_creation;
+	protected Intent event_INTENT;
+	protected Intent todo_INTENT;
+	protected Intent calendar_INTENT;
+	
+	/* Data for Storing Selected Date */ 
+	protected Cal_Date selected_CD;
 	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
@@ -376,15 +380,15 @@ public class Schedule extends SherlockFragmentActivity {
 		{
 			case EVENT_CASE:
 			{
-				event_creation = new Intent(this, Add_Activity.class);
-				startActivity(event_creation);
+				event_INTENT = new Intent(this, Add_Activity.class);
+				startActivity(event_INTENT);
 				load_from_database();
 				break;
 			}
 			case TODO_CASE:
 			{
-				todo_creation = new Intent(this, TD_Add_Activity.class);
-				startActivity(todo_creation);
+				todo_INTENT = new Intent(this, TD_Add_Activity.class);
+				startActivity(todo_INTENT);
 				load_from_database();
 				break;
 			}
