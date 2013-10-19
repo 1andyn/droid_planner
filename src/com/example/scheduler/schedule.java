@@ -39,6 +39,10 @@ public class Schedule extends SherlockFragmentActivity {
     final static float SMALL_SHOW = .3f;
     final static float FULL_SHOW = .4f;
     
+    /* ENUMERATION FOR TD/EVENT */
+    final static int EVENT_CASE = 0;
+    final static int TODO_CASE = 1;
+    
     /* TODO SIZE CASES */
     final static int EMPTY = 0;
     final static int SINGLE = 1;
@@ -188,19 +192,13 @@ public class Schedule extends SherlockFragmentActivity {
 		    }
 	    	case R.id.tb_sub_ev:
 	    	{
-	    		switch_add_activity();
+	    		switch_activity(EVENT_CASE);
 	    		return false;
 	    	}
 	    	
 	    	case R.id.tb_sub_td:
 	    	{
-	    		/*
-	    		todo_creation = new Intent(this, TD_Add_Activity.class);
-	    		startActivity(todo_creation);
-	    		t_adapter.notifyDataSetChanged();
-	    		*/
-            	//weight_adjustment();
-		    	Toast.makeText(Schedule.this, "Create Todo was pressed!", Toast.LENGTH_SHORT).show();
+	    		switch_activity(TODO_CASE);
 	    		return false;
 	    	}
 		    default:
@@ -372,11 +370,25 @@ public class Schedule extends SherlockFragmentActivity {
 		//testObject.saveInBackground();
 	}
 	
-	protected void switch_add_activity()
+	protected void switch_activity(int USR_CASE)
 	{
-		event_creation = new Intent(this, Add_Activity.class);
-		startActivity(event_creation);
-		load_from_database();
+		switch(USR_CASE)
+		{
+			case EVENT_CASE:
+			{
+				event_creation = new Intent(this, Add_Activity.class);
+				startActivity(event_creation);
+				load_from_database();
+				break;
+			}
+			case TODO_CASE:
+			{
+				todo_creation = new Intent(this, TD_Add_Activity.class);
+				startActivity(todo_creation);
+				load_from_database();
+				break;
+			}
+		}
 	}
 	
 	protected void load_from_database()
@@ -385,9 +397,11 @@ public class Schedule extends SherlockFragmentActivity {
 		events_visible.clear();
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
 		{
-			events_visible.add(temp.get(INDEX));
+			if(temp.get(INDEX).GetStart() == NONE) todos_visible.add(temp.get(INDEX));
+			else events_visible.add(temp.get(INDEX));
 		}
 		e_adapter.notifyDataSetChanged();
+		t_adapter.notifyDataSetChanged();
 	}
 	
 	/* Changes Weight of Todo Layout Depending on Size of ArrayList */
