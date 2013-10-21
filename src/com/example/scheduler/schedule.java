@@ -81,6 +81,8 @@ public class Schedule extends SherlockFragmentActivity {
 	/* Data for Storing Selected Date */ 
 	protected Cal_Date selected_CD;
 	
+	private Menu topbar_MENU;
+	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
 	protected com.actionbarsherlock.view.ActionMode m_Action; 
@@ -223,7 +225,9 @@ public class Schedule extends SherlockFragmentActivity {
 		datasource = new SQL_DataSource(this);
 		datasource.open();
 		
+		/* Initialize Selected Date to Today */
 		selected_CD = new Cal_Date();
+		init_SelectedCD();
 		
 		/* Primary List */
 		events_visible = new ArrayList<Event>();
@@ -292,6 +296,7 @@ public class Schedule extends SherlockFragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.topbar, menu);
+		topbar_MENU = menu;
 		return true;
 	}
 	
@@ -463,9 +468,19 @@ public class Schedule extends SherlockFragmentActivity {
 		super.onPause();
 	}
 	
-	private void initialize_day()
+	private void init_SelectedCD()
 	{
-		Mod_Calendar temp = new Mod_Calendar();
+		Cal_Module temp = new Cal_Module();
+		selected_CD.set_day(temp.getCurrentDate().get_day());
+		selected_CD.set_month(temp.getCurrentDate().get_month());
+		selected_CD.set_year(temp.getCurrentDate().get_year());
+		update_Disp_Date();
+	}
+	
+	/* Refresh Displayed Date on Top Bar */
+	private void update_Disp_Date()
+	{
+		
 	}
 	
 	

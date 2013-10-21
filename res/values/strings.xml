@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">scheduler</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_remove">Remove</string>
     <string name="action_edit">Edit Event</string>
     <string name="tb_add">+ Event</string>
