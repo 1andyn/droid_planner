@@ -431,7 +431,6 @@ public class Schedule extends SherlockFragmentActivity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		Toast.makeText(Schedule.this, "ResultCode = " + Integer.toString(resultCode), Toast.LENGTH_SHORT).show();
 		if(resultCode != REQUEST_CANCELLED && resultCode == RESULT_OK)
 		{
 			if(requestCode == month_REQUESTCODE)
