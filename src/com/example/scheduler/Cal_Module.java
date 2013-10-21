@@ -27,13 +27,13 @@ public class Cal_Module{
 	{
 		G_Calendar = new GregorianCalendar(d.get_year(), d.get_month(), d.get_day());
 		switch(G_Calendar.get(G_Calendar.DAY_OF_WEEK)){
-			case 1:	return "SUN";
-			case 2: return "MON";
-			case 3: return "TUES";
-			case 4: return "WED";
-			case 5: return "THR";
-			case 6: return "FRI";
-			case 7: return "SAT";
+			case 1:	return "SUNDAY";
+			case 2: return "MONDAY";
+			case 3: return "TUESDAY";
+			case 4: return "WEDNESDAY";
+			case 5: return "THURSDAY";
+			case 6: return "FRIDAY";
+			case 7: return "SATURDAY";
 			default:return E1;
 		}
 	}
@@ -56,6 +56,13 @@ public class Cal_Module{
 		case 11: return "DECEMBER";
 		default:return E2;
 		}
+	}
+	
+	public String DateString(Cal_Date d)
+	{
+		String date = dayToString(d) + " - " + monthToString(d) + " " +
+				d.dateToString(); 
+		return date;
 	}
 	
 }

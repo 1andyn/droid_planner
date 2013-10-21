@@ -59,7 +59,7 @@ public class Cal_Date {
 	
 	public String dateToString()
 	{
-		String dateString = " " + cal_array[DATE_INDEX] + " " + cal_array[YEAR_INDEX];
+		String dateString = " " + cal_array[DATE_INDEX] + ", " + cal_array[YEAR_INDEX];
 		return dateString;
 	}
 	

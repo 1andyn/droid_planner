@@ -80,8 +80,7 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	/* Data for Storing Selected Date */ 
 	protected Cal_Date selected_CD;
-	
-	private Menu topbar_MENU;
+	protected Cal_Module selected_CM;
 	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
@@ -178,6 +177,17 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	
 	@Override
+	public boolean onPrepareOptionsMenu (Menu menu)
+	{
+		MenuItem date_text = menu.findItem(R.id.tb_date);
+		date_text.setTitle(selected_CM.DateString(selected_CD));
+		return true;
+	}
+	
+	
+	
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
 	    int id = item.getItemId();
@@ -227,6 +237,7 @@ public class Schedule extends SherlockFragmentActivity {
 		
 		/* Initialize Selected Date to Today */
 		selected_CD = new Cal_Date();
+		selected_CM = new Cal_Module();
 		init_SelectedCD();
 		
 		/* Primary List */
@@ -296,10 +307,8 @@ public class Schedule extends SherlockFragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.topbar, menu);
-		topbar_MENU = menu;
 		return true;
 	}
-	
 	/* Configures everything Visual*/
 	protected void initalizeLayout()
 	{
@@ -470,18 +479,11 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	private void init_SelectedCD()
 	{
-		Cal_Module temp = new Cal_Module();
-		selected_CD.set_day(temp.getCurrentDate().get_day());
-		selected_CD.set_month(temp.getCurrentDate().get_month());
-		selected_CD.set_year(temp.getCurrentDate().get_year());
-		update_Disp_Date();
+		Cal_Date temp_cd = selected_CM.getCurrentDate();
+		selected_CD.set_day(temp_cd.get_day());
+		selected_CD.set_month(temp_cd.get_month());
+		selected_CD.set_year(temp_cd.get_year());
 	}
-	
-	/* Refresh Displayed Date on Top Bar */
-	private void update_Disp_Date()
-	{
-		
-	}
-	
+
 	
 }
