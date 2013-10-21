@@ -1,6 +1,8 @@
 package com.example.scheduler;
 
 import java.util.Calendar;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.CalendarView;
@@ -12,14 +14,23 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 public class Month_Activity extends SherlockFragmentActivity {
 	
 	private CalendarView cv;
+	
+	private Intent return_INTENT;
+	
 	private int mYear;
 	private int mMonth;
 	private int mDay;
 
+	private final static String SCHEDULE_DAY = "S_DAY";
+	private final static String SCHEDULE_MONTH = "S_MON";
+	private final static String SCHEDULE_YEAR = "S_YR";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		return_INTENT = new Intent();
+		
 		initalizeLayout();
 		setCalendarView();
 	}
@@ -46,26 +57,34 @@ public class Month_Activity extends SherlockFragmentActivity {
 			@Override
 			public void onSelectedDayChange(CalendarView view, int year, int month,
 					int dayOfMonth) {
-				mYear = year;
-				mMonth = month;
-				mDay = dayOfMonth;
 				
+//				mYear = year;
+//				mMonth = month;
+//				mDay = dayOfMonth;
+				
+				/* 
 				String debug_text = "Date: " + Integer.toString(mMonth) + " " + Integer.toString(mDay) + ", " + Integer.toString(mYear);
 				Toast.makeText(Month_Activity.this, debug_text, Toast.LENGTH_SHORT).show();
-				// launch activity of given date
+				*/
+				
+				return_INTENT.putExtra(SCHEDULE_DAY, dayOfMonth);
+				return_INTENT.putExtra(SCHEDULE_MONTH, month);
+				return_INTENT.putExtra(SCHEDULE_YEAR, year);
+				setResult(RESULT_OK, return_INTENT);
+				finish();
 			}
 			
 		});
 	}
 	
-	public void setMinAndMaxDate(int year, int month, int day) {
-		// set lowest date for CalendarView
-		long minDate = year * 100000 + (month - 2) * 100 + day;
-		cv.setMinDate(minDate);
-		
-		// set furthest date for CalendarView
-		long maxDate = (year + 2) * 100000 + month * 100 + day;
-		cv.setMaxDate(maxDate);
-		
-	}
+//	public void setMinAndMaxDate(int year, int month, int day) {
+//		// set lowest date for CalendarView
+//		long minDate = year * 100000 + (month - 2) * 100 + day;
+//		cv.setMinDate(minDate);
+//		
+//		// set furthest date for CalendarView
+//		long maxDate = (year + 2) * 100000 + month * 100 + day;
+//		cv.setMaxDate(maxDate);
+//		
+//	}
 }

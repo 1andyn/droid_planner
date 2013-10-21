@@ -82,6 +82,10 @@ public class Schedule extends SherlockFragmentActivity {
 	protected Cal_Date selected_CD;
 	protected Cal_Module selected_CM;
 	
+	final static int month_REQUESTCODE = 1;
+	final static int REQUEST_CANCELLED = -1;
+	final static int RESULT_OK = 1;
+	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
 	protected com.actionbarsherlock.view.ActionMode m_Action; 
@@ -412,8 +416,21 @@ public class Schedule extends SherlockFragmentActivity {
 			case MONTH_CASE:
 			{
 				month_INTENT = new Intent(this, Month_Activity.class);
-				startActivity(month_INTENT);
+				startActivityForResult(month_INTENT, month_REQUESTCODE);
 				break;
+			}
+		}
+	}
+	
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(resultCode != REQUEST_CANCELLED)
+		{
+			if(requestCode == month_REQUESTCODE)
+			{
+				
 			}
 		}
 	}
