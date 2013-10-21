@@ -12,6 +12,7 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
 /* Basic Android Imports*/
 import android.os.Bundle;
 import android.content.Context;
@@ -82,9 +83,13 @@ public class Schedule extends SherlockFragmentActivity {
 	protected Cal_Date selected_CD;
 	protected Cal_Module selected_CM;
 	
+	/* Intent Codes */
 	final static int month_REQUESTCODE = 1;
 	final static int REQUEST_CANCELLED = -1;
 	final static int RESULT_OK = 1;
+	final static String SCHEDULE_DAY = "S_DAY";
+	final static String SCHEDULE_MONTH = "S_MON";
+	final static String SCHEDULE_YEAR = "S_YR";
 	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
@@ -426,11 +431,15 @@ public class Schedule extends SherlockFragmentActivity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if(resultCode != REQUEST_CANCELLED)
+		Toast.makeText(Schedule.this, "ResultCode = " + Integer.toString(resultCode), Toast.LENGTH_SHORT).show();
+		if(resultCode != REQUEST_CANCELLED && resultCode == RESULT_OK)
 		{
 			if(requestCode == month_REQUESTCODE)
 			{
-				
+				selected_CD.set_day(data.getIntExtra(SCHEDULE_DAY, EMPTY));
+				selected_CD.set_month(data.getIntExtra(SCHEDULE_MONTH, EMPTY));
+				selected_CD.set_year(data.getIntExtra(SCHEDULE_YEAR, EMPTY));
+				invalidateOptionsMenu();
 			}
 		}
 	}

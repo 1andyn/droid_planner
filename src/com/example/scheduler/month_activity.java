@@ -20,11 +20,7 @@ public class Month_Activity extends SherlockFragmentActivity {
 	private int mYear;
 	private int mMonth;
 	private int mDay;
-
-	private final static String SCHEDULE_DAY = "S_DAY";
-	private final static String SCHEDULE_MONTH = "S_MON";
-	private final static String SCHEDULE_YEAR = "S_YR";
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,7 +46,6 @@ public class Month_Activity extends SherlockFragmentActivity {
 		cv = (CalendarView) findViewById(R.id.calendarview);
 		cv.setSelectedWeekBackgroundColor(Color.LTGRAY);
 		cv.setWeekSeparatorLineColor(Color.BLACK);
-//		setMinAndMaxDate(mYear, mMonth, mDay);			// broken	
 	
 		cv.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
 
@@ -58,33 +53,13 @@ public class Month_Activity extends SherlockFragmentActivity {
 			public void onSelectedDayChange(CalendarView view, int year, int month,
 					int dayOfMonth) {
 				
-//				mYear = year;
-//				mMonth = month;
-//				mDay = dayOfMonth;
-				
-				/* 
-				String debug_text = "Date: " + Integer.toString(mMonth) + " " + Integer.toString(mDay) + ", " + Integer.toString(mYear);
-				Toast.makeText(Month_Activity.this, debug_text, Toast.LENGTH_SHORT).show();
-				*/
-				
-				return_INTENT.putExtra(SCHEDULE_DAY, dayOfMonth);
-				return_INTENT.putExtra(SCHEDULE_MONTH, month);
-				return_INTENT.putExtra(SCHEDULE_YEAR, year);
-				setResult(RESULT_OK, return_INTENT);
+				return_INTENT.putExtra(Schedule.SCHEDULE_DAY, dayOfMonth);
+				return_INTENT.putExtra(Schedule.SCHEDULE_MONTH, month);
+				return_INTENT.putExtra(Schedule.SCHEDULE_YEAR, year);
+				setResult(Schedule.RESULT_OK, return_INTENT);
 				finish();
 			}
 			
 		});
 	}
-	
-//	public void setMinAndMaxDate(int year, int month, int day) {
-//		// set lowest date for CalendarView
-//		long minDate = year * 100000 + (month - 2) * 100 + day;
-//		cv.setMinDate(minDate);
-//		
-//		// set furthest date for CalendarView
-//		long maxDate = (year + 2) * 100000 + month * 100 + day;
-//		cv.setMaxDate(maxDate);
-//		
-//	}
 }
