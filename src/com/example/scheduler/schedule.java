@@ -480,11 +480,16 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	protected void CLEAR_EVERYTHING()
 	{
+		/* Clears ALL Containers, ALL of the DB Table*/
 		datasource.clear_table();
     	todos_visible.clear();
     	events_visible.clear();
     	e_adapter.notifyDataSetChanged();
     	t_adapter.notifyDataSetChanged();
+    	
+    	/* Resets Selected Day */
+    	init_SelectedCD();
+		invalidateOptionsMenu();
 	}
 	
 	@Override
