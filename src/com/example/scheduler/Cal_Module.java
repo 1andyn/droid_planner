@@ -9,11 +9,12 @@ public class Cal_Module{
 	private final String E2 = "Error C2";
 	
 	GregorianCalendar G_Calendar;
-	Calendar C_Calendar = Calendar.getInstance();
+	Calendar C_Calendar;
 	Cal_Date currentDate;
 	
 	public Cal_Date getCurrentDate()
 	{
+		C_Calendar = Calendar.getInstance();
 		Cal_Date temp = new Cal_Date();
 		temp.set_day(C_Calendar.get(Calendar.DAY_OF_MONTH));
 		temp.set_month(C_Calendar.get(Calendar.MONTH));
@@ -65,4 +66,10 @@ public class Cal_Module{
 		return date;
 	}
 	
+	public Long dateToLong(Cal_Date d)
+	{
+		C_Calendar = Calendar.getInstance();
+		C_Calendar.set(d.get_year(), d.get_month(), d.get_day());
+		return C_Calendar.getTimeInMillis();
+	}
 }

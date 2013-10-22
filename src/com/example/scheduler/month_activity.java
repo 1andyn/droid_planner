@@ -13,19 +13,20 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class Month_Activity extends SherlockFragmentActivity {
 	
-	private CalendarView cv;
-	
+	private CalendarView cal_VIEW;
+	private Cal_Module selected_CM;
+	private Cal_Date selected_CD;
 	private Intent return_INTENT;
-	
-	private int mYear;
-	private int mMonth;
-	private int mDay;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		selected_CM = new Cal_Module();
 		return_INTENT = new Intent();
+		
+		Bundle Schedule_Date = getIntent().getExtras();
+		//selected_CD = Schedule_Date.getParcelable(Schedule.SELECT_KEY);
 		
 		initalizeLayout();
 		setCalendarView();
@@ -34,20 +35,15 @@ public class Month_Activity extends SherlockFragmentActivity {
 	protected void initalizeLayout()
 	{
 		setContentView(R.layout.calendar_view);
+		cal_VIEW = (CalendarView) findViewById(R.id.calendarview);
+		cal_VIEW.setSelectedWeekBackgroundColor(Color.LTGRAY);
+		cal_VIEW.setWeekSeparatorLineColor(Color.BLACK);
 	}
 	
 	protected void setCalendarView() {
-		// get current date
-		Calendar c = Calendar.getInstance();
-		mYear = c.get(Calendar.YEAR);
-		mMonth = c.get(Calendar.MONTH);
-		mDay = c.get(Calendar.DAY_OF_MONTH);
-				
-		cv = (CalendarView) findViewById(R.id.calendarview);
-		cv.setSelectedWeekBackgroundColor(Color.LTGRAY);
-		cv.setWeekSeparatorLineColor(Color.BLACK);
-	
-		cv.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
+		//cal_VIEW.setDate(selected_CM.dateToLong(selected_CD));
+		
+		cal_VIEW.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
 
 			@Override
 			public void onSelectedDayChange(CalendarView view, int year, int month,

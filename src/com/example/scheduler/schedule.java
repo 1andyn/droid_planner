@@ -90,6 +90,7 @@ public class Schedule extends SherlockFragmentActivity {
 	final static String SCHEDULE_DAY = "S_DAY";
 	final static String SCHEDULE_MONTH = "S_MON";
 	final static String SCHEDULE_YEAR = "S_YR";
+	final static String SELECT_KEY = "com.package.Cal_Date";
 	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
@@ -421,6 +422,7 @@ public class Schedule extends SherlockFragmentActivity {
 			case MONTH_CASE:
 			{
 				month_INTENT = new Intent(this, Month_Activity.class);
+				month_INTENT.putExtra(SELECT_KEY, selected_CD);
 				startActivityForResult(month_INTENT, month_REQUESTCODE);
 				break;
 			}
