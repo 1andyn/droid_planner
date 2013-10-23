@@ -12,6 +12,7 @@ public class Month_Activity extends SherlockFragmentActivity {
 	private CalendarView cal_VIEW;
 	private Cal_Module selected_CM;
 	private Cal_Date selected_CD;
+	private Cal_Date trigger_CD;
 	private Intent return_INTENT;
 	
 	@Override
@@ -34,22 +35,37 @@ public class Month_Activity extends SherlockFragmentActivity {
 		cal_VIEW = (CalendarView) findViewById(R.id.calendarview);
 		cal_VIEW.setSelectedWeekBackgroundColor(Color.LTGRAY);
 		cal_VIEW.setWeekSeparatorLineColor(Color.BLACK);
+		cal_VIEW.setDate(selected_CM.dateToLong(selected_CD));
 	}
 	
 	protected void setCalendarView() {
-		cal_VIEW.setDate(selected_CM.dateToLong(selected_CD));
 		cal_VIEW.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
 			@Override
 			public void onSelectedDayChange(CalendarView view, int year, int month,
-					int dayOfMonth) {
+					int day) {
 				
-				return_INTENT.putExtra(Schedule.SCHEDULE_DAY, dayOfMonth);
-				return_INTENT.putExtra(Schedule.SCHEDULE_MONTH, month);
-				return_INTENT.putExtra(Schedule.SCHEDULE_YEAR, year);
-				setResult(Schedule.RESULT_OK, return_INTENT);
-				finish();
+				if(compareTrigger(month, day, year))
+				{
+					return_INTENT.putExtra(Schedule.SCHEDULE_DAY, day);
+					return_INTENT.putExtra(Schedule.SCHEDULE_MONTH, month);
+					return_INTENT.putExtra(Schedule.SCHEDULE_YEAR, year);
+					setResult(Schedule.RESULT_OK, return_INTENT);
+					finish();
+				}
 			}
 			
 		});
 	}
+	
+	private boolean compareTrigger(int month, int day, int year)
+	{
+		trigger_CD = new Cal_Date(month ,day ,year);
+		
+		if(selected_CD.isEqual(trigger_CD))
+		{
+			return false;
+		}
+		return true;
+	}
+	
 }

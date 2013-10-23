@@ -110,4 +110,15 @@ public class Cal_Date implements Parcelable{
         }
     };
 	
+    public boolean isEqual(Cal_Date d)
+    {
+    	if(d.get_year() == this.get_year() 
+    		&& d.get_month() == this.get_month() 
+    		&& d.get_day() == this.get_day())
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    
 }
