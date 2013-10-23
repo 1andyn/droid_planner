@@ -88,24 +88,22 @@ public class Cal_Date implements Parcelable{
 	}
 
 
-    public void readFromParcel(Parcel in)
+    void readFromParcel(Parcel in)
     {
         this.cal_ARRAY[MONTH_INDEX] = in.readInt();
         this.cal_ARRAY[DATE_INDEX] = in.readInt();
         this.cal_ARRAY[YEAR_INDEX] = in.readInt();
     }
 
-    @SuppressWarnings("unchecked")
-    public static final Parcelable.Creator<Cal_Date> CREATOR = new Parcelable.Creator<Cal_Date>()
+   static final Parcelable.Creator<Cal_Date> CREATOR = new Parcelable.Creator<Cal_Date>()
     {
-        @Override
         public Cal_Date createFromParcel(Parcel in)
         {
             return new Cal_Date(in);
         }
 
         @Override
-        public Object[] newArray(int size)
+        public Cal_Date[] newArray(int size)
         {
             return new Cal_Date[size];
         }
