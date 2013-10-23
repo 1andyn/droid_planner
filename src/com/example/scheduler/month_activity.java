@@ -1,13 +1,9 @@
 package com.example.scheduler;
 
-import java.util.Calendar;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.CalendarView;
-import android.widget.Toast;
-
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 
@@ -26,7 +22,7 @@ public class Month_Activity extends SherlockFragmentActivity {
 		return_INTENT = new Intent();
 		
 		Bundle Schedule_Date = getIntent().getExtras();
-		//selected_CD = Schedule_Date.getParcelable(Schedule.SELECT_KEY);
+		selected_CD = Schedule_Date.getParcelable(Schedule.SELECT_KEY);
 		
 		initalizeLayout();
 		setCalendarView();

@@ -90,7 +90,7 @@ public class Schedule extends SherlockFragmentActivity {
 	final static String SCHEDULE_DAY = "S_DAY";
 	final static String SCHEDULE_MONTH = "S_MON";
 	final static String SCHEDULE_YEAR = "S_YR";
-	final static String SELECT_KEY = "com.package.Cal_Date";
+	final static String SELECT_KEY = "com.example.Cal_Date";
 	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */

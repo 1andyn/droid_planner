@@ -32,7 +32,9 @@ public class Cal_Date implements Parcelable{
 	
 	public Cal_Date(Parcel in)
 	{
-	     readFromParcel(in);
+	     this.cal_ARRAY[MONTH_INDEX] = in.readInt();
+	     this.cal_ARRAY[DATE_INDEX] = in.readInt();
+	     this.cal_ARRAY[YEAR_INDEX] = in.readInt();
 	}
 	
 	/* Accessors */ 
@@ -73,7 +75,6 @@ public class Cal_Date implements Parcelable{
 
 	@Override
 	public int describeContents() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -95,7 +96,7 @@ public class Cal_Date implements Parcelable{
     }
 
     @SuppressWarnings("unchecked")
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator()
+    public static final Parcelable.Creator<Cal_Date> CREATOR = new Parcelable.Creator<Cal_Date>()
     {
         @Override
         public Cal_Date createFromParcel(Parcel in)
