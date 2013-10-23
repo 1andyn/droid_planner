@@ -37,7 +37,7 @@ public class Month_Activity extends SherlockFragmentActivity {
 	}
 	
 	protected void setCalendarView() {
-		//cal_VIEW.setDate(selected_CM.dateToLong(selected_CD));
+		cal_VIEW.setDate(selected_CM.dateToLong(selected_CD));
 		
 		cal_VIEW.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
 
