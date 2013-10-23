@@ -3,7 +3,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 
-public class Email_Fetcher {
+public class Email_Module {
 
   static String getEmail(Context context) {
     AccountManager accountManager = AccountManager.get(context); 
