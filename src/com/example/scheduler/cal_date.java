@@ -32,9 +32,10 @@ public class Cal_Date implements Parcelable{
 	
 	public Cal_Date(Parcel in)
 	{
-	     this.cal_ARRAY[MONTH_INDEX] = in.readInt();
-	     this.cal_ARRAY[DATE_INDEX] = in.readInt();
-	     this.cal_ARRAY[YEAR_INDEX] = in.readInt();
+		cal_ARRAY = new int[SIZE_OF_ARRAY];
+	    this.cal_ARRAY[MONTH_INDEX] = in.readInt();
+	    this.cal_ARRAY[DATE_INDEX] = in.readInt();
+	    this.cal_ARRAY[YEAR_INDEX] = in.readInt();
 	}
 	
 	/* Accessors */ 
@@ -82,9 +83,9 @@ public class Cal_Date implements Parcelable{
 	@Override
 	public void writeToParcel(Parcel dest, int flag) 
 	{
-		dest.writeInt(cal_ARRAY[MONTH_INDEX]);
-		dest.writeInt(cal_ARRAY[DATE_INDEX]);
-		dest.writeInt(cal_ARRAY[YEAR_INDEX]);
+		dest.writeInt(this.cal_ARRAY[MONTH_INDEX]);
+		dest.writeInt(this.cal_ARRAY[DATE_INDEX]);
+		dest.writeInt(this.cal_ARRAY[YEAR_INDEX]);
 	}
 
 
@@ -95,7 +96,7 @@ public class Cal_Date implements Parcelable{
         this.cal_ARRAY[YEAR_INDEX] = in.readInt();
     }
 
-   static final Parcelable.Creator<Cal_Date> CREATOR = new Parcelable.Creator<Cal_Date>()
+   public static final Parcelable.Creator<Cal_Date> CREATOR = new Parcelable.Creator<Cal_Date>()
     {
         public Cal_Date createFromParcel(Parcel in)
         {
