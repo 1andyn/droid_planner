@@ -4,9 +4,12 @@ package com.example.scheduler;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 
+/* Color Selector Imports */
+import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.OpacityBar;
+import com.larswerkman.holocolorpicker.SVBar;
 
 import java.util.Calendar;
-
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
 
@@ -28,6 +31,11 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	final static String NO_OVERLAP = "N";
 	
 	private SQL_DataSource datasource;
+	
+	/* Color Selector Resources */
+	protected SVBar svBar;
+	protected OpacityBar opBar;
+	protected ColorPicker c_Picker;
 	
 	/* Necessary Data for Resources */
 	protected EditText name_et;
@@ -67,6 +75,14 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 		r_dp = (DatePicker) findViewById(R.id.date_td);
 		alarm_tb = (ToggleButton) findViewById(R.id.td_alarm);
 		creation_b = (Button) findViewById(R.id.td_create); 
+		
+		c_Picker = (ColorPicker) findViewById(R.id.picker);
+		svBar = (SVBar) findViewById(R.id.svbar);
+		opBar = (OpacityBar) findViewById(R.id.opacitybar);
+		
+		c_Picker.setOldCenterColor(getResources().getColor(R.color.White));
+		c_Picker.addOpacityBar(opBar);
+		c_Picker.addSVBar(svBar);
 		
 		
 		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
@@ -139,6 +155,8 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 		
 		temp.setAlarm(check_toggle());
 		temp.setDate(time);
+		
+		temp.setColor(c_Picker.getColor());
 		
 		if(!timeIssues(time))
 		{
