@@ -93,6 +93,7 @@ public class Date{
 	{
 		if (d.get_CDate().isEqual(this.date))
 		{
+			System.out.println("Different days...");
 			return false;
 		}
 		else
