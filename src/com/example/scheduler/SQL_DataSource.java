@@ -89,6 +89,25 @@ public class SQL_DataSource {
 		return allEvents;
 	}
 	
+	public ArrayList<Event> getEventsForDate(Cal_Date d)
+	{
+		ArrayList<Event> partialEvents = new ArrayList<Event>();
+		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
+				null, null, null ,null, null);
+		curse.moveToFirst();
+		while(!curse.isAfterLast())
+		{
+			Event event = cursorToEvent(curse);
+			if(event.GetDate().get_CDate().isEqual(d))
+			{
+				partialEvents.add(event);
+			}
+			curse.moveToNext();
+		}
+		curse.close();
+		return partialEvents;
+	}
+	
 	
 	private Event cursorToEvent(Cursor curs)
 	{

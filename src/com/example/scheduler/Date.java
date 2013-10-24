@@ -74,4 +74,10 @@ public class Date{
 	{
 		date.set_year(year);
 	}
+	
+	public Cal_Date get_CDate()
+	{
+		return date;
+	}
+
 }

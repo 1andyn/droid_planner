@@ -310,7 +310,7 @@ public class Schedule extends SherlockFragmentActivity {
             }
 		});	
 		
-		load_from_database();
+		load_from_database(selected_CD);
 	}
 
 	@Override
@@ -409,14 +409,14 @@ public class Schedule extends SherlockFragmentActivity {
 			{
 				event_INTENT = new Intent(this, Add_Activity.class);
 				startActivity(event_INTENT);
-				load_from_database();
+				load_from_database(selected_CD);
 				break;
 			}
 			case TODO_CASE:
 			{
 				todo_INTENT = new Intent(this, TD_Add_Activity.class);
 				startActivity(todo_INTENT);
-				load_from_database();
+				load_from_database(selected_CD);
 				break;
 			}
 			case MONTH_CASE:
@@ -445,9 +445,9 @@ public class Schedule extends SherlockFragmentActivity {
 		}
 	}
 	
-	protected void load_from_database()
+	protected void load_from_database(Cal_Date d)
 	{
-		ArrayList<Event> temp = datasource.getAllEvents();
+		ArrayList<Event> temp = datasource.getEventsForDate(d);
 		events_visible.clear();
 		todos_visible.clear();
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
@@ -498,7 +498,7 @@ public class Schedule extends SherlockFragmentActivity {
 	protected void onResume()
 	{
 		datasource.open();
-		load_from_database();
+		load_from_database(selected_CD);
 		super.onResume();
 	}
 	
