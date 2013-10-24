@@ -6,7 +6,7 @@
 	
 	<LinearLayout
 	    android:id="@+id/linearlayout"
-	    android:paddingTop="10sp"
+	    android:paddingTop="1sp"
 	    android:showDividers="middle"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
@@ -85,6 +85,11 @@
 	        android:text="@string/ce_doe"
 	        android:textSize="20sp" />
 
+	    <View 
+	        android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="#ffffff" />
+	    
 	    <DatePicker
 	        android:id="@+id/date_sel"
 	        android:layout_width="wrap_content"
@@ -92,6 +97,11 @@
 	        android:layout_gravity="center"
 	        android:padding="30sp"
 	        android:calendarViewShown="false" />
+	    
+	    <View 
+	        android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="#ffffff" />
 	    
 	    <LinearLayout
 	        android:layout_width="wrap_content"
