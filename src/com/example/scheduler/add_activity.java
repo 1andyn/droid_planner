@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -40,6 +41,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	protected ToggleButton alarm_tb;
 	protected Button creation_b;
 	
+	private LinearLayout primary_LAYOUT;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,7 +61,11 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	protected void config_resources()
 	{
+		
 		/* Layout Configuration */
+		
+		primary_LAYOUT = (LinearLayout) findViewById(R.id.linearlayout);
+		
 		name_et = (EditText) findViewById(R.id.et_name);
 		desc_et = (EditText) findViewById(R.id.et_desc);
 		

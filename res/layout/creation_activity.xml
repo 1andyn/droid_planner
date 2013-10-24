@@ -5,9 +5,13 @@
 	android:layout_height="match_parent">
 	
 	<LinearLayout
+	    android:id="@+id/linearlayout"
+	    android:paddingTop="10sp"
+	    android:showDividers="middle"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:orientation="vertical" >
+	    android:divider="@color/LightSteelBlue"
+	    android:orientation="vertical">
 
 	    <TextView
 	        android:paddingTop="15sp"
@@ -88,7 +92,7 @@
 	        android:layout_gravity="center"
 	        android:padding="30sp"
 	        android:calendarViewShown="false" />
-
+	    
 	    <LinearLayout
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
