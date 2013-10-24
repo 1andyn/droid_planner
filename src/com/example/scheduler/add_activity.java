@@ -176,8 +176,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		temp.setAlarm(check_toggle());
 		temp.setDate(time);
 		
-		String color = String.format("#%06X", 0xFFFFFF & c_Picker.getColor());
-		temp.setColor(color);
+		temp.setColor(c_Picker.getColor());
 		
 		if(!timeIssues(time))
 		{
