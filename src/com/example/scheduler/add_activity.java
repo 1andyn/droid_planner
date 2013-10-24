@@ -216,7 +216,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		else if(d.getStartTime() > d.getEndTime())
 		{
 			focus_Time();
-			Toast.makeText(Add_Activity.this,"Event start after it ends!",
+			Toast.makeText(Add_Activity.this,"Event cannot start after it ends!",
                     Toast.LENGTH_SHORT).show();
 			return true;
 		}
