@@ -63,6 +63,7 @@ public class SQL_DataSource {
 		curse.moveToFirst();
 		Event newEvent = cursorToEvent(curse);
 		curse.close();
+		
 		return newEvent;
 	}
 		
