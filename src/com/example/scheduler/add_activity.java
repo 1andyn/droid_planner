@@ -154,11 +154,13 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		temp.setAlarm(check_toggle());
 		temp.setDate(time);
 		
-		/* SQL_Database Code */
-		datasource.createEvent(temp);
-		
-		/* Return to Primary Activity*/
-		finish();
+		if(!timeIssues(time, temp))
+		{
+			/* SQL_Database Code */
+			datasource.createEvent(temp);
+			/* Return to Primary Activity*/
+			finish();
+		}
 	}
 	
 	protected String minutes(int min)
@@ -202,5 +204,35 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		super.onPause();
 	}
 	
-
+	protected boolean timeIssues(Date d, Event e)
+	{
+		if(d.getStartTime() == d.getEndTime())
+		{
+			focus_Time();
+			Toast.makeText(Add_Activity.this,"Starting time cannot equal end time!",
+                    Toast.LENGTH_SHORT).show();
+			return true;
+		}
+		else if(d.getStartTime() > d.getEndTime())
+		{
+			focus_Time();
+			Toast.makeText(Add_Activity.this,"Event start after it ends!",
+                    Toast.LENGTH_SHORT).show();
+			return true;
+		}
+		else if(datasource.overlapExists(e.GetDate()))
+		{
+			focus_Time();
+			Toast.makeText(Add_Activity.this,"Event time conflicts with another event!",
+                    Toast.LENGTH_SHORT).show();
+			return true;
+		}
+		return false;
+	}
+	
+	protected void focus_Time()
+	{
+		start_tp.requestFocus();
+	}
+	
 }
