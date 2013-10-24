@@ -12,7 +12,6 @@
 	    <!--Use this Specific ListView element for todo objects-->
 	    <ListView
 	        android:id="@+id/todoViewGroup"
-	        android:listSelector="@color/LightSteelBlue"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:longClickable="true"
@@ -34,7 +33,6 @@
 	    <!--Use this Specific ListView element for event objects-->
 	    <ListView
 	        android:id="@+id/eventViewGroup"
-	        android:listSelector="@color/LightSteelBlue"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:longClickable="true"				    

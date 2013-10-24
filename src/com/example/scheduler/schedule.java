@@ -262,10 +262,6 @@ public class Schedule extends SherlockFragmentActivity {
             {
             	ListView event_list = (ListView)findViewById(R.id.eventViewGroup);
             	
-            	/** Debug Toast*/
-            	//Toast.makeText(Schedule.this, "Position is:" + pos + " ID is: " + id, Toast.LENGTH_SHORT).show();
-            	/** Debug Toast*/
-            	
             	selected_view = v;
             	
                 if(m_Action != null)
@@ -293,12 +289,7 @@ public class Schedule extends SherlockFragmentActivity {
             {
             	ListView todo_list = (ListView)findViewById(R.id.todoViewGroup);
             	
-            	/** Debug Toast*/
-            	//Toast.makeText(Schedule.this, "Position is:" + pos + " ID is: " + id, Toast.LENGTH_SHORT).show();
-            	/** Debug Toast*/
-            	
             	selected_view = v;
-            	
                 if(m_Action2 != null)
                 {
                 	return false;
@@ -454,11 +445,19 @@ public class Schedule extends SherlockFragmentActivity {
 		todos_visible.clear();
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
 		{
-			if(temp.get(INDEX).GetStart() == NONE) todos_visible.add(temp.get(INDEX));
-			else events_visible.add(temp.get(INDEX));
+			if(temp.get(INDEX).GetStart() == NONE) 
+			{
+				todos_visible.add(temp.get(INDEX));
+				t_adapter.notifyDataSetChanged();
+			}
+			else 
+			{
+				events_visible.add(temp.get(INDEX));
+				e_adapter.notifyDataSetChanged();
+			}
 		}
-		e_adapter.notifyDataSetChanged();
-		t_adapter.notifyDataSetChanged();
+		
+		
 	}
 	
 	/* Changes Weight of Todo Layout Depending on Size of ArrayList */
