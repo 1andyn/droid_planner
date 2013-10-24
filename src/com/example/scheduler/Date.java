@@ -80,7 +80,7 @@ public class Date{
 		return date;
 	}
 
-	public boolean startOverlap(Date d)
+	public boolean endTimeEqual(Date d)
 	{
 		if(d.getEndTime() == this.endTime)
 		{

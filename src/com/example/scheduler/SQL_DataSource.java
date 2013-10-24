@@ -133,6 +133,24 @@ public class SQL_DataSource {
 		return false;
 	}
 	
+	public boolean endTimeExists(Date d)
+	{
+		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
+				null, null, null ,null, null);
+		curse.moveToFirst();
+		while(!curse.isAfterLast())
+		{
+			Event event = cursorToEvent(curse);
+			if(d.endTimeEqual(event.GetDate()))
+			{
+				return true;
+			}
+			curse.moveToNext();
+		}
+		curse.close();
+		return false;
+	}
+	
 	private Event cursorToEvent(Cursor curs)
 	{
 		Event newEvent = new Event();
