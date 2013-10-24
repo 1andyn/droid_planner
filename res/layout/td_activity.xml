@@ -23,7 +23,7 @@
 	        android:layout_height="wrap_content"
 	        android:ems="10"
 	        android:hint="@string/event_hint"
-	        android:imeOptions="actionNext"
+	        android:imeOptions="actionDone"
 	        android:singleLine="true" />
 
 	    <TextView

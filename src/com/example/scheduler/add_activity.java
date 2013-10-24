@@ -154,7 +154,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		temp.setAlarm(check_toggle());
 		temp.setDate(time);
 		
-		if(!timeIssues(time, temp))
+		if(!timeIssues(time))
 		{
 			/* SQL_Database Code */
 			datasource.createEvent(temp);
@@ -204,7 +204,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		super.onPause();
 	}
 	
-	protected boolean timeIssues(Date d, Event e)
+	protected boolean timeIssues(Date d)
 	{
 		if(d.getStartTime() == d.getEndTime())
 		{
@@ -220,7 +220,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
                     Toast.LENGTH_SHORT).show();
 			return true;
 		}
-		else if(datasource.overlapExists(e.GetDate()))
+		else if(datasource.overlapExists(d))
 		{
 			focus_Time();
 			Toast.makeText(Add_Activity.this,"Event time conflicts with another event!",
