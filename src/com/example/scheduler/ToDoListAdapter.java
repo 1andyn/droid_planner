@@ -43,6 +43,7 @@ public class ToDoListAdapter extends BaseAdapter {
 		else
 		{
 			convertView.setLongClickable(true);
+			convertView.setBackgroundColor(event_list.get(pos).getColor());
 			convertView.setFocusable(true);
 			ToDoView t_view = (ToDoView)convertView;
 			t_view.setEvent((Event)getItem(pos));
