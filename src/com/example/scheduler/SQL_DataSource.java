@@ -135,8 +135,9 @@ public class SQL_DataSource {
 		return nofaultEvent;
 	}
 	
-	public boolean endTimeExists(Date d)
+	public String endTimeExists(Date d)
 	{
+		String nofaultTodo = NO_OVERLAP;
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
 				null, null, null ,null, null);
 		curse.moveToFirst();
@@ -145,12 +146,12 @@ public class SQL_DataSource {
 			Event event = cursorToEvent(curse);
 			if(d.endTimeEqual(event.GetDate()))
 			{
-				return true;
+				return event.getName();
 			}
 			curse.moveToNext();
 		}
 		curse.close();
-		return false;
+		return nofaultTodo;
 	}
 	
 	private Event cursorToEvent(Cursor curs)

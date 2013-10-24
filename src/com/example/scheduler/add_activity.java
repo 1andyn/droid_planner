@@ -225,7 +225,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		{
 			focus_Time();
 			Toast.makeText(Add_Activity.this,"Event time conflicts with an Event: " + datasource.overlapExists(d),
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_LONG).show();
 			return true;
 		}
 		return false;

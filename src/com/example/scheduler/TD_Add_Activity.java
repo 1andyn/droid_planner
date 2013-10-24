@@ -25,6 +25,7 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	final static int TEN_MINUTES = 10;
 	final static int NONE = -1;
 	final static int ZERO = 0;
+	final static String NO_OVERLAP = "N";
 	
 	private SQL_DataSource datasource;
 	
@@ -191,11 +192,11 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	
 	protected boolean timeIssues(Date d)
 	{
-		if(datasource.endTimeExists(d))
+		if(datasource.endTimeExists(d) != NO_OVERLAP)
 		{
 			focus_Time();
-			Toast.makeText(TD_Add_Activity.this,"A ToDo already has the same end time!",
-                    Toast.LENGTH_SHORT).show();
+			Toast.makeText(TD_Add_Activity.this,"A ToDo at this time already exists with name: " + datasource.endTimeExists(d),
+                    Toast.LENGTH_LONG).show();
 			return true;
 		}
 
