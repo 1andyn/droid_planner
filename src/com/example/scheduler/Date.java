@@ -80,4 +80,39 @@ public class Date{
 		return date;
 	}
 
+	public boolean overlapDate(Date d)
+	{
+		if (d.get_CDate().isEqual(this.date))
+		{
+			return false;
+		}
+		else
+		{
+			/* dStartTime starts after this StartTime but earlier than this EndTime */
+			if(d.getStartTime() <= this.endTime && d.getStartTime() >= this.startTime)
+			{
+				return true;
+			}
+			/* dEndtime ends after StartTime but earlier than this EndTime */
+			else if(d.getEndTime() <= this.endTime && d.getEndTime() >= this.startTime)
+			{
+				return true;
+			}
+			/* dStartTime starts before this StartTime and ends after this EndTime */
+			else if(d.getStartTime() <= this.startTime && d.getEndTime() >= this.endTime)
+			{
+				return true;
+			}
+			/* dStarTime starts after this StartTime and ends before this EndTime*/
+			else if(d.getStartTime() >= this.startTime && d.getEndTime() <= this.endTime)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	
 }
