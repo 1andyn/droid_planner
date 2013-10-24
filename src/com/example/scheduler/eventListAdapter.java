@@ -44,6 +44,7 @@ public class EventListAdapter extends BaseAdapter {
 		{
 			convertView.setLongClickable(true);
 			convertView.setFocusable(true);
+			convertView.setBackgroundColor(event_list.get(pos).getColor());
 			EventView e_view = (EventView)convertView;
 			e_view.setEvent((Event)getItem(pos));
 			return convertView;
