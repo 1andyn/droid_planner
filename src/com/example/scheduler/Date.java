@@ -80,6 +80,15 @@ public class Date{
 		return date;
 	}
 
+	public boolean startOverlap(Date d)
+	{
+		if(d.getEndTime() == this.endTime)
+		{
+			return true;
+		}
+		else return false;
+	}
+	
 	public boolean overlapDate(Date d)
 	{
 		if (d.get_CDate().isEqual(this.date))
