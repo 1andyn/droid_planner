@@ -161,7 +161,7 @@ public class SQL_DataSource {
 		newEvent.setName(curs.getString(COL_NAME));
 		newEvent.setDescription(curs.getString(COL_DESC));
 		newEvent.setAlarm(curs.getString(COL_ALARM));
-		newEvent.setColor(curs.getString(COL_COL));
+		newEvent.setColor(curs.getInt(COL_COL));
 		
 		Date newDate = new Date();
 		newDate.setMth(curs.getInt(COL_MONTH));
