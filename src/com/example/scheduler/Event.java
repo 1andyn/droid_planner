@@ -2,13 +2,13 @@ package com.example.scheduler;
 
 public class Event{
 	private final String NONE = null;
-	private final String HEX_WHITE = "FFFFFF";
+	private final int INT_WHITE = 16777215;
 	private final int EMPTY = 0;
 	
 	private long eventID;
 	private String eventName;
 	private String eventDesc;
-	private String eventColor;
+	private int eventColor;
 	private Date eventDate;
 	private String alarm;
 
@@ -18,7 +18,7 @@ public class Event{
 		eventID = id;
 		eventName = name;
 		eventDesc = null;
-		eventColor = HEX_WHITE;
+		eventColor = INT_WHITE;
 		eventDate = new Date();
 		alarm = "N";
 	}
@@ -29,7 +29,7 @@ public class Event{
 		eventID = EMPTY;
 		eventName = null;
 		eventDesc = null;
-		eventColor = HEX_WHITE;
+		eventColor = INT_WHITE;
 		eventDate = new Date();
 		alarm = "N";
 	}
@@ -49,7 +49,7 @@ public class Event{
 		return alarm;
 	}
 	
-	public String getColor() 
+	public int getColor() 
 	{
 		return eventColor;
 	}
@@ -111,7 +111,7 @@ public class Event{
 		alarm = flag;
 	}
 	
-	public void setColor(String givenColor) {
+	public void setColor(int givenColor) {
 		eventColor = givenColor;
 	}
 	
