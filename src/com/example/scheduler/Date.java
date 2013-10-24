@@ -82,7 +82,7 @@ public class Date{
 
 	public boolean endTimeEqual(Date d)
 	{
-		if(d.getEndTime() == this.endTime)
+		if(d.getEndTime() == this.endTime && d.getStartTime() == NONE)
 		{
 			return true;
 		}
@@ -91,7 +91,7 @@ public class Date{
 	
 	public boolean overlapDate(Date d)
 	{
-		if (!d.get_CDate().isEqual(this.date))
+		if (!d.get_CDate().isEqual(this.date) || d.getStartTime() == NONE)
 		{
 			return false;
 		}
