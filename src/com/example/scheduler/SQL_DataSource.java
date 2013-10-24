@@ -109,6 +109,24 @@ public class SQL_DataSource {
 		return partialEvents;
 	}
 	
+	public boolean overlapExists(Date d)
+	{
+		ArrayList<Event> allEvents = new ArrayList<Event>();
+		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
+				null, null, null ,null, null);
+		curse.moveToFirst();
+		while(!curse.isAfterLast())
+		{
+			Event event = cursorToEvent(curse);
+			if(d.overlapDate(event.GetDate()))
+			{
+				return true;
+			}
+			curse.moveToNext();
+		}
+		curse.close();
+		return false;
+	}
 	
 	private Event cursorToEvent(Cursor curs)
 	{
