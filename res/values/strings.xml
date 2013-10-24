@@ -31,4 +31,6 @@
     <string name="tb_aqt">Quick ToDo</string>
     <string name="title_activity_todo_activity">Create a ToDo</string>
     <string name="title_activity_month_activity">Month View</string>
+    <string name="Color_Text">Select a color for the Event</string>
+    <string name="td_Color_Text">Select a color for your ToDo</string>
 </resources>

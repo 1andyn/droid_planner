@@ -1,15 +1,24 @@
 package com.example.scheduler;
 
+
+/* Color Selector Imports */
+import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.OpacityBar;
+import com.larswerkman.holocolorpicker.SVBar;
+
 /* Cloud Based Imports */
+
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 
-
+/* Java Base Imports */
 import java.util.Calendar;
 
+/* ABS Based Imports */
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
 
+/* Android based Imports */
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,6 +37,11 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static String NO_OVERLAP = "N";
 	
 	private SQL_DataSource datasource;
+	
+	/* Color Selector Resources */
+	protected SVBar svBar;
+	protected OpacityBar opBar;
+	protected ColorPicker c_Picker;
 	
 	/* Necessary Data for Resources */
 	protected EditText name_et;
@@ -79,6 +93,13 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		alarm_tb = (ToggleButton) findViewById(R.id.ce_alarm);
 		creation_b = (Button) findViewById(R.id.ce_create); 
 		
+		c_Picker = (ColorPicker) findViewById(R.id.picker);
+		svBar = (SVBar) findViewById(R.id.svbar);
+		opBar = (OpacityBar) findViewById(R.id.opacitybar);
+		
+		c_Picker.setOldCenterColor(getResources().getColor(R.color.White));
+		c_Picker.addOpacityBar(opBar);
+		c_Picker.addSVBar(svBar);
 		
 		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
 		final Calendar c = Calendar.getInstance();
@@ -154,6 +175,9 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		temp.setAlarm(check_toggle());
 		temp.setDate(time);
+		
+		String color = String.format("#%06X", 0xFFFFFF & c_Picker.getColor());
+		temp.setColor(color);
 		
 		if(!timeIssues(time))
 		{
