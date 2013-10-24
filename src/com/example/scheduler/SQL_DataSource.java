@@ -117,7 +117,6 @@ public class SQL_DataSource {
 	
 	public boolean overlapExists(Date d)
 	{
-		ArrayList<Event> allEvents = new ArrayList<Event>();
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
 				null, null, null ,null, null);
 		curse.moveToFirst();
