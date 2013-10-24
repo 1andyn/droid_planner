@@ -445,18 +445,11 @@ public class Schedule extends SherlockFragmentActivity {
 		todos_visible.clear();
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
 		{
-			if(temp.get(INDEX).GetStart() == NONE) 
-			{
-				todos_visible.add(temp.get(INDEX));
-				t_adapter.notifyDataSetChanged();
-			}
-			else 
-			{
-				events_visible.add(temp.get(INDEX));
-				e_adapter.notifyDataSetChanged();
-			}
+			if(temp.get(INDEX).GetStart() == NONE) todos_visible.add(temp.get(INDEX));
+			else events_visible.add(temp.get(INDEX));
 		}
-		
+		t_adapter.notifyDataSetChanged();
+		e_adapter.notifyDataSetChanged();
 		
 	}
 	
