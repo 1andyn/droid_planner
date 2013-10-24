@@ -191,20 +191,14 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	
 	protected boolean timeIssues(Date d)
 	{
-		if(d.getStartTime() == d.getEndTime())
+		if(datasource.endTimeExists(d))
 		{
 			focus_Time();
-			Toast.makeText(TD_Add_Activity.this,"Starting time cannot equal end time!",
+			Toast.makeText(TD_Add_Activity.this,"A ToDo already has the same end time!",
                     Toast.LENGTH_SHORT).show();
 			return true;
 		}
-		else if(d.getStartTime() > d.getEndTime())
-		{
-			focus_Time();
-			Toast.makeText(TD_Add_Activity.this,"Event cannot start after it ends!",
-                    Toast.LENGTH_SHORT).show();
-			return true;
-		}
+
 		return false;
 	}
 		
