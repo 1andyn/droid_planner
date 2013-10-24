@@ -293,7 +293,7 @@ public class Schedule extends SherlockFragmentActivity {
             	ListView todo_list = (ListView)findViewById(R.id.todoViewGroup);
             	
             	/** Debug Toast*/
-            	Toast.makeText(Schedule.this, "Position is:" + pos + " ID is: " + id, Toast.LENGTH_SHORT).show();
+            	//Toast.makeText(Schedule.this, "Position is:" + pos + " ID is: " + id, Toast.LENGTH_SHORT).show();
             	/** Debug Toast*/
             	
             	selected_view = v;
