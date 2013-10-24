@@ -91,9 +91,8 @@ public class Date{
 	
 	public boolean overlapDate(Date d)
 	{
-		if (d.get_CDate().isEqual(this.date))
+		if (!d.get_CDate().isEqual(this.date))
 		{
-			System.out.println("Different days...");
 			return false;
 		}
 		else

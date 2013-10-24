@@ -25,6 +25,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	final static int TEN_MINUTES = 10;
 	final static int ZERO = 0;
+	private final static String NO_OVERLAP = "N";
 	
 	private SQL_DataSource datasource;
 	
@@ -220,10 +221,10 @@ public class Add_Activity  extends SherlockFragmentActivity {
                     Toast.LENGTH_SHORT).show();
 			return true;
 		}
-		else if(datasource.overlapExists(d))
+		else if(datasource.overlapExists(d) != NO_OVERLAP)
 		{
 			focus_Time();
-			Toast.makeText(Add_Activity.this,"Event time conflicts with another event!",
+			Toast.makeText(Add_Activity.this,"Event time conflicts with an Event: " + datasource.overlapExists(d),
                     Toast.LENGTH_SHORT).show();
 			return true;
 		}

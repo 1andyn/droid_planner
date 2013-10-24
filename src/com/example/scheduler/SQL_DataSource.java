@@ -22,6 +22,7 @@ public class SQL_DataSource {
 	private int COL_END = 8;
 	private int COL_COL = 9;
 	
+	private final static String NO_OVERLAP = "N";
 	
 	private SQLHelper dbhelper;
 	private SQLiteDatabase database;
@@ -115,8 +116,9 @@ public class SQL_DataSource {
 		return partialEvents;
 	}
 	
-	public boolean overlapExists(Date d)
+	public String overlapExists(Date d)
 	{
+		String nofaultEvent = NO_OVERLAP;
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
 				null, null, null ,null, null);
 		curse.moveToFirst();
@@ -125,12 +127,12 @@ public class SQL_DataSource {
 			Event event = cursorToEvent(curse);
 			if(d.overlapDate(event.GetDate()))
 			{
-				return true;
+				return event.getName();
 			}
 			curse.moveToNext();
 		}
 		curse.close();
-		return false;
+		return nofaultEvent;
 	}
 	
 	public boolean endTimeExists(Date d)
