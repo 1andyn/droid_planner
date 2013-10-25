@@ -1,6 +1,7 @@
 package com.example.scheduler;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,7 +45,7 @@ public class EventView extends LinearLayout{
 		ehr_str = (TextView)findViewById(R.id.hr_eview);
 		emin_str = (TextView)findViewById(R.id.min_eview);
 		eampm_tag = (TextView)findViewById(R.id.e_am_pm);
-		
+
 		ev_name = (TextView)findViewById(R.id.t_tview);
 		des_name = (TextView)findViewById(R.id.d_tview);
 		
