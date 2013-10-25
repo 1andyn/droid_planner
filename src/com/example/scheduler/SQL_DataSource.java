@@ -77,14 +77,9 @@ public class SQL_DataSource {
 	
 	public ArrayList<Event> getAllEvents()
 	{		
-		/* Sort Container by Order: Year/Month/Day/StartTime */
-		database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
-			+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_START + " ASC");
-		
 		ArrayList<Event> allEvents = new ArrayList<Event>();
-
-		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
-				null, null, null ,null, null);
+		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
+				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_END + " ASC");
 		curse.moveToFirst();
 		while(!curse.isAfterLast())
 		{
@@ -98,15 +93,9 @@ public class SQL_DataSource {
 	
 	public ArrayList<Event> getEventsForDate(Cal_Date d)
 	{
-//		/* Sort Container by Order: Year/Month/Day/StartTime */
-//		database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
-//				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_START + " ASC");
-		
 		ArrayList<Event> partialEvents = new ArrayList<Event>();
-//		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
-//				null, null, null ,null, null);
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
-				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_START + " ASC");
+				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_END + " ASC");
 		curse.moveToFirst();
 		while(!curse.isAfterLast())
 		{
