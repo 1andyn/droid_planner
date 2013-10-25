@@ -65,9 +65,6 @@ public class SQL_DataSource {
 		Event newEvent = cursorToEvent(curse);
 		curse.close();
 		
-		database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
-				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_START + " ASC");
-		
 		return newEvent;
 	}
 		
@@ -83,6 +80,7 @@ public class SQL_DataSource {
 		/* Sort Container by Order: Year/Month/Day/StartTime */
 		database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
 			+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_START + " ASC");
+		
 		ArrayList<Event> allEvents = new ArrayList<Event>();
 
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
@@ -100,12 +98,15 @@ public class SQL_DataSource {
 	
 	public ArrayList<Event> getEventsForDate(Cal_Date d)
 	{
-		/* Sort Container by Order: Year/Month/Day/StartTime */
-		database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
-				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_START + " ASC");
+//		/* Sort Container by Order: Year/Month/Day/StartTime */
+//		database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
+//				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_START + " ASC");
+		
 		ArrayList<Event> partialEvents = new ArrayList<Event>();
-		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
-				null, null, null ,null, null);
+//		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
+//				null, null, null ,null, null);
+		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
+				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_START + " ASC");
 		curse.moveToFirst();
 		while(!curse.isAfterLast())
 		{
@@ -123,19 +124,15 @@ public class SQL_DataSource {
 	public String overlapExists(Date d)
 	{
 		String nofaultEvent = NO_OVERLAP;
-		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
-				null, null, null ,null, null);
-		curse.moveToFirst();
-		while(!curse.isAfterLast())
+		ArrayList<Event> coreEvents = getEventsForDate(d.get_CDate());
+		
+		for(int INDEX = 0; INDEX < coreEvents.size(); INDEX++)
 		{
-			Event event = cursorToEvent(curse);
-			if(d.overlapDate(event.GetDate()))
+			if(d.overlapDate(coreEvents.get(INDEX).GetDate()))
 			{
-				return event.getName();
+				return coreEvents.get(INDEX).getName();
 			}
-			curse.moveToNext();
 		}
-		curse.close();
 		return nofaultEvent;
 	}
 	
