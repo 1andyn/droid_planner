@@ -38,6 +38,9 @@ public class EventListAdapter extends BaseAdapter {
 		if(convertView == null)
 		{
 			EventView eventer = new EventView(app_Context, (Event)getItem(pos));
+			eventer.setLongClickable(true);
+			eventer.setFocusable(true);
+			eventer.setBackgroundColor(event_list.get(pos).getColor());
 			return eventer;
 		}
 		else

@@ -120,7 +120,6 @@ public class Schedule extends SherlockFragmentActivity {
 				return true;
 			case R.id.menu_edit:
 				/* Some Code to Edit Event */
-				/* This toast is for testing purposes only since view will be swapped for editing Events*/
             	Toast.makeText(Schedule.this, "Editing selection", Toast.LENGTH_SHORT).show();
 				mode.finish();
 				return true;
@@ -168,7 +167,6 @@ public class Schedule extends SherlockFragmentActivity {
 				return true;
 			case R.id.menu_edit:
 				/* Some Code to Edit Event */
-				/* This toast is for testing purposes only since view will be swapped for editing Events*/
             	Toast.makeText(Schedule.this, "Editing selection", Toast.LENGTH_SHORT).show();
 				mode.finish();
 				return true;
