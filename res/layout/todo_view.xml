@@ -17,6 +17,7 @@
 		        android:orientation="horizontal" >
 		
 					<TextView
+						android:textColor="#000000"
 					    android:id="@+id/hr_td"
 					    android:layout_width="wrap_content"
 					    android:layout_height="wrap_content"
@@ -24,11 +25,13 @@
 					    android:textStyle="bold"
 					    android:text="00"/>
 					<TextView
+						android:textColor="#000000"
 					    android:id="@+id/semicolon"
 					    android:layout_width="wrap_content"
 					    android:layout_height="wrap_content"
 					    android:text=":" />
 					<TextView
+						android:textColor="#000000"
 					    android:id="@+id/min_td"
 					    android:layout_width="wrap_content"
 					    android:layout_height="wrap_content"
@@ -36,6 +39,7 @@
 	    	</LinearLayout>
 
 		    <TextView
+				android:textColor="#000000"
 		        android:id="@+id/td_pm"
 		        android:layout_height="wrap_content"
 		        android:layout_width="wrap_content"
@@ -53,6 +57,7 @@
 	        android:layout_marginLeft="6sp" >
 
 	        <TextView
+				android:textColor="#000000"
 	            android:id="@+id/td_tview"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
