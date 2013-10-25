@@ -1166,9 +1166,12 @@ containing a value of this type.
         public static final int abs__textfield_searchview_right_holo_dark=0x7f02006d;
         public static final int abs__textfield_searchview_right_holo_light=0x7f02006e;
         public static final int abs__toast_frame=0x7f02006f;
-        public static final int divider=0x7f020070;
-        public static final int ic_action_event=0x7f020071;
-        public static final int icon=0x7f020072;
+        public static final int bg=0x7f020070;
+        public static final int divider=0x7f020071;
+        public static final int ic_action_event=0x7f020072;
+        public static final int ic_action_new_event=0x7f020073;
+        public static final int icon=0x7f020074;
+        public static final int tile_bg=0x7f020075;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f050020;

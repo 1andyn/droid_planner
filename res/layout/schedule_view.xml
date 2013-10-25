@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-     >
+    android:background="@drawable/tile_bg">
                 
     <LinearLayout 
         android:id="@+id/adjustableTodo"
@@ -13,18 +13,18 @@
 	    <!--Use this Specific ListView element for todo objects-->
 	    <ListView
 	        android:id="@+id/todoViewGroup"
-	        android:cacheColorHint="@android:color/transparent"
+	        android:background="@drawable/tile_bg"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:longClickable="true"
 	        android:divider="#000000"				    
-			android:dividerHeight="1sp"/>
+			android:dividerHeight="2sp"/>
     </LinearLayout>
     
    	<View
 		android:layout_width="match_parent"
-		android:layout_height="1dp"
-		android:background="@android:color/darker_gray"/>
+		android:layout_height="3dp"
+		android:background="@color/HoloBlue"/>
     
    	<!--  Weight needs to be adjusted -->
     <LinearLayout 
@@ -35,12 +35,11 @@
 	    <!--Use this Specific ListView element for event objects-->
 	    <ListView
 	        android:id="@+id/eventViewGroup"
-	        android:cacheColorHint="@android:color/transparent"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:longClickable="true"				    
 	        android:divider="#000000"
-			android:dividerHeight="1sp"/>
+			android:dividerHeight="2sp"/>
 	</LinearLayout>
 	    
 </LinearLayout>
