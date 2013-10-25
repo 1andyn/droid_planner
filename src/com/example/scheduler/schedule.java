@@ -26,7 +26,6 @@ import android.widget.Toast;
 //import android.view.LayoutInflater; required library later
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Schedule extends SherlockFragmentActivity {
 	

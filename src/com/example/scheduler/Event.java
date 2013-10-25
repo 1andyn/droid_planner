@@ -1,7 +1,6 @@
 package com.example.scheduler;
 
 public class Event{
-	private final String NONE = null;
 	private final int INT_WHITE = 16777215;
 	private final int EMPTY = 0;
 	
