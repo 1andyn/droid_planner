@@ -21,6 +21,7 @@
         android:theme="@style/Theme.Sherlock.Light" >
         <activity
             android:name="com.example.scheduler.Schedule"
+            android:theme="@style/Theme.Sherlock"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,14 +31,17 @@
         </activity>
         <activity
             android:name="com.example.scheduler.Add_Activity"
+            android:theme="@style/Theme.Sherlock"
             android:label="@string/title_activity_add_activity" >
         </activity>
         <activity
             android:name="com.example.scheduler.TD_Add_Activity"
+            android:theme="@style/Theme.Sherlock"
             android:label="@string/title_activity_todo_activity">
         </activity>
         <activity
             android:name="com.example.scheduler.Month_Activity"
+            android:theme="@style/Theme.Sherlock"
             android:label="@string/title_activity_month_activity">
         </activity>
     </application>
