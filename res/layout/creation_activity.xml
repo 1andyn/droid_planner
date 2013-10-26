@@ -12,6 +12,7 @@
 	    android:orientation="vertical">
 
 	    <TextView
+	        android:textColor="#FFFFFF"
 	        android:paddingTop="15sp"
 	        android:id="@+id/ce_name"
 	        android:layout_width="match_parent"
@@ -29,6 +30,7 @@
 	        android:singleLine="true" />
 
 	    <TextView
+	        android:textColor="#FFFFFF"
 	        android:id="@+id/ce_desc"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -46,6 +48,7 @@
 	        android:paddingBottom="20sp"/>
 
 	    <TextView
+	        android:textColor="#FFFFFF"
 	        android:id="@+id/ce_sttv"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -62,6 +65,7 @@
 	        android:padding="10sp" />
 
 	    <TextView
+	        android:textColor="#FFFFFF"
 	        android:id="@+id/ce_ettv"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -77,6 +81,7 @@
 	        android:padding="10sp" />
 
 	    <TextView
+	        android:textColor="#FFFFFF"
 	        android:id="@+id/ce_doe"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -87,7 +92,7 @@
 	    <View 
 	        android:layout_width="1dp"
             android:layout_height="wrap_content"
-            android:background="#ffffff" />
+            android:background="#FFFFFF" />
 	    
 	    <DatePicker
 	        android:id="@+id/date_sel"
@@ -110,6 +115,7 @@
 	        android:padding="30sp" >
 
 	        <TextView
+	            android:textColor="#FFFFFF"
 	            android:id="@+id/ce_alatv"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
@@ -135,6 +141,7 @@
 	        android:paddingBottom="20dp" >
 	        
 	    <TextView
+	        android:textColor="#FFFFFF"
 	        android:id="@+id/color_text"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
