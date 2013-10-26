@@ -474,6 +474,7 @@ int id et_desc 0x7f050037
 int id et_name 0x7f050035
 int id et_tdname 0x7f050057
 int id eventViewGroup 0x7f050055
+int id full_clear 0x7f050068
 int id homeAsUp 0x7f050006
 int id hr_eview 0x7f05004e
 int id hr_td 0x7f05005f
@@ -500,8 +501,8 @@ int id tabMode 0x7f050003
 int id tb_add 0x7f050065
 int id tb_date 0x7f050064
 int id tb_month 0x7f050063
-int id tb_sub_ev 0x7f050068
-int id tb_sub_td 0x7f050069
+int id tb_sub_ev 0x7f050069
+int id tb_sub_td 0x7f05006a
 int id td_alarm 0x7f05005d
 int id td_alatv 0x7f05005c
 int id td_create 0x7f05005e
@@ -549,7 +550,8 @@ int layout td_activity 0x7f03001b
 int layout todo_view 0x7f03001c
 int layout top_bar_view 0x7f03001d
 int menu option_menu 0x7f0b0000
-int menu topbar 0x7f0b0001
+int menu settings_menu 0x7f0b0001
+int menu topbar 0x7f0b0002
 int string Color_Text 0x7f09002c
 int string abs__action_bar_home_description 0x7f090000
 int string abs__action_bar_up_description 0x7f090001
@@ -578,6 +580,7 @@ int string ce_e_ala 0x7f090020
 int string ce_etime 0x7f09001d
 int string ce_name 0x7f090018
 int string ce_stime 0x7f09001c
+int string clear_all 0x7f09002e
 int string desc_hint 0x7f09001b
 int string event_hint 0x7f09001a
 int string tb_add 0x7f090011

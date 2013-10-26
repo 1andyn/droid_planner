@@ -38,6 +38,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	private SQL_DataSource datasource;
 	
+	private Cal_Date sel_CD;
+	
 	/* Color Selector Resources */
 	protected SVBar svBar;
 	protected OpacityBar opBar;
@@ -55,8 +57,6 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	/* Button Based Resources*/
 	protected ToggleButton alarm_tb;
 	protected Button creation_b;
-	
-	private LinearLayout primary_LAYOUT;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +76,10 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	protected void config_resources()
 	{
+		Bundle Schedule_Date = getIntent().getExtras();
+		sel_CD = Schedule_Date.getParcelable(Schedule.SELECT_KEY);
 		
 		/* Layout Configuration */
-		
-		primary_LAYOUT = (LinearLayout) findViewById(R.id.linearlayout);
 		
 		name_et = (EditText) findViewById(R.id.et_name);
 		desc_et = (EditText) findViewById(R.id.et_desc);
@@ -100,6 +100,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		c_Picker.setOldCenterColor(getResources().getColor(R.color.White));
 		c_Picker.addOpacityBar(opBar);
 		c_Picker.addSVBar(svBar);
+		
+		r_dp.updateDate(sel_CD.get_year(), sel_CD.get_month(), sel_CD.get_day());
 		
 		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
 		final Calendar c = Calendar.getInstance();

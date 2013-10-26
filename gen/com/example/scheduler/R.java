@@ -1239,6 +1239,7 @@ containing a value of this type.
         public static final int et_name=0x7f050035;
         public static final int et_tdname=0x7f050057;
         public static final int eventViewGroup=0x7f050055;
+        public static final int full_clear=0x7f050068;
         public static final int homeAsUp=0x7f050006;
         public static final int hr_eview=0x7f05004e;
         public static final int hr_td=0x7f05005f;
@@ -1265,8 +1266,8 @@ containing a value of this type.
         public static final int tb_add=0x7f050065;
         public static final int tb_date=0x7f050064;
         public static final int tb_month=0x7f050063;
-        public static final int tb_sub_ev=0x7f050068;
-        public static final int tb_sub_td=0x7f050069;
+        public static final int tb_sub_ev=0x7f050069;
+        public static final int tb_sub_td=0x7f05006a;
         public static final int td_alarm=0x7f05005d;
         public static final int td_alatv=0x7f05005c;
         public static final int td_create=0x7f05005e;
@@ -1320,7 +1321,8 @@ containing a value of this type.
     }
     public static final class menu {
         public static final int option_menu=0x7f0b0000;
-        public static final int topbar=0x7f0b0001;
+        public static final int settings_menu=0x7f0b0001;
+        public static final int topbar=0x7f0b0002;
     }
     public static final class string {
         public static final int Color_Text=0x7f09002c;
@@ -1377,6 +1379,7 @@ containing a value of this type.
         public static final int ce_etime=0x7f09001d;
         public static final int ce_name=0x7f090018;
         public static final int ce_stime=0x7f09001c;
+        public static final int clear_all=0x7f09002e;
         public static final int desc_hint=0x7f09001b;
         public static final int event_hint=0x7f09001a;
         public static final int tb_add=0x7f090011;

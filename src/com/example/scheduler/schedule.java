@@ -197,8 +197,10 @@ public class Schedule extends SherlockFragmentActivity {
 		    }
 		    case R.id.tb_date:
 		    {
-		    	Toast.makeText(Schedule.this, "Date was pressed! Using as Clear ALL for now", Toast.LENGTH_SHORT).show();
-		    	CLEAR_EVERYTHING();
+		    	init_SelectedCD();
+		    	load_from_database(selected_CD);
+		    	invalidateOptionsMenu();
+		    	Toast.makeText(Schedule.this, "Showing events for today", Toast.LENGTH_SHORT).show();
 		    	return false;
 		    }
 	    	case R.id.tb_sub_ev:
@@ -244,8 +246,6 @@ public class Schedule extends SherlockFragmentActivity {
 		e_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
             {
-            	ListView event_list = (ListView)findViewById(R.id.eventViewGroup);
-            	
             	selected_view = v;
             	
                 if(m_Action != null)
@@ -271,8 +271,6 @@ public class Schedule extends SherlockFragmentActivity {
 		t_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
             {
-            	ListView todo_list = (ListView)findViewById(R.id.todoViewGroup);
-            	
             	selected_view = v;
                 if(m_Action2 != null)
                 {
@@ -488,6 +486,4 @@ public class Schedule extends SherlockFragmentActivity {
 		selected_CD.set_month(temp_cd.get_month());
 		selected_CD.set_year(temp_cd.get_year());
 	}
-
-	
 }

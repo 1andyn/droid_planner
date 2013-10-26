@@ -33,4 +33,5 @@
     <string name="title_activity_month_activity">Month View</string>
     <string name="Color_Text">Select a color for the Event</string>
     <string name="td_Color_Text">Select a color for your ToDo</string>
+    <string name="clear_all">Delete Everything</string>
 </resources>
