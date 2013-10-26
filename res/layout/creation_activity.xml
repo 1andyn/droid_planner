@@ -179,6 +179,5 @@
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
 	        android:text="@string/ce_create" />
-	    
 	</LinearLayout>
 </ScrollView>
