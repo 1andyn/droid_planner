@@ -1266,8 +1266,8 @@ containing a value of this type.
         public static final int tb_add=0x7f050065;
         public static final int tb_date=0x7f050064;
         public static final int tb_month=0x7f050063;
-        public static final int tb_sub_ev=0x7f050069;
-        public static final int tb_sub_td=0x7f05006a;
+        public static final int tb_sub_ev=0x7f05006a;
+        public static final int tb_sub_td=0x7f05006b;
         public static final int td_alarm=0x7f05005d;
         public static final int td_alatv=0x7f05005c;
         public static final int td_create=0x7f05005e;
@@ -1277,6 +1277,7 @@ containing a value of this type.
         public static final int td_pm=0x7f050061;
         public static final int td_sttv=0x7f050058;
         public static final int td_tview=0x7f050062;
+        public static final int test_item=0x7f050069;
         public static final int timeGroup=0x7f050045;
         public static final int time_end=0x7f05003b;
         public static final int time_start=0x7f050039;
@@ -1395,6 +1396,7 @@ containing a value of this type.
         public static final int td_name=0x7f090025;
         public static final int td_time=0x7f090027;
         public static final int test_desc=0x7f090014;
+        public static final int test_item=0x7f09002f;
         public static final int title_activity_add_activity=0x7f090017;
         public static final int title_activity_month_activity=0x7f09002b;
         public static final int title_activity_todo_activity=0x7f09002a;

@@ -15,6 +15,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 /* Basic Android Imports*/
 import android.os.Bundle;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -37,6 +38,8 @@ public class Schedule extends SherlockFragmentActivity {
     final static int EVENT_CASE = 0;
     final static int TODO_CASE = 1;
     final static int MONTH_CASE = 2;
+    
+    final static int CLEAR_CASE = 0;
     
     /* TODO SIZE CASES */
     final static int EMPTY = 0;
@@ -175,7 +178,7 @@ public class Schedule extends SherlockFragmentActivity {
 	{
 		MenuItem date_text = menu.findItem(R.id.tb_date);
 		date_text.setTitle(selected_CM.DateString(selected_CD));
-		return true;
+		return super.onPrepareOptionsMenu(menu);
 	}
 	
 	
@@ -214,6 +217,19 @@ public class Schedule extends SherlockFragmentActivity {
 	    		switch_activity(TODO_CASE);
 	    		return false;
 	    	}
+	    	case R.id.full_clear:
+	    	{
+	    		CLEAR_EVERYTHING();
+	    		Toast.makeText(Schedule.this, "All events have been cleared!", Toast.LENGTH_LONG).show();
+	    		return false;
+	    	}
+	    	
+	    	case R.id.test_item:
+	    	{
+		    	Toast.makeText(Schedule.this, "Test Item was pressed!", Toast.LENGTH_SHORT).show();
+		    	return false;
+	    	}
+	    	
 		    default:
 		    {
 		        return super.onOptionsItemSelected(item);
@@ -292,6 +308,7 @@ public class Schedule extends SherlockFragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.topbar, menu);
+		inflater.inflate(R.menu.settings_menu, menu);
 		return true;
 	}
 	/* Configures everything Visual*/

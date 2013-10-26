@@ -501,8 +501,8 @@ int id tabMode 0x7f050003
 int id tb_add 0x7f050065
 int id tb_date 0x7f050064
 int id tb_month 0x7f050063
-int id tb_sub_ev 0x7f050069
-int id tb_sub_td 0x7f05006a
+int id tb_sub_ev 0x7f05006a
+int id tb_sub_td 0x7f05006b
 int id td_alarm 0x7f05005d
 int id td_alatv 0x7f05005c
 int id td_create 0x7f05005e
@@ -512,6 +512,7 @@ int id td_name 0x7f050056
 int id td_pm 0x7f050061
 int id td_sttv 0x7f050058
 int id td_tview 0x7f050062
+int id test_item 0x7f050069
 int id timeGroup 0x7f050045
 int id time_end 0x7f05003b
 int id time_start 0x7f050039
@@ -596,6 +597,7 @@ int string td_date 0x7f090028
 int string td_name 0x7f090025
 int string td_time 0x7f090027
 int string test_desc 0x7f090014
+int string test_item 0x7f09002f
 int string title_activity_add_activity 0x7f090017
 int string title_activity_month_activity 0x7f09002b
 int string title_activity_todo_activity 0x7f09002a
