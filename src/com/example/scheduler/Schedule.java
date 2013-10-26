@@ -42,6 +42,7 @@ public class Schedule extends SherlockFragmentActivity {
     /* TODO SIZE CASES */
     final static int EMPTY = 0;
     final static int NONE = -1;
+    final static long NONE_L = -1;
 	
 	/* Application context */
 	final Context main_context = this;
@@ -110,8 +111,7 @@ public class Schedule extends SherlockFragmentActivity {
 				mode.finish();
 				return true;
 			case R.id.menu_edit:
-				/* Some Code to Edit Event */
-            	Toast.makeText(Schedule.this, "Editing selection", Toast.LENGTH_SHORT).show();
+            	switch_activity(EDT_EVENT_CASE, selected_event.GetID());
 				mode.finish();
 				return true;
 			default:
@@ -154,8 +154,7 @@ public class Schedule extends SherlockFragmentActivity {
 				mode.finish();
 				return true;
 			case R.id.menu_edit:
-				/* Some Code to Edit Event */
-            	Toast.makeText(Schedule.this, "Editing selection", Toast.LENGTH_SHORT).show();
+				switch_activity(EDT_TODO_CASE, selected_event.GetID());
 				mode.finish();
 				return true;
 			default:
@@ -395,7 +394,7 @@ public class Schedule extends SherlockFragmentActivity {
 			{
 				event_INTENT = new Intent(this, Add_Activity.class);
 				event_INTENT.putExtra(SELECT_KEY, selected_CD);
-				event_INTENT.putExtra(SELECT_ID_KEY, id);
+				event_INTENT.putExtra(SELECT_ID_KEY, (long)id);
 				startActivity(event_INTENT);
 				load_from_database(selected_CD);
 				break;
@@ -404,7 +403,7 @@ public class Schedule extends SherlockFragmentActivity {
 			{
 				todo_INTENT = new Intent(this, TD_Add_Activity.class);
 				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
-				todo_INTENT.putExtra(SELECT_ID_KEY, id);
+				todo_INTENT.putExtra(SELECT_ID_KEY, (long)id);
 				startActivity(todo_INTENT);
 				load_from_database(selected_CD);
 				break;
@@ -413,7 +412,7 @@ public class Schedule extends SherlockFragmentActivity {
 			{
 				event_INTENT = new Intent(this, Add_Activity.class);
 				event_INTENT.putExtra(SELECT_KEY, selected_CD);
-				event_INTENT.putExtra(SELECT_ID_KEY, NONE);
+				event_INTENT.putExtra(SELECT_ID_KEY, (long)NONE_L);
 				startActivity(event_INTENT);
 				load_from_database(selected_CD);
 				break;
@@ -422,7 +421,7 @@ public class Schedule extends SherlockFragmentActivity {
 			{
 				todo_INTENT = new Intent(this, TD_Add_Activity.class);
 				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
-				todo_INTENT.putExtra(SELECT_ID_KEY, NONE);
+				todo_INTENT.putExtra(SELECT_ID_KEY, (long)NONE_L);
 				startActivity(todo_INTENT);
 				load_from_database(selected_CD);
 				break;

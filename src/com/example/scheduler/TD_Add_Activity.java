@@ -25,14 +25,21 @@ import android.widget.ToggleButton;
 
 public class TD_Add_Activity extends SherlockFragmentActivity {
 	
-	final static int TEN_MINUTES = 10;
-	final static int NONE = -1;
-	final static int ZERO = 0;
-	final static String NO_OVERLAP = "N";
+	private final int MIN_TIME_DIGITS = 3;	
+	private final static int MIN_DIGITS = 2;
+	private final static int TEN_MINUTES = 10;
+	private final static int ZERO = 0;
+	private final static int SECOND = 1;
+	private final static int THIRD = 2;
+	private final static int NONE = -1;
+	private final static String NO_OVERLAP = "N";
+	private final static long NONE_L = -1;
+	private final static String CHECKED = "Y";
 	
 	private SQL_DataSource datasource;
 	
 	private Cal_Date sel_CD;
+	private long b_id;
 	
 	/* Color Selector Resources */
 	protected SVBar svBar;
@@ -68,8 +75,17 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	
 	protected void config_resources()
 	{
+		/* SQL Configuration */
+		datasource = new SQL_DataSource(this);
+		datasource.open();
+		
 		Bundle Schedule_Date = getIntent().getExtras();
-		sel_CD = Schedule_Date.getParcelable(Schedule.SELECT_KEY);
+		b_id = Schedule_Date.getLong(Schedule.SELECT_ID_KEY);
+		
+		if(b_id == NONE_L)
+		{
+			sel_CD = Schedule_Date.getParcelable(Schedule.SELECT_KEY);
+		}
 		
 		/* Layout Configuration */
 		name_et = (EditText) findViewById(R.id.et_tdname);
@@ -89,8 +105,6 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 		c_Picker.addOpacityBar(opBar);
 		c_Picker.addSVBar(svBar);
 		
-		r_dp.updateDate(sel_CD.get_year(), sel_CD.get_month(), sel_CD.get_day());
-		
 		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
 		final Calendar c = Calendar.getInstance();
 		if(c.get(Calendar.HOUR_OF_DAY) < 23)
@@ -98,11 +112,37 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 			end_tp.setCurrentHour(c.get(Calendar.HOUR_OF_DAY) + 1);
 		}
 		
-		/* SQL Configuration */
-		datasource = new SQL_DataSource(this);
-		datasource.open();
+		if(b_id == NONE_L)
+		{
+			r_dp.updateDate(sel_CD.get_year(), sel_CD.get_month(), sel_CD.get_day());
+		}
+	
+		check_EDIT_MODE();
+	}
+	
+	private void check_EDIT_MODE()
+	{
+		if(b_id != NONE_L)
+		{
+			creation_b.setText(getResources().getString(R.string.edt_ev));
+			Event temp = datasource.getEvent(b_id);
+			System.out.println("Stage 1");
+			name_et.setText(temp.getName());
+			System.out.println("Stage 2");
+			System.out.println("Stage 3");
+			end_tp.setCurrentHour(extract_HOUR(temp.GetEnd()));
+			end_tp.setCurrentMinute(extract_MINUTES(temp.GetEnd()));
+			System.out.println("Stage 4");
+			r_dp.updateDate(temp.GetYear(), temp.GetMonth(), temp.GetDay());
+			
+			if(temp.getAlarm() == CHECKED)alarm_tb.setChecked(true);
+			else alarm_tb.setChecked(false);
+			c_Picker.setColor(temp.getColor());
+		}
 		
 	}
+	
+	
 	
 	/* ActionBar Configuration */
 	protected void config_actionbar()
@@ -164,14 +204,43 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 		
 		temp.setColor(c_Picker.getColor());
 		
-		if(!timeIssues(time))
+		if(!timeIssues(time, b_id))
 		{
+			if(b_id != NONE_L)
+			{
+				datasource.deleteEvent(b_id);
+			}
 			/* SQL_Database Code */
 			datasource.createEvent(temp);
 			/* Return to Primary Activity*/
 			finish();
 		}
 	}
+	
+	protected int extract_MINUTES(int time)
+	{
+		String my_time = "" + time;
+		String nu_time = my_time.length() > MIN_DIGITS ? 
+				my_time.substring(my_time.length() - MIN_DIGITS) : my_time;
+		return Integer.parseInt(nu_time);
+	}
+	
+	protected int extract_HOUR(int time)
+	{		
+		String my_time = "" + time;
+		if(my_time.length() <= MIN_DIGITS) return ZERO;
+		else if(my_time.length() == MIN_TIME_DIGITS)
+		{
+			String nu_time = my_time.substring(ZERO, SECOND);
+			return Integer.parseInt(nu_time);
+		}
+		else
+		{
+			String nu_time = my_time.substring(ZERO, THIRD);
+			return Integer.parseInt(nu_time);
+		}	
+	}
+	
 	
 	protected String minutes(int min)
 	{
@@ -214,12 +283,12 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 		super.onPause();
 	}
 	
-	protected boolean timeIssues(Date d)
+	protected boolean timeIssues(Date d, long id)
 	{
-		if(datasource.endTimeExists(d) != NO_OVERLAP)
+		if(datasource.endTimeExists(d, id) != NO_OVERLAP)
 		{
 			focus_Time();
-			Toast.makeText(TD_Add_Activity.this,"A ToDo at this time already exists with name: " + datasource.endTimeExists(d),
+			Toast.makeText(TD_Add_Activity.this,"A ToDo at this time already exists with name: " + datasource.endTimeExists(d ,id),
                     Toast.LENGTH_LONG).show();
 			return true;
 		}

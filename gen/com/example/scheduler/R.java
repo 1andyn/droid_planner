@@ -1383,6 +1383,7 @@ containing a value of this type.
         public static final int ce_stime=0x7f09001c;
         public static final int clear_all=0x7f09002e;
         public static final int desc_hint=0x7f09001b;
+        public static final int edt_ev=0x7f090031;
         public static final int event_hint=0x7f09001a;
         public static final int tb_add=0x7f090011;
         public static final int tb_aev=0x7f090015;

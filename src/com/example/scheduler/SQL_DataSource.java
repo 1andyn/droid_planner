@@ -135,7 +135,7 @@ public class SQL_DataSource {
 		return partialEvents;
 	}
 	
-	public String overlapExists(Date d)
+	public String overlapExists(Date d, long id)
 	{
 		String nofaultEvent = NO_OVERLAP;
 		ArrayList<Event> coreEvents = getEventsForDate(d.get_CDate());
@@ -143,14 +143,17 @@ public class SQL_DataSource {
 		for(int INDEX = 0; INDEX < coreEvents.size(); INDEX++)
 		{
 			if(d.overlapDate(coreEvents.get(INDEX).GetDate()))
-			{
-				return coreEvents.get(INDEX).getName();
+			{	
+				if(coreEvents.get(INDEX).GetID() != id)
+				{
+					return coreEvents.get(INDEX).getName();
+				}
 			}
 		}
 		return nofaultEvent;
 	}
 	
-	public String endTimeExists(Date d)
+	public String endTimeExists(Date d, long id)
 	{
 		String nofaultTodo = NO_OVERLAP;
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, 
@@ -161,7 +164,7 @@ public class SQL_DataSource {
 			Event event = cursorToEvent(curse);
 			if(d.endTimeEqual(event.GetDate()))
 			{
-				return event.getName();
+				if(event.GetID() != id) return event.getName();
 			}
 			curse.moveToNext();
 		}
