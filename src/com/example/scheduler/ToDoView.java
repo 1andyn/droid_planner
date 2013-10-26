@@ -1,6 +1,7 @@
 package com.example.scheduler;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,8 +21,9 @@ public class ToDoView extends LinearLayout{
 	private TextView hr_str;
 	private TextView min_str;
 	private TextView ampm_tag;
-	
 	private TextView ev_name;
+	private String PM = "<u>PM</u>";
+	
 	
 	public ToDoView (Context con, Event ev)
 	{
@@ -75,6 +77,8 @@ public class ToDoView extends LinearLayout{
 		if(time >= PMCHECK)
 		{
 			ampm_tag.setText("PM");
+			/* Underline Text (easier to deciper PM vs AM)*/
+			//ampm_tag.setText(Html.fromHtml(PM));
 		}
 		else
 		{
