@@ -3,6 +3,7 @@ package com.example.scheduler;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.CalendarView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -33,6 +34,7 @@ public class Month_Activity extends SherlockFragmentActivity {
 	
 	protected void initalizeLayout()
 	{
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.calendar_view);
 		cal_VIEW = (CalendarView) findViewById(R.id.calendarview);
 		cal_VIEW.setSelectedWeekBackgroundColor(Color.rgb(RED, GRE, BLU));
