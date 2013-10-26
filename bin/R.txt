@@ -409,7 +409,8 @@ int drawable ic_action_event 0x7f020072
 int drawable ic_action_new_event 0x7f020073
 int drawable icon 0x7f020074
 int drawable rounded 0x7f020075
-int drawable tile_bg 0x7f020076
+int drawable rounded_item 0x7f020076
+int drawable tile_bg 0x7f020077
 int id abs__action_bar 0x7f050020
 int id abs__action_bar_container 0x7f05001f
 int id abs__action_bar_subtitle 0x7f050011

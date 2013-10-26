@@ -40,6 +40,7 @@ public class EventListAdapter extends BaseAdapter {
 			EventView eventer = new EventView(app_Context, (Event)getItem(pos));
 			eventer.setLongClickable(true);
 			eventer.setFocusable(true);
+			eventer.setBackground(app_Context.getResources().getDrawable(R.drawable.rounded_item));
 			eventer.setBackgroundColor(event_list.get(pos).getColor());
 			return eventer;
 		}
@@ -47,6 +48,7 @@ public class EventListAdapter extends BaseAdapter {
 		{
 			convertView.setLongClickable(true);
 			convertView.setFocusable(true);
+			convertView.setBackground(app_Context.getResources().getDrawable(R.drawable.rounded_item));
 			convertView.setBackgroundColor(event_list.get(pos).getColor());
 			EventView e_view = (EventView)convertView;
 			e_view.setEvent((Event)getItem(pos));

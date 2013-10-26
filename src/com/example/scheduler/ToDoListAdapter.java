@@ -40,12 +40,14 @@ public class ToDoListAdapter extends BaseAdapter {
 			ToDoView eventer = new ToDoView(app_Context, (Event)getItem(pos));
 			eventer.setLongClickable(true);
 			eventer.setFocusable(true);
+			eventer.setBackground(app_Context.getResources().getDrawable(R.drawable.rounded_item));
 			eventer.setBackgroundColor(event_list.get(pos).getColor());
 			return eventer;
 		}
 		else
 		{
 			convertView.setLongClickable(true);
+			convertView.setBackground(app_Context.getResources().getDrawable(R.drawable.rounded_item));
 			convertView.setBackgroundColor(event_list.get(pos).getColor());
 			convertView.setFocusable(true);
 			ToDoView t_view = (ToDoView)convertView;
