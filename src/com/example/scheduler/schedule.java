@@ -32,12 +32,6 @@ public class Schedule extends SherlockFragmentActivity {
 	/** Get email for SQLite DB name */
     private final Email_Module email_MODULE = new Email_Module();
     private String identifier;
-	
-    /* Final Values for Integers */
-    final static int NONE = -1;
-    final static float NO_SHOW = 0;
-    final static float SMALL_SHOW = .3f;
-    final static float FULL_SHOW = .4f;
     
     /* ENUMERATION FOR TD/EVENT */
     final static int EVENT_CASE = 0;
@@ -46,9 +40,7 @@ public class Schedule extends SherlockFragmentActivity {
     
     /* TODO SIZE CASES */
     final static int EMPTY = 0;
-    final static int SINGLE = 1;
-    final static int DOUBLE = 2;
-    final static int MULTI = 3;
+    final static int NONE = -1;
 	
 	/* Application context */
 	final Context main_context = this;
@@ -57,7 +49,6 @@ public class Schedule extends SherlockFragmentActivity {
 	protected ArrayList<Event> events_visible;
 	protected EventListAdapter e_adapter;
 	
-	protected LinearLayout sub_layout; /* adjustable layout for event*/
 	protected LinearLayout sub_layout_todo; /* adjustable layout fot todo*/
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	protected ListView t_listview; /* Contains list of Views that displays each ToDo */
@@ -112,7 +103,6 @@ public class Schedule extends SherlockFragmentActivity {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			switch(item.getItemId()){
 			case R.id.menu_remove:
-				/* Some Code to Delete Event */
             	Toast.makeText(Schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
             	remove_event(selected_event);
 				mode.finish();
@@ -131,7 +121,6 @@ public class Schedule extends SherlockFragmentActivity {
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
 			m_Action = null;
-			//selected_view.setBackgroundResource(android.R.color.transparent);	
 		}
 		
 	};
@@ -158,10 +147,8 @@ public class Schedule extends SherlockFragmentActivity {
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			switch(item.getItemId()){
 			case R.id.menu_remove:
-				/* Some Code to Delete Event */
             	Toast.makeText(Schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
             	remove_todo(selected_event);
-            	//weight_adjustment();
 				mode.finish();
 				return true;
 			case R.id.menu_edit:
@@ -315,9 +302,7 @@ public class Schedule extends SherlockFragmentActivity {
 		setContentView(R.layout.schedule_view);
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
-		sub_layout = (LinearLayout)findViewById(R.id.adjustableLayout);
 		sub_layout_todo = (LinearLayout)findViewById(R.id.adjustableTodo);
-		//load_from_database();
 		config_actionbar();
 	}
 	
@@ -398,6 +383,7 @@ public class Schedule extends SherlockFragmentActivity {
 			case EVENT_CASE:
 			{
 				event_INTENT = new Intent(this, Add_Activity.class);
+				event_INTENT.putExtra(SELECT_KEY, selected_CD);
 				startActivity(event_INTENT);
 				load_from_database(selected_CD);
 				break;
@@ -405,6 +391,7 @@ public class Schedule extends SherlockFragmentActivity {
 			case TODO_CASE:
 			{
 				todo_INTENT = new Intent(this, TD_Add_Activity.class);
+				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
 				startActivity(todo_INTENT);
 				load_from_database(selected_CD);
 				break;
@@ -445,29 +432,23 @@ public class Schedule extends SherlockFragmentActivity {
 			if(temp.get(INDEX).GetStart() == NONE) todos_visible.add(temp.get(INDEX));
 			else events_visible.add(temp.get(INDEX));
 		}
+		todo_ADJUSTMENT();
 		t_adapter.notifyDataSetChanged();
 		e_adapter.notifyDataSetChanged();
 		
 	}
 	
 	/* Changes Weight of Todo Layout Depending on Size of ArrayList */
-	protected void weight_adjustment()
+	protected void todo_ADJUSTMENT()
 	{
 		int SIZE = todos_visible.size();
 		if(SIZE == EMPTY)
 		{
-			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 
-				LayoutParams.WRAP_CONTENT, NO_SHOW));
-		}
-		else if (SIZE == DOUBLE || SIZE == SINGLE)
-		{
-			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 
-					LayoutParams.WRAP_CONTENT, SMALL_SHOW));
+			sub_layout_todo.setVisibility(View.INVISIBLE);
 		}
 		else
 		{
-			sub_layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 
-					LayoutParams.WRAP_CONTENT, FULL_SHOW));
+			sub_layout_todo.setVisibility(View.VISIBLE);
 		}
 	}
 	
