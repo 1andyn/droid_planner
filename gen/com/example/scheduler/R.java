@@ -1267,6 +1267,7 @@ containing a value of this type.
         public static final int tb_date=0x7f050064;
         public static final int tb_month=0x7f050063;
         public static final int tb_sub_ev=0x7f05006a;
+        public static final int tb_sub_rp=0x7f05006c;
         public static final int tb_sub_td=0x7f05006b;
         public static final int td_alarm=0x7f05005d;
         public static final int td_alatv=0x7f05005c;
@@ -1390,6 +1391,7 @@ containing a value of this type.
         public static final int tb_atd=0x7f090016;
         public static final int tb_date=0x7f090012;
         public static final int tb_month=0x7f090013;
+        public static final int tb_rep=0x7f090030;
         public static final int td_Color_Text=0x7f09002d;
         public static final int td_button=0x7f090026;
         public static final int td_date=0x7f090028;

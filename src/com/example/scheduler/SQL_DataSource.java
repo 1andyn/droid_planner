@@ -75,6 +75,25 @@ public class SQL_DataSource {
 		database.delete(SQLHelper.TABLE_NAME, SQLHelper.COLUMN_ID + " = " + id, null);
 	}
 	
+	public Event getEvent(long id)
+	{
+		Event my_event = new Event();
+		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
+				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_END + " ASC");
+		curse.moveToFirst();
+		while(!curse.isAfterLast())
+		{
+			Event event = cursorToEvent(curse);
+			if(event.GetID() == id)
+			{
+				return event;
+			}
+			curse.moveToNext();
+		}
+		curse.close();
+		return my_event;
+	}
+	
 	public ArrayList<Event> getAllEvents()
 	{		
 		ArrayList<Event> allEvents = new ArrayList<Event>();

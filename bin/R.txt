@@ -502,6 +502,7 @@ int id tb_add 0x7f050065
 int id tb_date 0x7f050064
 int id tb_month 0x7f050063
 int id tb_sub_ev 0x7f05006a
+int id tb_sub_rp 0x7f05006c
 int id tb_sub_td 0x7f05006b
 int id td_alarm 0x7f05005d
 int id td_alatv 0x7f05005c
@@ -591,6 +592,7 @@ int string tb_aqt 0x7f090029
 int string tb_atd 0x7f090016
 int string tb_date 0x7f090012
 int string tb_month 0x7f090013
+int string tb_rep 0x7f090030
 int string td_Color_Text 0x7f09002d
 int string td_button 0x7f090026
 int string td_date 0x7f090028
