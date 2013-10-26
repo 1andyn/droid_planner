@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.CalendarView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.example.scheduler.R.color;
-
 
 public class Month_Activity extends SherlockFragmentActivity {
 	
@@ -39,6 +37,7 @@ public class Month_Activity extends SherlockFragmentActivity {
 		cal_VIEW = (CalendarView) findViewById(R.id.calendarview);
 		cal_VIEW.setSelectedWeekBackgroundColor(Color.rgb(RED, GRE, BLU));
 		cal_VIEW.setWeekSeparatorLineColor(Color.LTGRAY);
+		cal_VIEW.setWeekNumberColor(Color.WHITE);
 		cal_VIEW.setDate(selected_CM.dateToLong(selected_CD));
 	}
 	
