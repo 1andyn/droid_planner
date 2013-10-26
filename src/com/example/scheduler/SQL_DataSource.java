@@ -75,6 +75,12 @@ public class SQL_DataSource {
 		database.delete(SQLHelper.TABLE_NAME, SQLHelper.COLUMN_ID + " = " + id, null);
 	}
 	
+	public void deleteEvent(long id)
+	{
+		System.out.println("Comment deleted with id: " + id);
+		database.delete(SQLHelper.TABLE_NAME, SQLHelper.COLUMN_ID + " = " + id, null);
+	}
+	
 	public Event getEvent(long id)
 	{
 		Event my_event = new Event();

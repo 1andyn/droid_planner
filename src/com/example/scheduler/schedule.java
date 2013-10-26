@@ -3,8 +3,6 @@ package com.example.scheduler;
 /* Parse Cloud Imports */
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
-import com.parse.ParseObject;
-
 /* ActionBarSherlock Imports */
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -15,11 +13,9 @@ import com.actionbarsherlock.view.MenuItem;
 
 /* Basic Android Imports*/
 import android.os.Bundle;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,6 +34,8 @@ public class Schedule extends SherlockFragmentActivity {
     final static int EVENT_CASE = 0;
     final static int TODO_CASE = 1;
     final static int MONTH_CASE = 2;
+    final static int EDT_TODO_CASE = 3;
+    final static int EDT_EVENT_CASE = 4;
     
     final static int CLEAR_CASE = 0;
     
@@ -84,6 +82,7 @@ public class Schedule extends SherlockFragmentActivity {
 	final static String SCHEDULE_MONTH = "S_MON";
 	final static String SCHEDULE_YEAR = "S_YR";
 	final static String SELECT_KEY = "CURRENT_DATE";
+	final static String SELECT_ID_KEY = "SELECT_ID";
 	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
@@ -194,7 +193,7 @@ public class Schedule extends SherlockFragmentActivity {
 
 		    case R.id.tb_month:
 		    {
-		    	switch_activity(MONTH_CASE);
+		    	switch_activity(MONTH_CASE, NONE);
 		    	return false;
 
 		    }
@@ -208,16 +207,17 @@ public class Schedule extends SherlockFragmentActivity {
 		    }
 	    	case R.id.tb_sub_ev:
 	    	{
-	    		switch_activity(EVENT_CASE);
+	    		switch_activity(EVENT_CASE, NONE);
 	    		return false;
 	    	}
 	    	
 	    	case R.id.tb_sub_td:
 	    	{
-	    		switch_activity(TODO_CASE);
+	    		switch_activity(TODO_CASE, NONE);
 	    		return false;
 	    	}
 	    	case R.id.full_clear:
+	    		
 	    	{
 	    		CLEAR_EVERYTHING();
 	    		Toast.makeText(Schedule.this, "All events have been cleared!", Toast.LENGTH_LONG).show();
@@ -350,10 +350,8 @@ public class Schedule extends SherlockFragmentActivity {
 					}
 				}
 				datasource.deleteEvent(e);
-				
 				// Update View List
 				e_adapter.notifyDataSetChanged();
-				
 				// Set Selection back to Null Event
 				selected_event = empty_event;
 			}
@@ -372,11 +370,9 @@ public class Schedule extends SherlockFragmentActivity {
 						todos_visible.remove(x);
 					}
 				}
-				datasource.deleteEvent(e);
-								
+				datasource.deleteEvent(e);		
 				// Update View List
 				t_adapter.notifyDataSetChanged();
-				
 				// Set Selection back to Null Event
 				selected_event = empty_event;
 			}
@@ -391,14 +387,33 @@ public class Schedule extends SherlockFragmentActivity {
 		//testObject.saveInBackground();
 	}
 	
-	protected void switch_activity(int USR_CASE)
+	protected void switch_activity(int USR_CASE, long id)
 	{
 		switch(USR_CASE)
 		{
+			case EDT_EVENT_CASE:
+			{
+				event_INTENT = new Intent(this, Add_Activity.class);
+				event_INTENT.putExtra(SELECT_KEY, selected_CD);
+				event_INTENT.putExtra(SELECT_ID_KEY, id);
+				startActivity(event_INTENT);
+				load_from_database(selected_CD);
+				break;
+			}
+			case EDT_TODO_CASE:
+			{
+				todo_INTENT = new Intent(this, TD_Add_Activity.class);
+				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
+				todo_INTENT.putExtra(SELECT_ID_KEY, id);
+				startActivity(todo_INTENT);
+				load_from_database(selected_CD);
+				break;
+			}
 			case EVENT_CASE:
 			{
 				event_INTENT = new Intent(this, Add_Activity.class);
 				event_INTENT.putExtra(SELECT_KEY, selected_CD);
+				event_INTENT.putExtra(SELECT_ID_KEY, NONE);
 				startActivity(event_INTENT);
 				load_from_database(selected_CD);
 				break;
@@ -407,6 +422,7 @@ public class Schedule extends SherlockFragmentActivity {
 			{
 				todo_INTENT = new Intent(this, TD_Add_Activity.class);
 				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
+				todo_INTENT.putExtra(SELECT_ID_KEY, NONE);
 				startActivity(todo_INTENT);
 				load_from_database(selected_CD);
 				break;
