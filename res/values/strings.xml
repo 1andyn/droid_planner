@@ -36,5 +36,5 @@
     <string name="clear_all">Delete Everything</string>
     <string name="test_item">Test Item</string>
     <string name="tb_rep">Course or Work</string>
-    <string name="edt_ev">Edit Event</string>
+    <string name="edt_ev">Apply Edits</string>
 </resources>

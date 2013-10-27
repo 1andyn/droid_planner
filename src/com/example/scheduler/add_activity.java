@@ -138,16 +138,12 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		{
 			creation_b.setText(getResources().getString(R.string.edt_ev));
 			Event temp = datasource.getEvent(b_id);
-			System.out.println("Stage 1");
 			name_et.setText(temp.getName());
 			desc_et.setText(temp.getDescription());
-			System.out.println("Stage 2");
 			start_tp.setCurrentHour(extract_HOUR(temp.GetStart()));
 			start_tp.setCurrentMinute(extract_MINUTES(temp.GetStart()));
-			System.out.println("Stage 3");
 			end_tp.setCurrentHour(extract_HOUR(temp.GetEnd()));
 			end_tp.setCurrentMinute(extract_MINUTES(temp.GetEnd()));
-			System.out.println("Stage 4");
 			r_dp.updateDate(temp.GetYear(), temp.GetMonth(), temp.GetDay());
 			
 			if(temp.getAlarm() == CHECKED)alarm_tb.setChecked(true);
