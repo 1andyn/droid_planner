@@ -3,6 +3,7 @@ package com.example.scheduler;
 public class Event{
 	private final int INT_WHITE = 16777215;
 	private final int EMPTY = 0;
+	private final String NO_REP = "NNNNNNN";
 	
 	private long eventID;
 	private String eventName;
@@ -10,6 +11,7 @@ public class Event{
 	private int eventColor;
 	private Date eventDate;
 	private String alarm;
+	private String rep_STRING;
 
 	/* Constructor */
 	public Event(long id, String name)
@@ -19,6 +21,7 @@ public class Event{
 		eventDesc = null;
 		eventColor = INT_WHITE;
 		eventDate = new Date();
+		rep_STRING = NO_REP;
 		alarm = "N";
 	}
 	
@@ -30,6 +33,7 @@ public class Event{
 		eventDesc = null;
 		eventColor = INT_WHITE;
 		eventDate = new Date();
+		rep_STRING = NO_REP;
 		alarm = "N";
 	}
 
@@ -123,6 +127,17 @@ public class Event{
 	{
 		return(ev.GetID() == this.GetID());
 	}
+	
+	public String getRep()
+	{
+		return rep_STRING;
+	}
+	
+	public void set_Rep(String rep_string)
+	{
+		rep_STRING = rep_string;
+	}
+	
 }
 	
 
