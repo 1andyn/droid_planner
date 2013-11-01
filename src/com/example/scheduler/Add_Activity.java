@@ -74,6 +74,9 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	protected ToggleButton rp_fri;
 	protected ToggleButton rp_sat;
 	
+	/* Repetition Module */
+	private Repetition_Module Rep_Mod;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,6 +95,9 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	protected void config_resources()
 	{
+		/* Rep Mod Creation */
+		Rep_Mod = new Repetition_Module();
+		
 		/* SQL Configuration */
 		datasource = new SQL_DataSource(this);
 		datasource.open();
@@ -133,7 +139,6 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		rp_thu = (ToggleButton) findViewById(R.id.rp_thu);
 		rp_fri = (ToggleButton) findViewById(R.id.rp_fri);
 		rp_sat = (ToggleButton) findViewById(R.id.rp_sat);
-		
 		
 		
 		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
@@ -235,6 +240,16 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		temp.setDate(time);
 		
 		temp.setColor(c_Picker.getColor());
+		
+		Rep_Mod.add_ToggleButton(rp_sun);
+		Rep_Mod.add_ToggleButton(rp_mon);
+		Rep_Mod.add_ToggleButton(rp_tue);
+		Rep_Mod.add_ToggleButton(rp_wed);
+		Rep_Mod.add_ToggleButton(rp_thu);
+		Rep_Mod.add_ToggleButton(rp_fri);
+		Rep_Mod.add_ToggleButton(rp_sat);
+		
+		
 		
 		if(!timeIssues(time, b_id))
 		{
