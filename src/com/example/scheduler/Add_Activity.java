@@ -31,6 +31,14 @@ import android.widget.ToggleButton;
 
 public class Add_Activity  extends SherlockFragmentActivity {
 	
+	private final static int SUN = 0;
+	private final static int MON = 1;
+	private final static int TUE = 2;
+	private final static int WED = 3;
+	private final static int THU = 4;
+	private final static int FRI = 5;
+	private final static int SAT = 6;
+	
 	private final int MIN_TIME_DIGITS = 3;	
 	private final static int MIN_DIGITS = 2;
 	private final static int TEN_MINUTES = 10;
@@ -94,10 +102,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	}
 	
 	protected void config_resources()
-	{
-		/* Rep Mod Creation */
-		Rep_Mod = new Repetition_Module();
-		
+	{		
 		/* SQL Configuration */
 		datasource = new SQL_DataSource(this);
 		datasource.open();
@@ -170,6 +175,13 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			end_tp.setCurrentMinute(extract_MINUTES(temp.GetEnd()));
 			r_dp.updateDate(temp.GetYear(), temp.GetMonth(), temp.GetDay());
 			
+			/* Repetition Module */
+			Rep_Mod = new Repetition_Module();
+			
+			Rep_Mod = null;
+			/* Rep Module*/
+			
+			
 			if(temp.getAlarm() == CHECKED)alarm_tb.setChecked(true);
 			else alarm_tb.setChecked(false);
 			c_Picker.setColor(temp.getColor());
@@ -241,6 +253,9 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		temp.setColor(c_Picker.getColor());
 		
+		/* Rep Mod Code */
+		Rep_Mod = new Repetition_Module();
+		
 		Rep_Mod.add_ToggleButton(rp_sun);
 		Rep_Mod.add_ToggleButton(rp_mon);
 		Rep_Mod.add_ToggleButton(rp_tue);
@@ -249,7 +264,11 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		Rep_Mod.add_ToggleButton(rp_fri);
 		Rep_Mod.add_ToggleButton(rp_sat);
 		
+		temp.set_Rep(Rep_Mod.get_RepString());
 		
+		Rep_Mod = null; // Deallocate
+		
+		/* Rep Mod Code*/
 		
 		if(!timeIssues(time, b_id))
 		{

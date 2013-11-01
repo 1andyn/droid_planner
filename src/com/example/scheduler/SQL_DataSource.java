@@ -21,6 +21,7 @@ public class SQL_DataSource {
 	private int COL_START = 7;
 	private int COL_END = 8;
 	private int COL_COL = 9;
+	private int COL_REP = 10;
 	
 	private final static String NO_OVERLAP = "N";
 	
@@ -181,6 +182,7 @@ public class SQL_DataSource {
 		newEvent.setDescription(curs.getString(COL_DESC));
 		newEvent.setAlarm(curs.getString(COL_ALARM));
 		newEvent.setColor(curs.getInt(COL_COL));
+		newEvent.set_Rep(curs.getString(COL_REP));
 		
 		Date newDate = new Date();
 		newDate.setMth(curs.getInt(COL_MONTH));

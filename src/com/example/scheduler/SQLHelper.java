@@ -36,7 +36,7 @@ public class SQLHelper extends SQLiteOpenHelper {
 		      + COLUMN_START + " INT NOT NULL, "
 		      + COLUMN_END + " INT NOT NULL, "
 		      + COLUMN_COLOR + " INT NOT NULL," 
-		      +	COLUMN_REP + "TEXT NOT NULL" + " );";
+		      +	COLUMN_REP + " TEXT NOT NULL" + " );";
 	
 	  public SQLHelper(Context context) {
 		    super(context, "/mnt/sdcard/" + DATABASE_NAME, null, DATABASE_VERSION);

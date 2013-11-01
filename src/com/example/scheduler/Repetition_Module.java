@@ -7,8 +7,9 @@ import android.widget.ToggleButton;
 
 public class Repetition_Module {
 	
-	private final static int TRUE_REP = 1;
-	private final static int FALSE_REP = 0;
+	private final static String NO_REP = "NNNNNNN";
+	private final static String TRUE_REP = "Y";
+	private final static String FALSE_REP = "N";
 	private final static int SIZE_OF_ARRAY = 7;
 	private ArrayList<ToggleButton> RepeatedDays;
 	
@@ -30,6 +31,8 @@ public class Repetition_Module {
 	
 	public String get_RepString()
 	{
+		if(RepeatedDays.size() < SIZE_OF_ARRAY) return NO_REP;
+		
 		StringBuilder strBuilder = new StringBuilder();
 		String rep_string;
 		for(int INDEX = 0; INDEX < SIZE_OF_ARRAY; INDEX++){
@@ -40,7 +43,10 @@ public class Repetition_Module {
 		return rep_string;
 	}
 	
-	
+	public Boolean toggle_Check(String s, int day)
+	{
+		return false;
+	}
 	
 	
 }
