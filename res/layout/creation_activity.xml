@@ -115,78 +115,109 @@
 	        android:padding="30sp" >
 
 	        <TextView
-	            android:textColor="#FFFFFF"
 	            android:id="@+id/ce_alatv"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:paddingRight="30sp"
 	            android:text="@string/ce_alatv"
+	            android:textColor="#FFFFFF"
 	            android:textSize="15sp" />
 
 	        <ToggleButton
 	            android:id="@+id/ce_alarm"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
 	            android:text="@string/ce_alarm"
 	            android:textOff="@string/ce_d_ala"
 	            android:textOn="@string/ce_e_ala" />
 	    </LinearLayout>
 	    
-	    <LinearLayout 
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:gravity="center"
+	        android:padding="5sp" >
+
+	       	<TextView
+	        android:textColor="#FFFFFF"
+	        android:paddingTop="15sp"
+	        android:id="@+id/ce_rep_string"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:orientation="horizontal">       
+	        android:text="@string/rp_rep"
+	        android:textSize="20sp" />
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:orientation="horizontal"
+	        android:paddingBottom="20sp" >
+
 	        <ToggleButton
 	            android:id="@+id/rp_sun"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
 	            android:text="@string/rp_sun"
 	            android:textOff="@string/rp_sun"
 	            android:textOn="@string/rp_sun" />
+
 	        <ToggleButton
 	            android:id="@+id/rp_mon"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
 	            android:text="@string/rp_mon"
 	            android:textOff="@string/rp_mon"
-	            android:textOn="@string/rp_mon" />	 
-	       <ToggleButton
+	            android:textOn="@string/rp_mon" />
+
+	        <ToggleButton
 	            android:id="@+id/rp_tue"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
 	            android:text="@string/rp_tue"
 	            android:textOff="@string/rp_tue"
-	            android:textOn="@string/rp_tue" />	 
-	       <ToggleButton
+	            android:textOn="@string/rp_tue" />
+
+	        <ToggleButton
 	            android:id="@+id/rp_wed"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
 	            android:text="@string/rp_wed"
 	            android:textOff="@string/rp_wed"
-	            android:textOn="@string/rp_wed" />	 
+	            android:textOn="@string/rp_wed" />
+
 	        <ToggleButton
 	            android:id="@+id/rp_thu"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
 	            android:text="@string/rp_thu"
 	            android:textOff="@string/rp_thu"
-	            android:textOn="@string/rp_thu" />	 
-	      <ToggleButton
+	            android:textOn="@string/rp_thu" />
+
+	        <ToggleButton
 	            android:id="@+id/rp_fri"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
 	            android:text="@string/rp_fri"
 	            android:textOff="@string/rp_fri"
-	            android:textOn="@string/rp_fri" />	 
-	       <ToggleButton
-	            android:id="@+id/rp_sun"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/ce_alarm"
-	            android:textOff="@string/rp_sun"
-	            android:textOn="@string/rp_sun" />	 
+	            android:textOn="@string/rp_fri" />
 
-	            	    
+	        <ToggleButton
+	            android:id="@+id/rp_sat"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:text="@string/rp_sat"
+	            android:textOff="@string/rp_sat"
+	            android:textOn="@string/rp_sat" />
 	    </LinearLayout>
 	    
 	    <LinearLayout
@@ -195,7 +226,7 @@
 	        android:layout_gravity="center"
 	        android:gravity="center"
 	        android:orientation="vertical"
-	        android:paddingBottom="20dp" >
+	        android:padding="20dp" >
 	        
 	    <TextView
 	        android:textColor="#FFFFFF"

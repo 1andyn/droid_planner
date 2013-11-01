@@ -65,6 +65,15 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	protected ToggleButton alarm_tb;
 	protected Button creation_b;
 	
+	/* Repetition Toggle Buttons */
+	protected ToggleButton rp_sun;
+	protected ToggleButton rp_mon;
+	protected ToggleButton rp_tue;
+	protected ToggleButton rp_wed;
+	protected ToggleButton rp_thu;
+	protected ToggleButton rp_fri;
+	protected ToggleButton rp_sat;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -115,7 +124,11 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		c_Picker.setOldCenterColor(getResources().getColor(R.color.White));
 		c_Picker.addOpacityBar(opBar);
-		c_Picker.addSVBar(svBar);	
+		c_Picker.addSVBar(svBar);
+		
+		rp_sun_tb
+		
+		
 		
 		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
 		final Calendar c = Calendar.getInstance();
