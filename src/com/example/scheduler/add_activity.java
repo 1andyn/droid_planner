@@ -126,7 +126,13 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		c_Picker.addOpacityBar(opBar);
 		c_Picker.addSVBar(svBar);
 		
-		rp_sun_tb
+		rp_sun = (ToggleButton) findViewById(R.id.rp_sun);
+		rp_mon = (ToggleButton) findViewById(R.id.rp_mon);
+		rp_tue = (ToggleButton) findViewById(R.id.rp_tue);
+		rp_wed = (ToggleButton) findViewById(R.id.rp_wed);
+		rp_thu = (ToggleButton) findViewById(R.id.rp_thu);
+		rp_fri = (ToggleButton) findViewById(R.id.rp_fri);
+		rp_sat = (ToggleButton) findViewById(R.id.rp_sat);
 		
 		
 		
