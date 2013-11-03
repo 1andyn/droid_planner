@@ -12,6 +12,7 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
 /* Basic Android Imports*/
 import android.os.Bundle;
@@ -41,6 +42,8 @@ public class Schedule extends SherlockFragmentActivity {
     final static int MONTH_CASE = 2;
     final static int EDT_TODO_CASE = 3;
     final static int EDT_EVENT_CASE = 4;
+    
+    final static int TodoPanelHeight = 75;
     
     final static int CLEAR_CASE = 0;
     
@@ -322,6 +325,8 @@ public class Schedule extends SherlockFragmentActivity {
 	/* Configures everything Visual*/
 	protected void initalizeLayout()
 	{
+		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.HoloDark));
 		setContentView(R.layout.schedule_view);
 		empty_todo = (ViewStub) findViewById(R.id.empty_todo);
 		empty_events = (ViewStub) findViewById(R.id.empty_event);
@@ -331,11 +336,12 @@ public class Schedule extends SherlockFragmentActivity {
 		
         SlidingUpPanelLayout layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         layout.setShadowDrawable(getResources().getDrawable(R.drawable.above_shadow));
+        layout.setPanelHeight(TodoPanelHeight);
         layout.setAnchorPoint(0.3f);
         layout.setPanelSlideListener(new PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
-                if (slideOffset < 0.2) {
+                if (slideOffset < 0.3) {
                     if (getActionBar().isShowing()) {
                         getActionBar().hide();
                     }

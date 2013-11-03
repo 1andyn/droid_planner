@@ -14,7 +14,7 @@
 	    android:layout_height="match_parent" 
 	    android:layout_width="match_parent"
 	    android:orientation="vertical">
-	    <!--Use this Specific ListView element for event objects-->
+	    <!-- Use this Specific ListView element for event objects -->
 	    <ListView
 	        android:id="@+id/eventViewGroup"
 	        android:background="@drawable/rounded"
@@ -37,18 +37,26 @@
 	    android:orientation="vertical">
 	    <!--Use this Specific ListView element for todo objects-->
 	    <TextView 
+	        	android:textColor="#FFFFFF"
 	        	android:id="@+id/todo_slider"
 	        	android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="34dp"
                 android:gravity="center|bottom"
                 android:text="Slide up to view Todo List!"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+	    
+	     <View
+	         android:padding="5dp"
+			android:layout_width="match_parent"
+			android:layout_height="5dp"
+			android:background="@color/HoloBlue"/>
+	    
 	    <ListView
 	        android:id="@+id/todoViewGroup"
 	        android:background="@drawable/rounded"
 	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
+	        android:layout_height="wrap_content"
 	        android:longClickable="true"
 	        android:divider="@android:color/transparent"				    
 			android:dividerHeight="5sp"/>
