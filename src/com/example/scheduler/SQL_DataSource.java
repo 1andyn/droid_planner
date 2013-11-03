@@ -130,14 +130,17 @@ public class SQL_DataSource {
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
 				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_END + " ASC");
 		curse.moveToFirst();
-		while(!curse.isAfterLast())
-		{
+		while(!curse.isAfterLast()){
 			Event event = cursorToEvent(curse);
-			if(event.GetDate().get_CDate().isEqual(d))
-			{
+			if(event.GetDate().get_CDate().isEqual(d)){
 				partialEvents.add(event);
 			}
-			
+			else {
+				rep_mod.set_RepString(event.getRep());
+				if(rep_mod.toggle_Check(cal_mod.getWeekday(d))){	
+					partialEvents.add(event);
+				}		
+			}
 			curse.moveToNext();
 		}
 		curse.close();

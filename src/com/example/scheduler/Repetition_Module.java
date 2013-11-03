@@ -50,6 +50,7 @@ public class Repetition_Module {
 	
 	public Boolean toggle_Check(int day)
 	{
+		System.out.println("The Day is: " + Integer.toString(day));
 		int strStart, strEnd;
 		strStart = day;
 		strEnd = strStart + 1;
@@ -58,27 +59,13 @@ public class Repetition_Module {
 		if(day == Sunday) nu_time = RepetitionString.substring(Sunday);
 		else  nu_time = RepetitionString.substring(strStart,strEnd);
 		
+		System.out.println(RepetitionString);
 		if(nu_time.equals(TRUE_REP))
 		{
+			System.out.println("Returned True");
 			return true;
 		}
-		return false;
-	}
-	
-	public Boolean repeatsOnDay(String repString, int day)
-	{
-		int strStart, strEnd;
-		strStart = day;
-		strEnd = strStart + 1;
-		
-		String nu_time;
-		if(day == Sunday) nu_time = repString.substring(Sunday);
-		else  nu_time = repString.substring(strStart,strEnd);
-		
-		if(nu_time.equals(TRUE_REP))
-		{
-			return true;
-		}
+		System.out.println("Returning False");
 		return false;
 	}
 	

@@ -20,7 +20,7 @@ public class Cal_Module{
 	GregorianCalendar G_Calendar;
 	Calendar C_Calendar;
 	Cal_Date currentDate;
-	
+		
 	public Cal_Date getCurrentDate()
 	{
 		C_Calendar = Calendar.getInstance();
@@ -36,7 +36,7 @@ public class Cal_Module{
 	public String dayToString(Cal_Date d) 
 	{
 		G_Calendar = new GregorianCalendar(d.get_year(), d.get_month(), d.get_day());
-		switch(G_Calendar.get(G_Calendar.DAY_OF_WEEK)){
+		switch(G_Calendar.get(Calendar.DAY_OF_WEEK)){
 			case 1:	return "SUNDAY";
 			case 2: return "MONDAY";
 			case 3: return "TUESDAY";
@@ -50,7 +50,7 @@ public class Cal_Module{
 	public int getWeekday(Cal_Date d) 
 	{
 		G_Calendar = new GregorianCalendar(d.get_year(), d.get_month(), d.get_day());
-		switch(G_Calendar.get(G_Calendar.DAY_OF_WEEK)){
+		switch(G_Calendar.get(Calendar.DAY_OF_WEEK)){
 			case 1:	return sun;
 			case 2: return mon;
 			case 3: return tue;
