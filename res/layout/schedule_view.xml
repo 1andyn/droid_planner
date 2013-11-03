@@ -43,30 +43,39 @@
 	        	android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:gravity="center|bottom"
-                android:text="Slide up to view Todo List!"
+                android:text="Slide up to view Todo List"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-	    
+                android:textStyle="bold" />   
 	     <View
-	         android:padding="5dp"
+	        android:padding="10dp"
 			android:layout_width="match_parent"
 			android:layout_height="5dp"
 			android:background="@color/HoloBlue"/>
-	    
-	    <ListView
-	        android:id="@+id/todoViewGroup"
-	        android:background="@drawable/rounded"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:longClickable="true"
-	        android:divider="@android:color/transparent"				    
-			android:dividerHeight="5sp"/>
-	    <ViewStub
-            android:id="@+id/empty_todo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout="@layout/empty_todo" />
+		 <!--  
+		 <ScrollView
+		    android:layout_width="match_parent"
+			android:layout_height="wrap_content">   
+			-->
+		 <LinearLayout 
+		    android:layout_height="match_parent" 
+		    android:layout_width="match_parent"
+		    android:orientation="vertical">
+		    <ListView
+		        android:paddingTop="15dp"
+		        android:id="@+id/todoViewGroup"
+		        android:background="@drawable/rounded"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:longClickable="true"
+		        android:divider="@android:color/transparent"				    
+				android:dividerHeight="5sp"/>
+		    <ViewStub
+	            android:id="@+id/empty_todo"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:layout="@layout/empty_todo" />
+		</LinearLayout>
     </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 	    

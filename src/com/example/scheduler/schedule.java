@@ -334,12 +334,14 @@ public class Schedule extends SherlockFragmentActivity {
 		empty_events = (ViewStub) findViewById(R.id.empty_event);
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
+        sliderText = (TextView) findViewById(R.id.todo_slider);
 		config_actionbar();
 		
         SlidingUpPanelLayout layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         layout.setShadowDrawable(getResources().getDrawable(R.drawable.above_shadow));
         layout.setPanelHeight(TodoPanelHeight);
         layout.setAnchorPoint(0.3f);
+        layout.setDragView(sliderText);
         layout.setPanelSlideListener(new PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
@@ -366,7 +368,6 @@ public class Schedule extends SherlockFragmentActivity {
             public void onPanelAnchored(View panel) {
             }
         });
-        sliderText = (TextView) findViewById(R.id.todo_slider);
         sliderText.setMovementMethod(LinkMovementMethod.getInstance());
 		
 	}
