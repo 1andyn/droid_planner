@@ -33,12 +33,12 @@ public class Alarm_Module extends Service{
 	       mManager = (NotificationManager) this.getApplicationContext().getSystemService(this.getApplicationContext().NOTIFICATION_SERVICE);
 	       Intent intent1 = new Intent(this.getApplicationContext(),Schedule.class);
 	     
-	       Notification notification = new Notification(R.drawable.ic_action_event,"This is a test message!", System.currentTimeMillis());
+	       Notification notification = new Notification(R.drawable.ic_action_event,"TEST ALARM", System.currentTimeMillis());
 	       intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	 
 	       PendingIntent pendingNotificationIntent = PendingIntent.getActivity( this.getApplicationContext(),0, intent1,PendingIntent.FLAG_UPDATE_CURRENT);
 	       notification.flags |= Notification.FLAG_AUTO_CANCEL;
-	       notification.setLatestEventInfo(this.getApplicationContext(), "AlarmManagerDemo", "This is a test message!", pendingNotificationIntent);
+	       notification.setLatestEventInfo(this.getApplicationContext(), "AlarmManagerDemo", "This is a test Alarm Alert.", pendingNotificationIntent);
 	 
 	       mManager.notify(0, notification);
 	       return 0;
