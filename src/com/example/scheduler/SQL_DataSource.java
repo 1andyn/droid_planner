@@ -22,6 +22,9 @@ public class SQL_DataSource {
 	private int COL_END = 8;
 	private int COL_COL = 9;
 	private int COL_REP = 10;
+	private int EMPTY = 0;
+	private int START = 0;
+	private int SIZE_ONE = 1;
 	
 	private final static String NO_OVERLAP = "N";
 	private final static String NO_REP = "NNNNNNN";
@@ -93,11 +96,9 @@ public class SQL_DataSource {
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
 				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_END + " ASC");
 		curse.moveToFirst();
-		while(!curse.isAfterLast())
-		{
+		while(!curse.isAfterLast()){
 			Event event = cursorToEvent(curse);
-			if(event.GetID() == id)
-			{
+			if(event.GetID() == id){
 				return event;
 			}
 			curse.moveToNext();
@@ -112,8 +113,7 @@ public class SQL_DataSource {
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
 				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_END + " ASC");
 		curse.moveToFirst();
-		while(!curse.isAfterLast())
-		{
+		while(!curse.isAfterLast()){
 			Event event = cursorToEvent(curse);
 			allEvents.add(event);
 			curse.moveToNext();
@@ -137,8 +137,7 @@ public class SQL_DataSource {
 			Event event = cursorToEvent(curse);
 			if(event.GetDate().get_CDate().isEqual(d)){
 				partialEvents.add(event);
-			}
-			else {
+			} else {
 				rep_mod.set_RepString(event.getRep());
 				if(rep_mod.toggle_Check(dayofWeek)){	
 					partialEvents.add(event);
@@ -148,6 +147,10 @@ public class SQL_DataSource {
 		}
 		curse.close();
 		rep_mod = null;
+		
+		if(!partialEvents.isEmpty())
+			quickSort(partialEvents, START, partialEvents.size() - 1);
+		
 		return partialEvents;
 	}
 	
@@ -159,12 +162,9 @@ public class SQL_DataSource {
 		
 		ArrayList<Event> coreEvents = getEventsForDate(d.GetDate().get_CDate());
 		/* Tests for Regular Event Overlap */
-		for(int x = 0; x < coreEvents.size(); x++)
-		{
-			if(d.GetDate().overlapDate(coreEvents.get(x).GetDate()))
-			{	
-				if(coreEvents.get(x).GetID() != id)
-				{
+		for(int x = 0; x < coreEvents.size(); x++){
+			if(d.GetDate().overlapDate(coreEvents.get(x).GetDate())){	
+				if(coreEvents.get(x).GetID() != id){
 					return coreEvents.get(x).getName();
 				}
 			}
@@ -173,18 +173,47 @@ public class SQL_DataSource {
 		
 		ArrayList<Event> repeatedEvents = getEventsOfDay(d);
 		/* Tests for Repeating Event Overlap */
-		for(int x = 0; x < repeatedEvents.size(); x++)
-		{
-			if(d.GetDate().overlapDate(repeatedEvents.get(x).GetDate()))
-			{
-				if(repeatedEvents.get(x).GetID() != id)
-				{
+		for(int x = 0; x < repeatedEvents.size(); x++){
+			if(d.GetDate().overlapDate(repeatedEvents.get(x).GetDate())){
+				if(repeatedEvents.get(x).GetID() != id){
 					return repeatedEvents.get(x).getName();
 				}
 			}
 		}
 		return nofaultEvent;
 	}
+	
+	private int partition(ArrayList<Event> e, int left, int right)
+	{
+		int i = left, j = right;
+		Event tmp;
+		int pivot = e.get((left+right)/2).GetEnd();
+		
+		while(i <= j){
+			while(e.get(i).GetEnd() < pivot)
+				++i;
+			while(e.get(j).GetEnd() > pivot)
+				j--;
+			if(i <= j){
+				tmp = e.get(i);
+				e.set(i, e.get(j));
+				e.set(j, tmp);
+				i++;
+				j--;
+			}
+		}
+		return i;
+	}
+	
+	private void quickSort(ArrayList<Event> e, int left, int right)
+	{
+		int index = partition(e, left, right);
+		if(left < index - 1) 
+			quickSort(e, left, index - 1);
+		if(left < right) 
+			quickSort(e, index, right);
+	}
+	
 	
 	public String endTimeExists(Date d, long id)
 	{
