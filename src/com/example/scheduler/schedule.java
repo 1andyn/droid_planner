@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -57,6 +58,9 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	protected ArrayList<Event> todos_visible;
 	protected ToDoListAdapter t_adapter;
+	
+	protected ViewStub empty_todo;
+	protected ViewStub empty_events;
 	
 	/*SQL Data Source */
 	protected SQL_DataSource datasource;
@@ -314,6 +318,8 @@ public class Schedule extends SherlockFragmentActivity {
 	protected void initalizeLayout()
 	{
 		setContentView(R.layout.schedule_view);
+		empty_todo = (ViewStub) findViewById(R.id.empty_tdo);
+		empty_events = (ViewStub) findViewById(R.id.empty_event);
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
 		sub_layout_todo = (LinearLayout)findViewById(R.id.adjustableTodo);
@@ -462,7 +468,11 @@ public class Schedule extends SherlockFragmentActivity {
 			if(temp.get(INDEX).GetStart() == NONE) todos_visible.add(temp.get(INDEX));
 			else events_visible.add(temp.get(INDEX));
 		}
-		todo_ADJUSTMENT();
+		todo_ADJUSTMENT();	
+		if(events_visible.isEmpty() == true) empty_events.setVisibility(View.VISIBLE);
+			else empty_events.setVisibility(View.INVISIBLE);
+		if(todos_visible.isEmpty() == true) empty_todo.setVisibility(View.VISIBLE);
+			else empty_todo.setVisibility(View.INVISIBLE);
 		t_adapter.notifyDataSetChanged();
 		e_adapter.notifyDataSetChanged();
 		
