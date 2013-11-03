@@ -177,8 +177,17 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			
 			/* Repetition Module */
 			Rep_Mod = new Repetition_Module();
+			Rep_Mod.set_RepString(temp.getRep());
 			
-			Rep_Mod = null;
+			rp_sun.setChecked(Rep_Mod.toggle_Check(SUN));
+			rp_mon.setChecked(Rep_Mod.toggle_Check(MON));
+			rp_tue.setChecked(Rep_Mod.toggle_Check(TUE));
+			rp_wed.setChecked(Rep_Mod.toggle_Check(WED));
+			rp_thu.setChecked(Rep_Mod.toggle_Check(THU));
+			rp_fri.setChecked(Rep_Mod.toggle_Check(FRI));
+			rp_sat.setChecked(Rep_Mod.toggle_Check(SAT));
+
+			Rep_Mod = null; //Deallocate Module
 			/* Rep Module*/
 			
 			
