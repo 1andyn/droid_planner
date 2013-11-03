@@ -1,43 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/tile_bg">
-                
+     
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout 
-        android:id="@+id/adjustableTodo"
-        android:layout_weight="1" 
-	    android:layout_height="match_parent" 
-	    android:layout_width="match_parent"
-	    android:orientation="vertical">
-	    <!--Use this Specific ListView element for todo objects-->
-	    <ListView
-	        android:id="@+id/todoViewGroup"
-	        android:background="@drawable/rounded"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:longClickable="true"
-	        android:divider="@android:color/transparent"				    
-			android:dividerHeight="5sp"/>
-	    <ViewStub
-            android:id="@+id/empty_todo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout="@layout/empty_todo" />
-	    
-    </LinearLayout>
-    
-   	<View
-		android:layout_width="match_parent"
-		android:layout_height="3dp"
-		android:background="@color/HoloBlue"/>
-    
-   	<!--  Weight needs to be adjusted -->
-    <LinearLayout 
-        android:id="@+id/adjustableLayout"
-        android:layout_weight=".4"  
 	    android:layout_height="match_parent" 
 	    android:layout_width="match_parent"
 	    android:orientation="vertical">
@@ -57,5 +30,35 @@
             android:layout_gravity="center"
             android:layout="@layout/empty_event" />
 	</LinearLayout>
+	
+	<LinearLayout 
+	    android:layout_height="match_parent" 
+	    android:layout_width="match_parent"
+	    android:orientation="vertical">
+	    <!--Use this Specific ListView element for todo objects-->
+	    <TextView 
+	        	android:id="@+id/todo_slider"
+	        	android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center|bottom"
+                android:text="Slide up to view Todo List!"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+	    <ListView
+	        android:id="@+id/todoViewGroup"
+	        android:background="@drawable/rounded"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:longClickable="true"
+	        android:divider="@android:color/transparent"				    
+			android:dividerHeight="5sp"/>
+	    <ViewStub
+            android:id="@+id/empty_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout="@layout/empty_todo" />
+    </LinearLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 	    
-</LinearLayout>
+</RelativeLayout>

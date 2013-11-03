@@ -451,8 +451,6 @@ int id abs__submit_area 0x7f05002f
 int id abs__textButton 0x7f050013
 int id abs__title 0x7f05001b
 int id abs__up 0x7f05000b
-int id adjustableLayout 0x7f05005e
-int id adjustableTodo 0x7f05005b
 int id am_pm 0x7f050052
 int id calendarview 0x7f050032
 int id ce_alarm 0x7f05003f
@@ -471,13 +469,13 @@ int id date_td 0x7f050066
 int id disableHome 0x7f050009
 int id e_am_pm 0x7f05005a
 int id edit_query 0x7f050026
-int id empty_event 0x7f050060
-int id empty_todo 0x7f05005d
+int id empty_event 0x7f05005d
+int id empty_todo 0x7f050060
 int id end_str 0x7f050056
 int id et_desc 0x7f050037
 int id et_name 0x7f050035
 int id et_tdname 0x7f050062
-int id eventViewGroup 0x7f05005f
+int id eventViewGroup 0x7f05005c
 int id full_clear 0x7f050073
 int id homeAsUp 0x7f050006
 int id hr_eview 0x7f050057
@@ -505,6 +503,7 @@ int id semicolon 0x7f050050
 int id showCustom 0x7f050008
 int id showHome 0x7f050005
 int id showTitle 0x7f050007
+int id sliding_layout 0x7f05005b
 int id svbar 0x7f05004a
 int id t_semi 0x7f050058
 int id t_tview 0x7f050054
@@ -529,7 +528,8 @@ int id textView1 0x7f05004d
 int id timeGroup 0x7f05004e
 int id time_end 0x7f05003b
 int id time_start 0x7f050039
-int id todoViewGroup 0x7f05005c
+int id todoViewGroup 0x7f05005f
+int id todo_slider 0x7f05005e
 int id useLogo 0x7f050004
 int id wrap_content 0x7f050000
 int integer abs__max_action_buttons 0x7f080000

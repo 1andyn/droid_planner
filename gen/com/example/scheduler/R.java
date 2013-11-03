@@ -1216,8 +1216,6 @@ containing a value of this type.
         public static final int abs__textButton=0x7f050013;
         public static final int abs__title=0x7f05001b;
         public static final int abs__up=0x7f05000b;
-        public static final int adjustableLayout=0x7f05005e;
-        public static final int adjustableTodo=0x7f05005b;
         public static final int am_pm=0x7f050052;
         public static final int calendarview=0x7f050032;
         public static final int ce_alarm=0x7f05003f;
@@ -1236,13 +1234,13 @@ containing a value of this type.
         public static final int disableHome=0x7f050009;
         public static final int e_am_pm=0x7f05005a;
         public static final int edit_query=0x7f050026;
-        public static final int empty_event=0x7f050060;
-        public static final int empty_todo=0x7f05005d;
+        public static final int empty_event=0x7f05005d;
+        public static final int empty_todo=0x7f050060;
         public static final int end_str=0x7f050056;
         public static final int et_desc=0x7f050037;
         public static final int et_name=0x7f050035;
         public static final int et_tdname=0x7f050062;
-        public static final int eventViewGroup=0x7f05005f;
+        public static final int eventViewGroup=0x7f05005c;
         public static final int full_clear=0x7f050073;
         public static final int homeAsUp=0x7f050006;
         public static final int hr_eview=0x7f050057;
@@ -1270,6 +1268,7 @@ containing a value of this type.
         public static final int showCustom=0x7f050008;
         public static final int showHome=0x7f050005;
         public static final int showTitle=0x7f050007;
+        public static final int sliding_layout=0x7f05005b;
         public static final int svbar=0x7f05004a;
         public static final int t_semi=0x7f050058;
         public static final int t_tview=0x7f050054;
@@ -1294,7 +1293,8 @@ containing a value of this type.
         public static final int timeGroup=0x7f05004e;
         public static final int time_end=0x7f05003b;
         public static final int time_start=0x7f050039;
-        public static final int todoViewGroup=0x7f05005c;
+        public static final int todoViewGroup=0x7f05005f;
+        public static final int todo_slider=0x7f05005e;
         public static final int useLogo=0x7f050004;
         public static final int wrap_content=0x7f050000;
     }

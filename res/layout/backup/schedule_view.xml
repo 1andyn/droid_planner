@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/tile_bg">
+                
+    <LinearLayout 
+        android:id="@+id/adjustableTodo"
+        android:layout_weight="1" 
+	    android:layout_height="match_parent" 
+	    android:layout_width="match_parent"
+	    android:orientation="vertical">
+	    <!--Use this Specific ListView element for todo objects-->
+	    <ListView
+	        android:id="@+id/todoViewGroup"
+	        android:background="@drawable/rounded"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:longClickable="true"
+	        android:divider="@android:color/transparent"				    
+			android:dividerHeight="5sp"/>
+	    <ViewStub
+            android:id="@+id/empty_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout="@layout/empty_todo" />
+	    
+    </LinearLayout>
+    
+   	<View
+		android:layout_width="match_parent"
+		android:layout_height="3dp"
+		android:background="@color/HoloBlue"/>
+    
+   	<!--  Weight needs to be adjusted -->
+    <LinearLayout 
+        android:id="@+id/adjustableLayout"
+        android:layout_weight=".4"  
+	    android:layout_height="match_parent" 
+	    android:layout_width="match_parent"
+	    android:orientation="vertical">
+	    <!--Use this Specific ListView element for event objects-->
+	    <ListView
+	        android:id="@+id/eventViewGroup"
+	        android:background="@drawable/rounded"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:longClickable="true"				    
+	        android:divider="@android:color/transparent"
+			android:dividerHeight="5sp"/>
+	    <ViewStub
+            android:id="@+id/empty_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout="@layout/empty_event" />
+	</LinearLayout>
+	    
+</LinearLayout>

@@ -3,6 +3,8 @@ package com.example.scheduler;
 /* Parse Cloud Imports */
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 /* ActionBarSherlock Imports */
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -15,11 +17,13 @@ import com.actionbarsherlock.view.MenuItem;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 //import android.view.LayoutInflater; required library later
 
@@ -52,7 +56,6 @@ public class Schedule extends SherlockFragmentActivity {
 	protected ArrayList<Event> events_visible;
 	protected EventListAdapter e_adapter;
 	
-	protected LinearLayout sub_layout_todo; /* adjustable layout fot todo*/
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	protected ListView t_listview; /* Contains list of Views that displays each ToDo */
 	
@@ -61,6 +64,8 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	protected ViewStub empty_todo;
 	protected ViewStub empty_events;
+	
+	protected SlidingUpPanelLayout slidePanel;
 	
 	/*SQL Data Source */
 	protected SQL_DataSource datasource;
@@ -322,8 +327,40 @@ public class Schedule extends SherlockFragmentActivity {
 		empty_events = (ViewStub) findViewById(R.id.empty_event);
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
-		sub_layout_todo = (LinearLayout)findViewById(R.id.adjustableTodo);
 		config_actionbar();
+		
+        SlidingUpPanelLayout layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        layout.setShadowDrawable(getResources().getDrawable(R.drawable.above_shadow));
+        layout.setAnchorPoint(0.3f);
+        layout.setPanelSlideListener(new PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+                if (slideOffset < 0.2) {
+                    if (getActionBar().isShowing()) {
+                        getActionBar().hide();
+                    }
+                } else {
+                    if (!getActionBar().isShowing()) {
+                        getActionBar().show();
+                    }
+                }
+            }
+
+            @Override
+            public void onPanelExpanded(View panel) {
+            }
+
+            @Override
+            public void onPanelCollapsed(View panel) {
+            }
+
+            @Override
+            public void onPanelAnchored(View panel) {
+            }
+        });
+        TextView t = (TextView) findViewById(R.id.todo_slider);
+        t.setMovementMethod(LinkMovementMethod.getInstance());
+		
 	}
 	
 	/* ActionBar Configuration */
@@ -468,7 +505,6 @@ public class Schedule extends SherlockFragmentActivity {
 			if(temp.get(INDEX).GetStart() == NONE) todos_visible.add(temp.get(INDEX));
 			else events_visible.add(temp.get(INDEX));
 		}
-		todo_ADJUSTMENT();	
 		if(events_visible.isEmpty() == true) empty_events.setVisibility(View.VISIBLE);
 			else empty_events.setVisibility(View.INVISIBLE);
 		if(todos_visible.isEmpty() == true) empty_todo.setVisibility(View.VISIBLE);
@@ -476,20 +512,6 @@ public class Schedule extends SherlockFragmentActivity {
 		t_adapter.notifyDataSetChanged();
 		e_adapter.notifyDataSetChanged();
 		
-	}
-	
-	/* Changes Weight of Todo Layout Depending on Size of ArrayList */
-	protected void todo_ADJUSTMENT()
-	{
-		int SIZE = todos_visible.size();
-		if(SIZE == EMPTY)
-		{
-			sub_layout_todo.setVisibility(View.INVISIBLE);
-		}
-		else
-		{
-			sub_layout_todo.setVisibility(View.VISIBLE);
-		}
 	}
 	
 	protected void CLEAR_EVERYTHING()
