@@ -125,6 +125,8 @@ public class SQL_DataSource {
 	{
 		ArrayList<Event> partialEvents = new ArrayList<Event>();
 		cal_mod = new Cal_Module();
+		int dayofWeek = cal_mod.getWeekday(d);
+		cal_mod = null; // Deallocate (save memory)
 		rep_mod = new Repetition_Module();
 			
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
@@ -137,16 +139,13 @@ public class SQL_DataSource {
 			}
 			else {
 				rep_mod.set_RepString(event.getRep());
-				if(rep_mod.toggle_Check(cal_mod.getWeekday(d))){	
+				if(rep_mod.toggle_Check(dayofWeek)){	
 					partialEvents.add(event);
 				}		
 			}
 			curse.moveToNext();
 		}
 		curse.close();
-		
-		// Deallocate 
-		cal_mod = null;
 		rep_mod = null;
 		return partialEvents;
 	}
