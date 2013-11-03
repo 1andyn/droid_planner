@@ -15,5 +15,5 @@ Current features include:
 Dependencies
 ----------
 Projects for these libraries need to be imported and set as library for main project
-    - ActionBarSherlock
-    - HoloColorPicker
+  - ActionBarSherlock
+  - HoloColorPicker
