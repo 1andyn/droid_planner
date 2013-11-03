@@ -58,7 +58,7 @@ public class Repetition_Module {
 		if(day == Sunday) nu_time = RepetitionString.substring(Sunday);
 		else  nu_time = RepetitionString.substring(strStart,strEnd);
 		
-		if(nu_time == TRUE_REP)
+		if(nu_time.equals(TRUE_REP))
 		{
 			return true;
 		}
