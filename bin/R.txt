@@ -472,7 +472,7 @@ int id disableHome 0x7f050009
 int id e_am_pm 0x7f05005a
 int id edit_query 0x7f050026
 int id empty_event 0x7f050060
-int id empty_tdo 0x7f05005d
+int id empty_todo 0x7f05005d
 int id end_str 0x7f050056
 int id et_desc 0x7f050037
 int id et_name 0x7f050035

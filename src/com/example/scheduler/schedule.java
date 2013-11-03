@@ -318,7 +318,7 @@ public class Schedule extends SherlockFragmentActivity {
 	protected void initalizeLayout()
 	{
 		setContentView(R.layout.schedule_view);
-		empty_todo = (ViewStub) findViewById(R.id.empty_tdo);
+		empty_todo = (ViewStub) findViewById(R.id.empty_todo);
 		empty_events = (ViewStub) findViewById(R.id.empty_event);
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);

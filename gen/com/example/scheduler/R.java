@@ -1237,7 +1237,7 @@ containing a value of this type.
         public static final int e_am_pm=0x7f05005a;
         public static final int edit_query=0x7f050026;
         public static final int empty_event=0x7f050060;
-        public static final int empty_tdo=0x7f05005d;
+        public static final int empty_todo=0x7f05005d;
         public static final int end_str=0x7f050056;
         public static final int et_desc=0x7f050037;
         public static final int et_name=0x7f050035;
