@@ -20,7 +20,7 @@ Projects for these libraries need to be imported and set as library for main pro
 	
 Problems/Issues
 ----------
-	-	[b]Application Crashes on Start![/b]
+	Application Crashes on Start!
 	-	First try: aSQLiteManager by Andsen (Google Playstore). Using the app, navigate to "Events.db" which should be in the SDCard. Open table "usrevents". Clear the table. Try to start Planner.
 	-	Still crashing: FileExpert by GeekSoft (Google Playstore). Using the app, navigate to SDCArd. Find Events.db and EventsJournal.db(if exists). Delete both database files. Try to start Planner.
 	-	Last resort: Uninstall Planner Plus. Make sure to hit "remove all data" before uninstalling.
