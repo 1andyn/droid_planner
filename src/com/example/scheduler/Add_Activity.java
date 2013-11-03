@@ -278,7 +278,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		/* Rep Mod Code*/
 		
-		if(!timeIssues(time, b_id))
+		if(!timeIssues(temp, b_id))
 		{
 			if(b_id != NONE_L)
 			{
@@ -356,16 +356,16 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		super.onPause();
 	}
 	
-	protected boolean timeIssues(Date d, long id)
+	protected boolean timeIssues(Event d, long id)
 	{
-		if(d.getStartTime() == d.getEndTime())
+		if(d.GetDate().getStartTime() == d.GetDate().getEndTime())
 		{
 			focus_Time();
 			Toast.makeText(Add_Activity.this,"Starting time cannot equal end time!",
                     Toast.LENGTH_SHORT).show();
 			return true;
 		}
-		else if(d.getStartTime() > d.getEndTime())
+		else if(d.GetDate().getStartTime() > d.GetDate().getEndTime())
 		{
 			focus_Time();
 			Toast.makeText(Add_Activity.this,"Event cannot start after it ends!",

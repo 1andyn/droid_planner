@@ -24,7 +24,8 @@ public class SQL_DataSource {
 	private int COL_REP = 10;
 	
 	private final static String NO_OVERLAP = "N";
-	
+	private final static String NO_REP = "NNNNNNN";
+	private final static String nofaultEvent = NO_OVERLAP;
 	
 	private Cal_Module cal_mod;
 	private Repetition_Module rep_mod;
@@ -150,18 +151,35 @@ public class SQL_DataSource {
 		return partialEvents;
 	}
 	
-	public String overlapExists(Date d, long id)
+	public String overlapExists(Event d, long id)
 	{
-		String nofaultEvent = NO_OVERLAP;
-		ArrayList<Event> coreEvents = getEventsForDate(d.get_CDate());
+		cal_mod = new Cal_Module();
+		int Day = cal_mod.getWeekday(d.GetDate().get_CDate());
+		cal_mod = null; // Deallocate cal_mod
 		
-		for(int INDEX = 0; INDEX < coreEvents.size(); INDEX++)
+		ArrayList<Event> coreEvents = getEventsForDate(d.GetDate().get_CDate());
+		/* Tests for Regular Event Overlap */
+		for(int x = 0; x < coreEvents.size(); x++)
 		{
-			if(d.overlapDate(coreEvents.get(INDEX).GetDate()))
+			if(d.GetDate().overlapDate(coreEvents.get(x).GetDate()))
 			{	
-				if(coreEvents.get(INDEX).GetID() != id)
+				if(coreEvents.get(x).GetID() != id)
 				{
-					return coreEvents.get(INDEX).getName();
+					return coreEvents.get(x).getName();
+				}
+			}
+		}
+		coreEvents = null; // Deallocate Regular Events
+		
+		ArrayList<Event> repeatedEvents = getEventsOfDay(d);
+		/* Tests for Repeating Event Overlap */
+		for(int x = 0; x < repeatedEvents.size(); x++)
+		{
+			if(d.GetDate().overlapDate(repeatedEvents.get(x).GetDate()))
+			{
+				if(repeatedEvents.get(x).GetID() != id)
+				{
+					return repeatedEvents.get(x).getName();
 				}
 			}
 		}
@@ -214,10 +232,23 @@ public class SQL_DataSource {
 		System.out.println("Removed all Table Elements");
 	}
 	
-	public ArrayList<Event> repeatedEvents(int day)
+	private ArrayList<Event> getEventsOfDay(Event e)
 	{
-		ArrayList<Event> repeatedEvents = new ArrayList<Event>();
-		return repeatedEvents;
-	}
+		cal_mod = new Cal_Module();
+		rep_mod = new Repetition_Module();
+		rep_mod.set_RepString(e.getRep());
+		int dayw;
+		ArrayList<Event> repeatedEvents =  getAllEvents();
+		ArrayList<Event> specRepeatedEvents = new ArrayList<Event>();
+		for(int x = 0; x < repeatedEvents.size(); x++){	
+			dayw = cal_mod.getWeekday(repeatedEvents.get(x).GetDate().get_CDate());
+			if(rep_mod.toggle_Check(dayw)) specRepeatedEvents.add(repeatedEvents.get(x));
+		}
+		rep_mod = null; // Deallocate
+		return specRepeatedEvents;
+	}	
+	
+
+	
 	
 }

@@ -91,7 +91,7 @@ public class Date{
 	
 	public boolean overlapDate(Date d)
 	{
-		if (!d.get_CDate().isEqual(this.date) || d.getStartTime() == NONE)
+		if (d.getStartTime() == NONE)
 		{
 			return false;
 		}
@@ -123,5 +123,6 @@ public class Date{
 			}
 		}
 	}
+	
 	
 }
