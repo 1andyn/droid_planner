@@ -190,7 +190,6 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			Rep_Mod = null; //Deallocate Module
 			/* Rep Module*/
 			
-			
 			if(temp.getAlarm().equals(CHECKED)) alarm_tb.setChecked(true);
 			else alarm_tb.setChecked(false);
 			c_Picker.setColor(temp.getColor());

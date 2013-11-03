@@ -25,6 +25,9 @@ public class SQL_DataSource {
 	
 	private final static String NO_OVERLAP = "N";
 	
+	
+	private Cal_Module cal_mod;
+	private Repetition_Module rep_mod;
 	private SQLHelper dbhelper;
 	private SQLiteDatabase database;
 	private String[] allColumns = { SQLHelper.COLUMN_ID, SQLHelper.COLUMN_NAME, SQLHelper.COLUMN_DESC, 
@@ -121,6 +124,9 @@ public class SQL_DataSource {
 	public ArrayList<Event> getEventsForDate(Cal_Date d)
 	{
 		ArrayList<Event> partialEvents = new ArrayList<Event>();
+		cal_mod = new Cal_Module();
+		rep_mod = new Repetition_Module();
+			
 		Cursor curse = database.query(SQLHelper.TABLE_NAME, allColumns, null, null, null, null, SQLHelper.COLUMN_YEAR + " ASC, "
 				+ SQLHelper.COLUMN_MONTH + " ASC, " + SQLHelper.COLUMN_DAY + " ASC, " + SQLHelper.COLUMN_END + " ASC");
 		curse.moveToFirst();
@@ -131,9 +137,14 @@ public class SQL_DataSource {
 			{
 				partialEvents.add(event);
 			}
+			
 			curse.moveToNext();
 		}
 		curse.close();
+		
+		// Deallocate 
+		cal_mod = null;
+		rep_mod = null;
 		return partialEvents;
 	}
 	
@@ -201,9 +212,10 @@ public class SQL_DataSource {
 		System.out.println("Removed all Table Elements");
 	}
 	
-	public void edit_REPETITION()
+	public ArrayList<Event> repeatedEvents(int day)
 	{
-		/* Todo Stub */
+		ArrayList<Event> repeatedEvents = new ArrayList<Event>();
+		return repeatedEvents;
 	}
 	
 }

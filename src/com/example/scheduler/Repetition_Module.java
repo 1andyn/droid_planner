@@ -65,6 +65,23 @@ public class Repetition_Module {
 		return false;
 	}
 	
+	public Boolean repeatsOnDay(String repString, int day)
+	{
+		int strStart, strEnd;
+		strStart = day;
+		strEnd = strStart + 1;
+		
+		String nu_time;
+		if(day == Sunday) nu_time = repString.substring(Sunday);
+		else  nu_time = repString.substring(strStart,strEnd);
+		
+		if(nu_time.equals(TRUE_REP))
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public void set_RepString(String RepString)
 	{
 		RepetitionString = RepString;

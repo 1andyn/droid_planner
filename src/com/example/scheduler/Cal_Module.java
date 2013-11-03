@@ -5,6 +5,15 @@ import java.util.GregorianCalendar;
 
 public class Cal_Module{
 	
+	private final static int sun = 0;
+	private final static int mon = 1;
+	private final static int tue = 2;
+	private final static int wed = 3;
+	private final static int thu = 4;
+	private final static int fri = 5;
+	private final static int sat = 6;
+	private final static int NONE = -1;
+	
 	private final String E1 = "Error C1";
 	private final String E2 = "Error C2";
 	
@@ -23,7 +32,7 @@ public class Cal_Module{
 	}
 	
 	
-	/* returns weekday as an integer */
+	/* returns weekday as a String */
 	public String dayToString(Cal_Date d) 
 	{
 		G_Calendar = new GregorianCalendar(d.get_year(), d.get_month(), d.get_day());
@@ -36,6 +45,20 @@ public class Cal_Module{
 			case 6: return "FRIDAY";
 			case 7: return "SATURDAY";
 			default:return E1;
+		}
+	}
+	public int getWeekday(Cal_Date d) 
+	{
+		G_Calendar = new GregorianCalendar(d.get_year(), d.get_month(), d.get_day());
+		switch(G_Calendar.get(G_Calendar.DAY_OF_WEEK)){
+			case 1:	return sun;
+			case 2: return mon;
+			case 3: return tue;
+			case 4: return wed;
+			case 5: return thu;
+			case 6: return fri;
+			case 7: return sat;
+			default: return NONE;
 		}
 	}
 	
