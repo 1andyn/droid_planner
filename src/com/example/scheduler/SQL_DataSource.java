@@ -156,10 +156,6 @@ public class SQL_DataSource {
 	
 	public String overlapExists(Event d, long id)
 	{
-		cal_mod = new Cal_Module();
-		int Day = cal_mod.getWeekday(d.GetDate().get_CDate());
-		cal_mod = null; // Deallocate cal_mod
-		
 		ArrayList<Event> coreEvents = getEventsForDate(d.GetDate().get_CDate());
 		/* Tests for Regular Event Overlap */
 		for(int x = 0; x < coreEvents.size(); x++){
