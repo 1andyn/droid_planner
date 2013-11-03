@@ -59,6 +59,8 @@ public class Schedule extends SherlockFragmentActivity {
 	protected ArrayList<Event> events_visible;
 	protected EventListAdapter e_adapter;
 	
+	private TextView sliderText;
+	
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	protected ListView t_listview; /* Contains list of Views that displays each ToDo */
 	
@@ -364,8 +366,8 @@ public class Schedule extends SherlockFragmentActivity {
             public void onPanelAnchored(View panel) {
             }
         });
-        TextView t = (TextView) findViewById(R.id.todo_slider);
-        t.setMovementMethod(LinkMovementMethod.getInstance());
+        sliderText = (TextView) findViewById(R.id.todo_slider);
+        sliderText.setMovementMethod(LinkMovementMethod.getInstance());
 		
 	}
 	
