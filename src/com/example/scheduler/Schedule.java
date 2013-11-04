@@ -529,13 +529,31 @@ public class Schedule extends SherlockFragmentActivity{
 			if(temp.get(INDEX).GetStart() == NONE) todos_visible.add(temp.get(INDEX));
 			else events_visible.add(temp.get(INDEX));
 		}
-		if(events_visible.isEmpty() == true) empty_events.setVisibility(View.VISIBLE);
-			else empty_events.setVisibility(View.INVISIBLE);
-		if(todos_visible.isEmpty() == true) empty_todo.setVisibility(View.VISIBLE);
-			else empty_todo.setVisibility(View.INVISIBLE);
+		
+		trigger_ViewStub();
+		
 		t_adapter.notifyDataSetChanged();
 		e_adapter.notifyDataSetChanged();
 		
+	}
+	
+	
+	protected void trigger_ViewStub()
+	{
+		if(events_visible.isEmpty() == true){
+			empty_events.setVisibility(View.VISIBLE);
+			e_listview.setVisibility(View.INVISIBLE);
+		} else {
+			empty_events.setVisibility(View.INVISIBLE);
+			e_listview.setVisibility(View.VISIBLE);
+		}
+		if(todos_visible.isEmpty() == true){
+			empty_todo.setVisibility(View.VISIBLE);
+			t_listview.setVisibility(View.INVISIBLE);
+		} else {
+			empty_todo.setVisibility(View.INVISIBLE);
+			t_listview.setVisibility(View.VISIBLE);
+		}
 	}
 	
 	protected void CLEAR_EVERYTHING()

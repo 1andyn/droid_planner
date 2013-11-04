@@ -20,7 +20,7 @@
 	        android:id="@+id/eventViewGroup"
 	        android:background="@drawable/rounded"
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="match_parent"
 	        android:longClickable="true"				    
 	        android:divider="@android:color/transparent"
 			android:dividerHeight="5sp"/>
@@ -60,7 +60,7 @@
 		        android:id="@+id/todoViewGroup"
 		        android:background="@drawable/rounded"
 		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
+		        android:layout_height="match_parent"
 		        android:longClickable="true"
 		        android:divider="@android:color/transparent"				    
 				android:dividerHeight="5sp"/>
