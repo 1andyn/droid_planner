@@ -19,9 +19,14 @@ import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.text.method.LinkMovementMethod;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.View.OnClickListener;
 import android.view.ViewStub;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,7 +35,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Schedule extends SherlockFragmentActivity {
+public class Schedule extends SherlockFragmentActivity{
 	
 	/** Get email for SQLite DB name */
     private final Email_Module email_MODULE = new Email_Module();
