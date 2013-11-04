@@ -13,6 +13,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.haarman.listviewanimations.swinginadapters.prepared.ScaleInAnimationAdapter;
 
 /* Basic Android Imports*/
 import android.os.Bundle;
@@ -42,23 +43,22 @@ public class Schedule extends SherlockFragmentActivity{
     private String identifier;
     
     /* ENUMERATION FOR TD/EVENT */
-    final static int EVENT_CASE = 0;
-    final static int TODO_CASE = 1;
-    final static int MONTH_CASE = 2;
-    final static int EDT_TODO_CASE = 3;
-    final static int EDT_EVENT_CASE = 4;
+    private final static int EVENT_CASE = 0;
+    private final static int TODO_CASE = 1;
+    private final static int MONTH_CASE = 2;
+    private final static int EDT_TODO_CASE = 3;
+    private final static int EDT_EVENT_CASE = 4;
     
-    final static int TodoPanelHeight = 75;
-    
-    final static int CLEAR_CASE = 0;
+    private final static int TodoPanelHeight = 75;
+    private final static int CLEAR_CASE = 0;
     
     /* TODO SIZE CASES */
-    final static int EMPTY = 0;
-    final static int NONE = -1;
-    final static long NONE_L = -1;
+    private final static int EMPTY = 0;
+    private final static int NONE = -1;
+    private final static long NONE_L = -1;
 	
 	/* Application context */
-	final Context main_context = this;
+    private final Context main_context = this;
 
 	/* Data Structures */
 	protected ArrayList<Event> events_visible;
@@ -71,6 +71,9 @@ public class Schedule extends SherlockFragmentActivity{
 	
 	protected ArrayList<Event> todos_visible;
 	protected ToDoListAdapter t_adapter;
+	
+	private ScaleInAnimationAdapter e_anima_adapter;
+	private ScaleInAnimationAdapter t_anima_adapter;
 	
 	protected ViewStub empty_todo;
 	protected ViewStub empty_events;
@@ -274,7 +277,7 @@ public class Schedule extends SherlockFragmentActivity{
 		events_visible = new ArrayList<Event>();
 		
 		e_adapter = new EventListAdapter(this, events_visible);
-		e_listview.setAdapter(e_adapter);
+		//e_listview.setAdapter(e_adapter);
 		e_listview.setLongClickable(true);
 		e_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		e_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -299,7 +302,7 @@ public class Schedule extends SherlockFragmentActivity{
 		todos_visible = new ArrayList<Event>();
 
 		t_adapter = new ToDoListAdapter(this, todos_visible);
-		t_listview.setAdapter(t_adapter);
+		//t_listview.setAdapter(t_adapter);
 		t_listview.setLongClickable(true);
 		t_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		t_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -318,6 +321,13 @@ public class Schedule extends SherlockFragmentActivity{
                 return true;                
             }
 		});	
+		
+		e_anima_adapter = new ScaleInAnimationAdapter(e_adapter);
+		e_anima_adapter.setAbsListView(e_listview);
+		e_listview.setAdapter(e_anima_adapter);
+		t_anima_adapter = new ScaleInAnimationAdapter(t_adapter);
+		t_anima_adapter.setAbsListView(t_listview);
+		t_listview.setAdapter(t_anima_adapter);
 		
 		load_from_database(selected_CD);
 	}
