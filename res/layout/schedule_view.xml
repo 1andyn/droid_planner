@@ -10,13 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout 
+    <RelativeLayout
+        android:id="@+id/topLL"
         android:paddingTop="50sp"
 	    android:layout_height="match_parent" 
 	    android:layout_width="match_parent"
 	    android:orientation="vertical">
 	    <!-- Use this Specific ListView element for event objects -->
+	    
+	    <ViewStub
+            android:id="@+id/empty_event"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout="@layout/empty_event" />
 	    <ListView
+	        android:layout_above="@+id/empty_event"
 	        android:id="@+id/eventViewGroup"
 	        android:background="@drawable/rounded"
 	        android:layout_width="match_parent"
@@ -24,13 +33,7 @@
 	        android:longClickable="true"				    
 	        android:divider="@android:color/transparent"
 			android:dividerHeight="5sp"/>
-	    <ViewStub
-            android:id="@+id/empty_event"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout="@layout/empty_event" />
-	</LinearLayout>
+	</RelativeLayout>
 	
 	<LinearLayout 
 	    android:layout_height="match_parent" 
@@ -51,11 +54,20 @@
 			android:layout_width="match_parent"
 			android:layout_height="5dp"
 			android:background="@color/HoloBlue"/>
-		 <LinearLayout 
+		 <RelativeLayout
 		    android:layout_height="match_parent" 
 		    android:layout_width="match_parent"
-		    android:orientation="vertical">
+		    android:orientation="vertical"
+		    android:id="@+id/botLL">
+		    
+		    <ViewStub
+	            android:id="@+id/empty_todo"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_gravity="center"
+	            android:layout="@layout/empty_todo" />
 		    <ListView
+		        android:layout_above="@+id/empty_todo"
 		        android:paddingTop="15dp"
 		        android:id="@+id/todoViewGroup"
 		        android:background="@drawable/rounded"
@@ -64,13 +76,7 @@
 		        android:longClickable="true"
 		        android:divider="@android:color/transparent"				    
 				android:dividerHeight="5sp"/>
-		    <ViewStub
-	            android:id="@+id/empty_todo"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_gravity="center"
-	            android:layout="@layout/empty_todo" />
-		</LinearLayout>
+		</RelativeLayout>
     </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 	    

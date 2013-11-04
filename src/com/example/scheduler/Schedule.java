@@ -345,8 +345,10 @@ public class Schedule extends SherlockFragmentActivity{
 		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.HoloDark));
 		setContentView(R.layout.schedule_view);
+		
 		empty_todo = (ViewStub) findViewById(R.id.empty_todo);
 		empty_events = (ViewStub) findViewById(R.id.empty_event);
+		
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
         sliderText = (TextView) findViewById(R.id.todo_slider);
