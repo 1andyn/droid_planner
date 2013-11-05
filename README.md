@@ -11,9 +11,8 @@ Current features include:
   - Future: Cloud Storage (Parse)
   - Future: Class Planner
 
-Dependencies
+Dependencies: (Required Libraries)
 ----------
-Projects for these libraries need to be imported and set as library for main project:
 	-	ActionBarSherlock [http://actionbarsherlock.com/]
 	-	HoloColorPicker [https://github.com/LarsWerkman/HoloColorPicker]
 	-	AndroidSlidingUpPanel [https://github.com/umano/AndroidSlidingUpPanel]
