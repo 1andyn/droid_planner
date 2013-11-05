@@ -95,4 +95,17 @@ public class Cal_Module{
 		C_Calendar.set(d.get_year(), d.get_month(), d.get_day());
 		return C_Calendar.getTimeInMillis();
 	}
+	
+	public Cal_Date getNextDate(Cal_Date d)
+	{
+		Cal_Date next = new Cal_Date();
+		return next;
+	}
+	
+	public Cal_Date getPrevDate(Cal_Date d)
+	{
+		Cal_Date prev = new Cal_Date();
+		return prev;
+	}
+	
 }
