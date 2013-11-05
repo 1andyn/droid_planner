@@ -18,6 +18,7 @@ Projects for these libraries need to be imported and set as library for main pro
 	-	ActionBarSherlock (http://actionbarsherlock.com/)
 	-	HoloColorPicker (https://github.com/LarsWerkman/HoloColorPicker)
 	-	AndroidSlidingUpPanel (https://github.com/umano/AndroidSlidingUpPanel)
+	-	ListViewAnimations (https://github.com/nhaarman/ListViewAnimations)
 	
 Problems/Issues
 ----------
