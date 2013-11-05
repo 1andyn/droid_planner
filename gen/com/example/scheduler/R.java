@@ -1175,7 +1175,8 @@ containing a value of this type.
         public static final int icon=0x7f020075;
         public static final int rounded=0x7f020076;
         public static final int rounded_item=0x7f020077;
-        public static final int tile_bg=0x7f020078;
+        public static final int sleeping_cat=0x7f020078;
+        public static final int tile_bg=0x7f020079;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f050020;
