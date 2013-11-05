@@ -19,6 +19,7 @@ Projects for these libraries need to be imported and set as library for main pro
 	-	HoloColorPicker (https://github.com/LarsWerkman/HoloColorPicker)
 	-	AndroidSlidingUpPanel (https://github.com/umano/AndroidSlidingUpPanel)
 	-	ListViewAnimations (https://github.com/nhaarman/ListViewAnimations)
+	-	ParseSDK (https://parse.com/docs/api_libraries) [Future]
 	
 Problems/Issues
 ----------
