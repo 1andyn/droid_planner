@@ -78,7 +78,7 @@ public class ToDoView extends LinearLayout{
 		{
 			ampm_tag.setText("PM");
 			/* Underline Text (easier to deciper PM vs AM)*/
-			ampm_tag.setText(Html.fromHtml(PM));
+			//ampm_tag.setText(Html.fromHtml(PM));
 		}
 		else
 		{

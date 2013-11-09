@@ -104,8 +104,7 @@ public class EventView extends LinearLayout{
 		}
 		else
 		{
-			switch(flag)
-			{
+			switch(flag){
 			case START:
 				ampm_tag.setText("AM");
 				break;
