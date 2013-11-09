@@ -5,6 +5,7 @@ import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
+
 /* ActionBarSherlock Imports */
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -20,24 +21,29 @@ import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-//import android.view.LayoutInflater; required library later
-
 import java.util.ArrayList;
 
-public class Schedule extends SherlockFragmentActivity{
+public class Schedule extends SherlockFragmentActivity {
 	
 	/** Get email for SQLite DB name */
     private final Email_Module email_MODULE = new Email_Module();
     private String identifier;
+    
+    
+    /* DPI Metrics */
+    private int REL_SWIPE_MIN_DISTANCE; 
+    private int REL_SWIPE_MAX_OFF_PATH;
+    private int REL_SWIPE_THRESHOLD_VELOCITY;
     
     /* ENUMERATION FOR TD/EVENT */
     private final static int EVENT_CASE = 0;
@@ -53,9 +59,6 @@ public class Schedule extends SherlockFragmentActivity{
     private final static int EMPTY = 0;
     private final static int NONE = -1;
     private final static long NONE_L = -1;
-	
-	/* Application context */
-    private final Context main_context = this;
 
 	/* Data Structures */
 	protected ArrayList<Event> events_visible;
@@ -241,6 +244,9 @@ public class Schedule extends SherlockFragmentActivity{
 		parse_cloud_init();
 		initalizeLayout();
 		
+		/* Set Up Metrics */
+		setUpMetrics();
+		
 		/* SQL Source */
 		datasource = new SQL_DataSource(this);
 		datasource.open();
@@ -258,17 +264,16 @@ public class Schedule extends SherlockFragmentActivity{
 		e_listview.setLongClickable(true);
 		e_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		
-		final GestureDetector gdt = new GestureDetector(this, new Gesture_Module(this));
-		e_listview.setOnTouchListener(new OnTouchListener(){
-
-		    @Override
-		    public boolean onTouch(View v, MotionEvent event) {
-		        gdt.onTouchEvent(event);
-		        // TODO Auto-generated method stub
-		        return false;
-		    }
-
-		});
+		final GestureDetector gdt = new GestureDetector(this, new Gesture_Module(this, e_listview, 
+				REL_SWIPE_MAX_OFF_PATH, REL_SWIPE_MAX_OFF_PATH, REL_SWIPE_MAX_OFF_PATH));
+//		final GestureDetector gdt = new GestureDetector(this, new MyGestureDetector());
+		View.OnTouchListener glt = new View.OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				return gdt.onTouchEvent(event);
+			}
+		};
+		e_listview.setOnTouchListener(glt);
+		
 		e_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
             {
@@ -283,6 +288,8 @@ public class Schedule extends SherlockFragmentActivity{
                 return true;                
             }
 		});		
+		
+
 		
 		/* Secondary List */
 		todos_visible = new ArrayList<Event>();
@@ -315,6 +322,14 @@ public class Schedule extends SherlockFragmentActivity{
 		load_from_database(selected_CD);
 	}
 
+	private void setUpMetrics()
+	{
+	    DisplayMetrics dm = getResources().getDisplayMetrics();
+	    REL_SWIPE_MIN_DISTANCE = (int)(120.0f * dm.densityDpi / 160.0f + 0.5); 
+	    REL_SWIPE_MAX_OFF_PATH = (int)(250.0f * dm.densityDpi / 160.0f + 0.5);
+	    REL_SWIPE_THRESHOLD_VELOCITY = (int)(200.0f * dm.densityDpi / 160.0f + 0.5);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSupportMenuInflater();
@@ -378,14 +393,6 @@ public class Schedule extends SherlockFragmentActivity{
 		ActionBar ab = getSupportActionBar();
 		ab.setDisplayShowTitleEnabled(false); 
 		ab.setDisplayShowHomeEnabled(false);
-		
-		/* Will re-implement last
-		LayoutInflater inflater=(LayoutInflater) main_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    View v =inflater.inflate(R.layout.top_bar_view, null, true);
-	    ab.setCustomView(v);
-		ab.setDisplayShowCustomEnabled(true);
-		
-		*/
 	}
 	protected void remove_event(Event e)
 	{
@@ -577,4 +584,36 @@ public class Schedule extends SherlockFragmentActivity{
 		selected_CD.set_month(temp_cd.get_month());
 		selected_CD.set_year(temp_cd.get_year());
 	}
+
+    class MyGestureDetector extends SimpleOnGestureListener{ 
+
+        @Override 
+        public boolean onSingleTapUp(MotionEvent e) {
+            //int pos = e_listview.pointToPosition((int)e.getX(), (int)e.getY());
+            System.out.println("Single Tap");
+            return false;
+        }
+
+        @Override 
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) { 
+        	try {
+	            if (Math.abs(e1.getY() - e2.getY()) > REL_SWIPE_MAX_OFF_PATH) 
+	                return false; 
+	            if(e1.getX() - e2.getX() > REL_SWIPE_MIN_DISTANCE && 
+	                Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) { 
+	            	Toast.makeText(Schedule.this, "Left-to-right fling", Toast.LENGTH_SHORT).show();
+	            	System.out.println("SWIPE LEFT");
+	            }  else if (e2.getX() - e1.getX() > REL_SWIPE_MIN_DISTANCE && 
+	                Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) { 
+	            	Toast.makeText(Schedule.this, "Right-to-left fling", Toast.LENGTH_SHORT).show();
+	            	System.out.println("SWIPE RIGHT");
+	            } 
+            } catch (Exception e) {
+            	System.out.println("EXCEPTION!!");
+            }
+            return false; 
+        } 
+
+    } 
+
 }
