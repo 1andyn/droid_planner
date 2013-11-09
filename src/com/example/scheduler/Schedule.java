@@ -18,6 +18,7 @@ import com.haarman.listviewanimations.swinginadapters.prepared.ScaleInAnimationA
 
 /* Basic Android Imports*/
 import android.os.Bundle;
+import android.os.Handler;
 import android.content.Intent;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
@@ -38,7 +39,6 @@ public class Schedule extends SherlockFragmentActivity {
 	/** Get email for SQLite DB name */
     private final Email_Module email_MODULE = new Email_Module();
     private String identifier;
-    
     
     /* DPI Metrics */
     private int REL_SWIPE_MIN_DISTANCE; 
@@ -65,6 +65,7 @@ public class Schedule extends SherlockFragmentActivity {
 	protected EventListAdapter e_adapter;
 	
 	private TextView sliderText;
+	private static int FORCED_DELAY_ANIMA = 175;
 	
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	protected ListView t_listview; /* Contains list of Views that displays each ToDo */
@@ -570,6 +571,7 @@ public class Schedule extends SherlockFragmentActivity {
 	protected void onResume()
 	{
 		datasource.open();
+		delay_Animation();
 		load_from_database(selected_CD);
 		super.onResume();
 	}
@@ -583,6 +585,7 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	private void init_SelectedCD()
 	{
+		delay_Animation();
 		Cal_Date temp_cd = selected_CM.getCurrentDate();
 		selected_CD.set_day(temp_cd.get_day());
 		selected_CD.set_month(temp_cd.get_month());
@@ -591,6 +594,7 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	private void next_day()
 	{
+		delay_Animation();
 		selected_CM.transitionNextDate(selected_CD);
     	load_from_database(selected_CD);
     	invalidateOptionsMenu();
@@ -598,11 +602,25 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	private void prev_day()
 	{
+		delay_Animation();
 		selected_CM.transitionPrevDate(selected_CD);
     	load_from_database(selected_CD);
     	invalidateOptionsMenu();
 	}
 
+	private void delay_Animation()
+	{
+		new Handler().postDelayed(new Runnable(){
+		    @Override
+		    public void run(){
+		        e_anima_adapter.reset();
+		        e_anima_adapter.setAbsListView(e_listview);
+		        t_anima_adapter.reset();
+		        t_anima_adapter.setAbsListView(t_listview);
+		    }
+		}, FORCED_DELAY_ANIMA);
+	}
+	
     class Gest_Module extends SimpleOnGestureListener{ 
 
         @Override 
