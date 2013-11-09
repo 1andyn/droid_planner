@@ -201,9 +201,6 @@ public class Schedule extends SherlockFragmentActivity {
 		return super.onPrepareOptionsMenu(menu);
 	}
 	
-	
-	
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
@@ -264,9 +261,9 @@ public class Schedule extends SherlockFragmentActivity {
 		e_listview.setLongClickable(true);
 		e_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		
-		final GestureDetector gdt = new GestureDetector(this, new Gesture_Module(this, e_listview, 
-				REL_SWIPE_MAX_OFF_PATH, REL_SWIPE_MAX_OFF_PATH, REL_SWIPE_MAX_OFF_PATH));
-//		final GestureDetector gdt = new GestureDetector(this, new MyGestureDetector());
+//		final GestureDetector gdt = new GestureDetector(this, new Gesture_Module(this, e_listview, 
+//				REL_SWIPE_MAX_OFF_PATH, REL_SWIPE_MAX_OFF_PATH, REL_SWIPE_MAX_OFF_PATH));
+		final GestureDetector gdt = new GestureDetector(this, new MyGestureDetector());
 		View.OnTouchListener glt = new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				return gdt.onTouchEvent(event);
@@ -295,7 +292,6 @@ public class Schedule extends SherlockFragmentActivity {
 		todos_visible = new ArrayList<Event>();
 
 		t_adapter = new ToDoListAdapter(this, todos_visible);
-		//t_listview.setAdapter(t_adapter);
 		t_listview.setLongClickable(true);
 		t_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		t_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -318,6 +314,9 @@ public class Schedule extends SherlockFragmentActivity {
 		t_anima_adapter = new ScaleInAnimationAdapter(t_adapter);
 		t_anima_adapter.setAbsListView(t_listview);
 		t_listview.setAdapter(t_anima_adapter);
+		
+		empty_events.setOnTouchListener(glt);
+		empty_todo.setOnTouchListener(glt);
 		
 		load_from_database(selected_CD);
 	}
