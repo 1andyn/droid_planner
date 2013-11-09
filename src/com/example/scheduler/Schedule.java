@@ -588,6 +588,20 @@ public class Schedule extends SherlockFragmentActivity {
 		selected_CD.set_month(temp_cd.get_month());
 		selected_CD.set_year(temp_cd.get_year());
 	}
+	
+	private void next_day()
+	{
+		selected_CM.transitionNextDate(selected_CD);
+    	load_from_database(selected_CD);
+    	invalidateOptionsMenu();
+	}
+	
+	private void prev_day()
+	{
+		selected_CM.transitionPrevDate(selected_CD);
+    	load_from_database(selected_CD);
+    	invalidateOptionsMenu();
+	}
 
     class Gest_Module extends SimpleOnGestureListener{ 
 
@@ -605,12 +619,10 @@ public class Schedule extends SherlockFragmentActivity {
 	                return false; 
 	            if(e1.getX() - e2.getX() > REL_SWIPE_MIN_DISTANCE && 
 	                Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) { 
-	            	Toast.makeText(Schedule.this, "SWIPE LEFT", Toast.LENGTH_SHORT).show();
-	            	System.out.println("SWIPE LEFT");
+	            	next_day();
 	            }  else if (e2.getX() - e1.getX() > REL_SWIPE_MIN_DISTANCE && 
 	                Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) { 
-	            	Toast.makeText(Schedule.this, "SWIPE RIGHT", Toast.LENGTH_SHORT).show();
-	            	System.out.println("SWIPE RIGHT");
+	            	prev_day();
 	            } 
             } catch (Exception e) {
             	System.out.println("Exception Detected!");

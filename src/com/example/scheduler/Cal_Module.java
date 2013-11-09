@@ -108,7 +108,7 @@ public class Cal_Module{
 		d.set_year(C_Calendar.get(Calendar.YEAR));
 	}
 	
-	public void transitionprevDate(Cal_Date d)
+	public void transitionPrevDate(Cal_Date d)
 	{
 		C_Calendar.set(d.get_year(), d.get_month(), d.get_day());
 		C_Calendar.add(Calendar.DATE, DECREMENT_DATE);
