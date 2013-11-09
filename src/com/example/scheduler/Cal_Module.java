@@ -14,6 +14,9 @@ public class Cal_Module{
 	private final static int sat = 6;
 	private final static int NONE = -1;
 	
+	private final static int INCREMENT_DATE = 1;
+	private final static int DECREMENT_DATE = -1;
+	
 	private final String E1 = "Error C1";
 	private final String E2 = "Error C2";
 	
@@ -96,16 +99,22 @@ public class Cal_Module{
 		return C_Calendar.getTimeInMillis();
 	}
 	
-	public Cal_Date getNextDate(Cal_Date d)
+	public void transitionNextDate(Cal_Date d)
 	{
-		Cal_Date next = new Cal_Date();
-		return next;
+		C_Calendar.set(d.get_year(), d.get_month(), d.get_day());
+		C_Calendar.add(Calendar.DATE, INCREMENT_DATE);
+		d.set_day(C_Calendar.get(Calendar.DAY_OF_MONTH));
+		d.set_month(C_Calendar.get(Calendar.MONTH));
+		d.set_year(C_Calendar.get(Calendar.YEAR));
 	}
 	
-	public Cal_Date getPrevDate(Cal_Date d)
+	public void transitionprevDate(Cal_Date d)
 	{
-		Cal_Date prev = new Cal_Date();
-		return prev;
+		C_Calendar.set(d.get_year(), d.get_month(), d.get_day());
+		C_Calendar.add(Calendar.DATE, DECREMENT_DATE);
+		d.set_day(C_Calendar.get(Calendar.DAY_OF_MONTH));
+		d.set_month(C_Calendar.get(Calendar.MONTH));
+		d.set_year(C_Calendar.get(Calendar.YEAR));
 	}
 	
 }

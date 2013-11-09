@@ -18,7 +18,6 @@ import com.haarman.listviewanimations.swinginadapters.prepared.ScaleInAnimationA
 
 /* Basic Android Imports*/
 import android.os.Bundle;
-import android.content.Context;
 import android.content.Intent;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
@@ -29,6 +28,7 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class Schedule extends SherlockFragmentActivity {
     private final static int EDT_EVENT_CASE = 4;
     
     private final static int TodoPanelHeight = 75;
-    private final static int CLEAR_CASE = 0;
+    //private final static int CLEAR_CASE = 0;
     
     /* TODO SIZE CASES */
     private final static int EMPTY = 0;
@@ -79,6 +79,7 @@ public class Schedule extends SherlockFragmentActivity {
 	protected ViewStub empty_events;
 	
 	protected SlidingUpPanelLayout slidePanel;
+	protected RelativeLayout r_Layout;
 	
 	/*SQL Data Source */
 	protected SQL_DataSource datasource;
@@ -263,13 +264,14 @@ public class Schedule extends SherlockFragmentActivity {
 		
 //		final GestureDetector gdt = new GestureDetector(this, new Gesture_Module(this, e_listview, 
 //				REL_SWIPE_MAX_OFF_PATH, REL_SWIPE_MAX_OFF_PATH, REL_SWIPE_MAX_OFF_PATH));
-		final GestureDetector gdt = new GestureDetector(this, new MyGestureDetector());
+		
+		final GestureDetector gdt = new GestureDetector(this, new Gest_Module());
 		View.OnTouchListener glt = new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				return gdt.onTouchEvent(event);
 			}
 		};
-		e_listview.setOnTouchListener(glt);
+		//e_listview.setOnTouchListener(glt);
 		
 		e_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
@@ -315,8 +317,8 @@ public class Schedule extends SherlockFragmentActivity {
 		t_anima_adapter.setAbsListView(t_listview);
 		t_listview.setAdapter(t_anima_adapter);
 		
-		empty_events.setOnTouchListener(glt);
-		empty_todo.setOnTouchListener(glt);
+		e_listview.setOnTouchListener(glt);
+		r_Layout.setOnTouchListener(glt);
 		
 		load_from_database(selected_CD);
 	}
@@ -349,6 +351,9 @@ public class Schedule extends SherlockFragmentActivity {
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
         sliderText = (TextView) findViewById(R.id.todo_slider);
+        
+        r_Layout = (RelativeLayout) findViewById(R.id.topLL);
+        
 		config_actionbar();
 		
         SlidingUpPanelLayout layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
@@ -584,7 +589,7 @@ public class Schedule extends SherlockFragmentActivity {
 		selected_CD.set_year(temp_cd.get_year());
 	}
 
-    class MyGestureDetector extends SimpleOnGestureListener{ 
+    class Gest_Module extends SimpleOnGestureListener{ 
 
         @Override 
         public boolean onSingleTapUp(MotionEvent e) {
@@ -600,15 +605,15 @@ public class Schedule extends SherlockFragmentActivity {
 	                return false; 
 	            if(e1.getX() - e2.getX() > REL_SWIPE_MIN_DISTANCE && 
 	                Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) { 
-	            	Toast.makeText(Schedule.this, "Left-to-right fling", Toast.LENGTH_SHORT).show();
+	            	Toast.makeText(Schedule.this, "SWIPE LEFT", Toast.LENGTH_SHORT).show();
 	            	System.out.println("SWIPE LEFT");
 	            }  else if (e2.getX() - e1.getX() > REL_SWIPE_MIN_DISTANCE && 
 	                Math.abs(velocityX) > REL_SWIPE_THRESHOLD_VELOCITY) { 
-	            	Toast.makeText(Schedule.this, "Right-to-left fling", Toast.LENGTH_SHORT).show();
+	            	Toast.makeText(Schedule.this, "SWIPE RIGHT", Toast.LENGTH_SHORT).show();
 	            	System.out.println("SWIPE RIGHT");
 	            } 
             } catch (Exception e) {
-            	System.out.println("EXCEPTION!!");
+            	System.out.println("Exception Detected!");
             }
             return false; 
         } 
