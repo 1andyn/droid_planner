@@ -203,50 +203,30 @@ public class Schedule extends SherlockFragmentActivity{
 	{
 	    int id = item.getItemId();
 
-	    switch(id)
-	    {		    
-
-		    case R.id.tb_month:
-		    {
+	    switch(id){		    
+		    case R.id.tb_month:{
 		    	switch_activity(MONTH_CASE, NONE);
 		    	return false;
-
-		    }
-		    case R.id.tb_date:
-		    {
+		    } case R.id.tb_date:{
 		    	init_SelectedCD();
 		    	load_from_database(selected_CD);
 		    	invalidateOptionsMenu();
 		    	Toast.makeText(Schedule.this, "Showing events for today", Toast.LENGTH_SHORT).show();
 		    	return false;
-		    }
-	    	case R.id.tb_sub_ev:
-	    	{
+		    } case R.id.tb_sub_ev:{
 	    		switch_activity(EVENT_CASE, NONE);
 	    		return false;
-	    	}
-	    	
-	    	case R.id.tb_sub_td:
-	    	{
+	    	} case R.id.tb_sub_td:{
 	    		switch_activity(TODO_CASE, NONE);
 	    		return false;
-	    	}
-	    	case R.id.full_clear:
-	    		
-	    	{
+	    	} case R.id.full_clear:{
 	    		CLEAR_EVERYTHING();
 	    		Toast.makeText(Schedule.this, "All events have been cleared!", Toast.LENGTH_LONG).show();
 	    		return false;
-	    	}
-	    	
-	    	case R.id.test_item:
-	    	{
+	    	} case R.id.test_item:{
 		    	Toast.makeText(Schedule.this, "Test Item was pressed!", Toast.LENGTH_SHORT).show();
 		    	return false;
-	    	}
-	    	
-		    default:
-		    {
+	    	} default: {
 		        return super.onOptionsItemSelected(item);
 		    }
 	    }
@@ -278,12 +258,9 @@ public class Schedule extends SherlockFragmentActivity{
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
             {
             	selected_view = v;
-            	
-                if(m_Action != null)
-                {
+                if(m_Action != null){
                 	return false;
                 }
-                
                 m_Action = Schedule.this.startActionMode(m_ActionCall);
                 selected_event = (Event) e_adapter.getItem(pos);
                 adv.setSelection(pos);
@@ -300,14 +277,11 @@ public class Schedule extends SherlockFragmentActivity{
 		t_listview.setLongClickable(true);
 		t_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		t_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
-            {
+            public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id){
             	selected_view = v;
-                if(m_Action2 != null)
-                {
+                if(m_Action2 != null) {
                 	return false;
                 }
-                
                 m_Action2 = Schedule.this.startActionMode(m_ActionCall2);
                 selected_event = (Event) t_adapter.getItem(pos);
                 adv.setSelection(pos);
