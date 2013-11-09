@@ -1,70 +1,74 @@
 package com.example.scheduler;
 
 import android.content.Context;
-import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.ViewConfiguration;
 import android.widget.Toast;
 
-class Gesture_Module extends SimpleOnGestureListener {
+class Gesture_Module implements GestureDetector.OnGestureListener{
 	
-	private final Context App_Context;
-//	private final com.actionbarsherlock.view.ActionMode Action; 
+	private static final int SWIPE_MIN_DISTANCE = 150;
+	private static final int SWIPE_MAX_OFF_PATH = 100;
+	private static final int SWIPE_THRESHOLD_VELOCITY = 100;
+	protected MotionEvent mLastOnDownEvent = null;
+	private Context app_context;
 	
-	public Gesture_Module (Context c)
+	public Gesture_Module (Context context)
 	{
-		App_Context = c;
-//		Action = act;
+		app_context = context;
 	}
 	
-	
-//	AdapterView.OnItemClickListener Listen = new AdapterView.OnItemLongClickListener() {
-//        public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
-//        {
-//        	selected_view = v;
-//        	
-//            if(m_Action != null)
-//            {
-//            	return false;
-//            }
-//            
-//            m_Action = Schedule.this.startActionMode(m_ActionCall);
-//            selected_event = (Event) e_adapter.getItem(pos);
-//            adv.setSelection(pos);
-//            e_adapter.notifyDataSetChanged();
-//            return true;                
-//        }
-//		});
-	
-	  @Override
-	  public boolean onSingleTapConfirmed(MotionEvent event) {
-	    // Trigger the touch event on the calendar
-		  Toast.makeText(App_Context, "Single Tap", Toast.LENGTH_SHORT).show();
-	    return super.onSingleTapUp(event);
-	  }
+	@Override   
+	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) 
+	{
+        if (e1==null)
+            e1 = mLastOnDownEvent;
+        if (e1==null || e2==null)
+            return false;
 
-	  @Override
-	  public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-	    ViewConfiguration viewConfiguration = ViewConfiguration.get(App_Context);
-	    int minSwipeDistance = viewConfiguration.getScaledPagingTouchSlop();
-	    int minSwipeVelocity = viewConfiguration.getScaledMinimumFlingVelocity();
-	    int maxSwipeOffPath = viewConfiguration.getScaledTouchSlop();
+        float dX = e2.getX()-e1.getX();
+        float dY = e2.getY()-e1.getY();
 
-	    if (Math.abs(e1.getY() - e2.getY()) > maxSwipeOffPath) {
-	      return false;
-	    }
+        if (Math.abs(dY)<SWIPE_MAX_OFF_PATH && Math.abs(velocityX)>=SWIPE_THRESHOLD_VELOCITY && Math.abs(dX)>=SWIPE_MIN_DISTANCE ) {
+            if (dX>0) {
+                Toast.makeText(app_context, "Right Swipe", Toast.LENGTH_SHORT).show();
+            } else{
+                Toast.makeText(app_context, "Left Swipe", Toast.LENGTH_SHORT).show();
+            }
 
-	    if (Math.abs(velocityX) > minSwipeVelocity) {
-	      // Right to left swipe
-	      if (e1.getX() - e2.getX() > minSwipeDistance) {
-          	Toast.makeText(App_Context, "Swipe Right", Toast.LENGTH_SHORT).show();
-	      }
-	      // Left to right
-	      else if (e2.getX() - e1.getX() > minSwipeDistance) {
-          	Toast.makeText(App_Context, "Swipe Left", Toast.LENGTH_SHORT).show();
-	      }
-	    }
+            return true;
+        }
 
-	    return false;
-	  }
-	} 
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+    	Toast.makeText(app_context, "Long Press Detected", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) { 
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+   @Override
+   public boolean onSingleTapUp(MotionEvent e) {
+      // TODO Auto-generated method stub
+       return false;
+   }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        // TODO Auto-generated method stub
+        return true;
+    }
+}

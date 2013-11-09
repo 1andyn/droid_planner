@@ -20,7 +20,10 @@ import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.text.method.LinkMovementMethod;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -254,6 +257,18 @@ public class Schedule extends SherlockFragmentActivity{
 		//e_listview.setAdapter(e_adapter);
 		e_listview.setLongClickable(true);
 		e_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		
+		final GestureDetector gdt = new GestureDetector(this, new Gesture_Module(this));
+		e_listview.setOnTouchListener(new OnTouchListener(){
+
+		    @Override
+		    public boolean onTouch(View v, MotionEvent event) {
+		        gdt.onTouchEvent(event);
+		        // TODO Auto-generated method stub
+		        return false;
+		    }
+
+		});
 		e_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
             {
