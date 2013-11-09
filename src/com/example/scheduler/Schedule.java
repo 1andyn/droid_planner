@@ -272,7 +272,6 @@ public class Schedule extends SherlockFragmentActivity {
 				return gdt.onTouchEvent(event);
 			}
 		};
-		//e_listview.setOnTouchListener(glt);
 		
 		e_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> adv, View v, int pos, long id) 
@@ -288,8 +287,6 @@ public class Schedule extends SherlockFragmentActivity {
                 return true;                
             }
 		});		
-		
-
 		
 		/* Secondary List */
 		todos_visible = new ArrayList<Event>();
@@ -521,6 +518,7 @@ public class Schedule extends SherlockFragmentActivity {
 		ArrayList<Event> temp = datasource.getEventsForDate(d);
 		events_visible.clear();
 		todos_visible.clear();
+		
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
 		{
 			if(temp.get(INDEX).GetStart() == NONE) todos_visible.add(temp.get(INDEX));
@@ -532,6 +530,7 @@ public class Schedule extends SherlockFragmentActivity {
 		t_adapter.notifyDataSetChanged();
 		e_adapter.notifyDataSetChanged();
 		
+		delay_Animation();
 	}
 	
 	
@@ -571,7 +570,6 @@ public class Schedule extends SherlockFragmentActivity {
 	protected void onResume()
 	{
 		datasource.open();
-		delay_Animation();
 		load_from_database(selected_CD);
 		super.onResume();
 	}
@@ -585,7 +583,6 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	private void init_SelectedCD()
 	{
-		delay_Animation();
 		Cal_Date temp_cd = selected_CM.getCurrentDate();
 		selected_CD.set_day(temp_cd.get_day());
 		selected_CD.set_month(temp_cd.get_month());
@@ -594,7 +591,6 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	private void next_day()
 	{
-		delay_Animation();
 		selected_CM.transitionNextDate(selected_CD);
     	load_from_database(selected_CD);
     	invalidateOptionsMenu();
@@ -602,7 +598,6 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	private void prev_day()
 	{
-		delay_Animation();
 		selected_CM.transitionPrevDate(selected_CD);
     	load_from_database(selected_CD);
     	invalidateOptionsMenu();
@@ -615,20 +610,20 @@ public class Schedule extends SherlockFragmentActivity {
 		    public void run(){
 		        e_anima_adapter.reset();
 		        e_anima_adapter.setAbsListView(e_listview);
-		        t_anima_adapter.reset();
-		        t_anima_adapter.setAbsListView(t_listview);
+//		        t_anima_adapter.reset();
+//		        t_anima_adapter.setAbsListView(t_listview);
 		    }
 		}, FORCED_DELAY_ANIMA);
 	}
 	
     class Gest_Module extends SimpleOnGestureListener{ 
 
-        @Override 
-        public boolean onSingleTapUp(MotionEvent e) {
-            //int pos = e_listview.pointToPosition((int)e.getX(), (int)e.getY());
-            System.out.println("Single Tap");
-            return false;
-        }
+//        @Override 
+//        public boolean onSingleTapUp(MotionEvent e) {
+//            //int pos = e_listview.pointToPosition((int)e.getX(), (int)e.getY());
+//            System.out.println("Single Tap");
+//            return false;
+//        }
 
         @Override 
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) { 
