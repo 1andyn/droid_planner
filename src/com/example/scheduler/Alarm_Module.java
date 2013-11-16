@@ -1,5 +1,8 @@
 package com.example.scheduler;
 
+import java.util.Calendar;
+
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -84,10 +87,11 @@ public class Alarm_Module extends Service{
     }
 
     /* Used for setting name/body texts outside of this AlarmServiceModule */
-    public void setNameDesc(String name, String desc)
+    public void setNameDesc(String name, String desc, int color)
     {
     	ev_name = name; // Event name
     	desc_name = desc; // Desc name
+    	ledcolor = color;
     }
     
 }

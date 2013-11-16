@@ -22,12 +22,9 @@ public class SQL_DataSource {
 	private int COL_END = 8;
 	private int COL_COL = 9;
 	private int COL_REP = 10;
-	//private int EMPTY = 0;
 	private int START = 0;
-	//private int SIZE_ONE = 1;
 	
 	private final static String NO_OVERLAP = "N";
-	//private final static String NO_REP = "NNNNNNN";
 	private final static String nofaultEvent = NO_OVERLAP;
 	
 	private Cal_Module cal_mod;

@@ -18,6 +18,9 @@ import java.util.Calendar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 /* Android based Imports */
 import android.os.Bundle;
 import android.view.View;
@@ -110,8 +113,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		Bundle Schedule_Date = getIntent().getExtras();
 		b_id = Schedule_Date.getLong(Schedule.SELECT_ID_KEY);
 		
-		if(b_id == NONE_L)
-		{
+		if(b_id == NONE_L){
 			sel_CD = Schedule_Date.getParcelable(Schedule.SELECT_KEY);
 		}
 		
@@ -148,23 +150,19 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
 		final Calendar c = Calendar.getInstance();
-		if(c.get(Calendar.HOUR_OF_DAY) < 23)
-		{
+		if(c.get(Calendar.HOUR_OF_DAY) < 23){
 			end_tp.setCurrentHour(c.get(Calendar.HOUR_OF_DAY) + 1);
 		}
 		
-		if(b_id == NONE_L)
-		{
+		if(b_id == NONE_L){
 			r_dp.updateDate(sel_CD.get_year(), sel_CD.get_month(), sel_CD.get_day());
 		}
-		
 		check_EDIT_MODE();
 	}
 	
 	private void check_EDIT_MODE()
 	{
-		if(b_id != NONE_L)
-		{
+		if(b_id != NONE_L){
 			creation_b.setText(getResources().getString(R.string.edt_ev));
 			Event temp = datasource.getEvent(b_id);
 			name_et.setText(temp.getName());
@@ -190,11 +188,13 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			Rep_Mod = null; //Deallocate Module
 			/* Rep Module*/
 			
-			if(temp.getAlarm().equals(CHECKED)) alarm_tb.setChecked(true);
-			else alarm_tb.setChecked(false);
+			if(temp.getAlarm().equals(CHECKED)) {
+				alarm_tb.setChecked(true);
+			} else {
+				alarm_tb.setChecked(false);
+			}
 			c_Picker.setColor(temp.getColor());
 		}
-		
 	}
 	
 	/* ActionBar Configuration */
@@ -215,16 +215,12 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	protected void add_Event_Listener() {
 		creation_b.setOnClickListener(new OnClickListener() {
-		
 			@Override
 			public void onClick(View view) {
 				/* Checks for Empty name as it is a Requirement */
-			if(name_et.getText().toString().trim().length() > 0)
-			{
+			if(name_et.getText().toString().trim().length() > 0){
 				add_event();
-			}
-			else
-			{
+			} else {
 				name_et.requestFocus();
 				Toast.makeText(Add_Activity.this,"Event cannot have an Empty Name!",
                         Toast.LENGTH_SHORT).show();
@@ -278,10 +274,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		/* Rep Mod Code*/
 		
-		if(!timeIssues(temp, b_id))
-		{
-			if(b_id != NONE_L)
-			{
+		if(!timeIssues(temp, b_id)){
+			if(b_id != NONE_L){
 				datasource.deleteEvent(b_id);
 			}
 			/* SQL_Database Code */
@@ -302,14 +296,12 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	protected int extract_HOUR(int time)
 	{		
 		String my_time = "" + time;
-		if(my_time.length() <= MIN_DIGITS) return ZERO;
-		else if(my_time.length() == MIN_TIME_DIGITS)
-		{
+		if(my_time.length() <= MIN_DIGITS){
+			return ZERO;
+		} else if(my_time.length() == MIN_TIME_DIGITS){
 			String nu_time = my_time.substring(ZERO, SECOND);
 			return Integer.parseInt(nu_time);
-		}
-		else
-		{
+		} else {
 			String nu_time = my_time.substring(ZERO, THIRD);
 			return Integer.parseInt(nu_time);
 		}	
@@ -318,13 +310,10 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	protected String minutes(int min)
 	{
 		String time;
-		if(min < TEN_MINUTES)
-		{
+		if(min < TEN_MINUTES){
 			time = "" + ZERO + min;
 			return time; 
-		}
-		else
-		{
+		} else {
 			time = "" + min;
 			return time;
 		}
@@ -332,12 +321,9 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	protected String check_toggle()
 	{
-		if(alarm_tb.isChecked())
-		{
+		if(alarm_tb.isChecked()){
 			return "Y";
-		}
-		else
-		{
+		} else {
 			return "N";
 		}
 	}
@@ -358,22 +344,17 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	protected boolean timeIssues(Event d, long id)
 	{
-		if(d.GetDate().getStartTime() == d.GetDate().getEndTime())
-		{
+		if(d.GetDate().getStartTime() == d.GetDate().getEndTime()){
 			focus_Time();
 			Toast.makeText(Add_Activity.this,"Starting time cannot equal end time!",
                     Toast.LENGTH_SHORT).show();
 			return true;
-		}
-		else if(d.GetDate().getStartTime() > d.GetDate().getEndTime())
-		{
+		} else if(d.GetDate().getStartTime() > d.GetDate().getEndTime()){
 			focus_Time();
 			Toast.makeText(Add_Activity.this,"Event cannot start after it ends!",
                     Toast.LENGTH_SHORT).show();
 			return true;
-		}
-		else if(datasource.overlapExists(d, id) != NO_OVERLAP)
-		{
+		} else if(datasource.overlapExists(d, id) != NO_OVERLAP){
 			focus_Time();
 			Toast.makeText(Add_Activity.this,"Event time conflicts with an Event: " + datasource.overlapExists(d, id),
                     Toast.LENGTH_LONG).show();
@@ -385,6 +366,31 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	protected void focus_Time()
 	{
 		start_tp.requestFocus();
+	}
+	
+	public void create_Alarm(int time, int id)
+	{
+//		/* Instantiate a Calendar */ 
+//	    Calendar calendar = Calendar.getInstance();
+//	    calendar.add(Calendar.SECOND, 5);
+		
+	    Intent AlarmIntent = new Intent(this, Receiver_Module.class);
+	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+	    /* Scheduling the Alarm to be triggered*/
+	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+	    alarmManager.set(AlarmManager.RTC, time, DispIntent);
+	}
+	
+	public void cancel_Alarm(int id)
+	{
+		/* Recreate the alarm creation data */
+		Intent AlarmIntent = new Intent(this, Receiver_Module.class);
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+		/* Instead of setting an alarm, use cancel on the pending Intent*/
+		alarmManager.cancel(DispIntent);
 	}
 	
 }
