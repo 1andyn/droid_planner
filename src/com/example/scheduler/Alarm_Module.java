@@ -46,7 +46,6 @@ public class Alarm_Module extends Service{
 	   sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
    }
     
-   @SuppressWarnings("static-access")
    @Override
    public int onStartCommand(Intent intent, int flags, int startId)
    {
