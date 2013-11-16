@@ -661,7 +661,7 @@ public class Schedule extends SherlockFragmentActivity {
 	    Calendar calendar = Calendar.getInstance();
 	    calendar.add(Calendar.SECOND, 5);
 		
-	    Intent AlarmIntent = new Intent(this, Schedule.class);
+	    Intent AlarmIntent = new Intent(this, Receiver_Module.class);
 	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 	    /* Scheduling the Alarm to be triggered*/
@@ -674,7 +674,7 @@ public class Schedule extends SherlockFragmentActivity {
 	public void cancel_Alarm()
 	{
 		/* Recreate the alarm creation data */
-		Intent AlarmIntent = new Intent(this, Schedule.class);
+		Intent AlarmIntent = new Intent(this, Receiver_Module.class);
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
