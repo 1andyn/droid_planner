@@ -12,9 +12,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.IBinder;
 
 public class Alarm_Module extends Service{
+	
+	/* Bundle or Extra Keys */
+	private final static String EV_NAME = "event_name";
+	private final static String EV_DESC = "event_desc";
+	private final static String EV_COLR = "event_colr";
 	
 	private Bitmap icon;
 	private Uri sound;
@@ -53,7 +59,15 @@ public class Alarm_Module extends Service{
    public int onStartCommand(Intent intent, int flags, int startId)
    {
        super.onStartCommand(intent, flags, startId);
-     
+      
+       Bundle extras = intent.getExtras();
+	   if(extras != null){
+	       ev_name = extras.getString(EV_NAME);
+		   desc_name = extras.getString(EV_DESC);
+		   ledcolor = extras.getInt(EV_COLR);
+	   } else {
+		   System.out.println("Bundle has been detected as empty");
+	   }
 	   Intent OpenIntent = new Intent(this, Schedule.class);
 	   OpenIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	   /* Pending Intent is for intent that is triggered upon notification click */
@@ -84,14 +98,6 @@ public class Alarm_Module extends Service{
     public void onDestroy() 
     {
         super.onDestroy();
-    }
-
-    /* Used for setting name/body texts outside of this AlarmServiceModule */
-    public void setNameDesc(String name, String desc, int color)
-    {
-    	ev_name = name; // Event name
-    	desc_name = desc; // Desc name
-    	ledcolor = color;
     }
     
 }

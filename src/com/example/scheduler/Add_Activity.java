@@ -17,10 +17,12 @@ import java.util.Calendar;
 /* ABS Based Imports */
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
+import com.example.MyReceiver;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 /* Android based Imports */
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +35,11 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class Add_Activity  extends SherlockFragmentActivity {
+	
+	/* Bundle or Extra Keys */
+	private final static String EV_NAME = "event_name";
+	private final static String EV_DESC = "event_desc";
+	private final static String EV_COLR = "event_colr";
 	
 	private final static int SUN = 0;
 	private final static int MON = 1;
@@ -368,29 +375,44 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		start_tp.requestFocus();
 	}
 	
-	public void create_Alarm(int time, int id)
+	private void create_Alarm(Event e, int time, int id)
 	{
-//		/* Instantiate a Calendar */ 
-//	    Calendar calendar = Calendar.getInstance();
-//	    calendar.add(Calendar.SECOND, 5);
+		/* Instantiate a Calendar */ 
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.add(Calendar.SECOND, 5);
 		
-	    Intent AlarmIntent = new Intent(this, Receiver_Module.class);
-	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
+	    AlarmIntent.setData(Uri.parse("custom://" + id));
+	    AlarmIntent.setAction(String.valueOf(id));
+
+	    AlarmIntent.putExtra(EV_NAME, e.getName());
+	    AlarmIntent.putExtra(EV_DESC, e.getDescription());
+	    AlarmIntent.putExtra(EV_COLR, e.getColor());
+	    
+	    PendingIntent DispIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, 
+	    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 	    /* Scheduling the Alarm to be triggered*/
 	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	    alarmManager.set(AlarmManager.RTC, time, DispIntent);
+	    alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), DispIntent);
+	    
+	    Toast.makeText(this,"Created Alarm...wait 5 seconds" ,Toast.LENGTH_SHORT).show();
 	}
 	
-	public void cancel_Alarm(int id)
+	private void cancel_Alarm(int id)
 	{
 		/* Recreate the alarm creation data */
-		Intent AlarmIntent = new Intent(this, Receiver_Module.class);
+		Intent AlarmIntent = new Intent(this, Receiver_Module.class);    
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		AlarmIntent.setData(Uri.parse("custom://" + id));
+		AlarmIntent.setAction(String.valueOf(id));
+		PendingIntent DispIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, 
+				AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
 		/* Instead of setting an alarm, use cancel on the pending Intent*/
 		alarmManager.cancel(DispIntent);
+		
+		Toast.makeText(this,"Alarm Cancelled." ,Toast.LENGTH_SHORT).show();
 	}
 	
 }
