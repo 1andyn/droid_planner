@@ -17,7 +17,6 @@ import java.util.Calendar;
 /* ABS Based Imports */
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
-import com.example.MyReceiver;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
