@@ -229,7 +229,10 @@ public class Schedule extends SherlockFragmentActivity {
 	    		Toast.makeText(Schedule.this, "All events have been cleared!", Toast.LENGTH_LONG).show();
 	    		return false;
 	    	} case R.id.test_item:{
-		    	Toast.makeText(Schedule.this, "Test Item was pressed!", Toast.LENGTH_SHORT).show();
+		    	Toast.makeText(Schedule.this, "Created test alarm...wait 5 seconds", Toast.LENGTH_SHORT).show();
+		    	Event temp = new Event();
+		    	Alarm_Creation_Module AC_Mod = new Alarm_Creation_Module(this, temp);
+		    	AC_Mod.create_Alarm();
 		    	return false;
 	    	} default: {
 		        return super.onOptionsItemSelected(item);

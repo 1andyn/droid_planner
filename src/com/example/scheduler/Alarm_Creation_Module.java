@@ -12,10 +12,13 @@ public class Alarm_Creation_Module extends Activity {
 	private final int EMPTY = -1;
 	private Context app_context;
 	private int id = 1;
+	private String rep_string;
+	private Event ev;
 	
-	public Alarm_Creation_Module(Context c)
+	public Alarm_Creation_Module(Context c, Event e)
 	{
 		app_context = c;
+		ev = e;
 	}
 	
 	public void setId(int giveId)
