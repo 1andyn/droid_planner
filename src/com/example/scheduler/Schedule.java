@@ -19,6 +19,8 @@ import com.haarman.listviewanimations.swinginadapters.prepared.ScaleInAnimationA
 /* Basic Android Imports*/
 import android.os.Bundle;
 import android.os.Handler;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
@@ -33,6 +35,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Schedule extends SherlockFragmentActivity {
 	
@@ -230,10 +233,11 @@ public class Schedule extends SherlockFragmentActivity {
 	    		return false;
 	    	} case R.id.test_item:{
 		    	Toast.makeText(Schedule.this, "Created test alarm...wait 5 seconds", Toast.LENGTH_SHORT).show();
-		    	Event temp = new Event();
-		    	Alarm_Creation_Module AC_Mod = new Alarm_Creation_Module(this, temp);
-		    	AC_Mod.create_Alarm();
+		    	create_Alarm();
 		    	return false;
+	    	} case R.id.test_cancel:{
+	    		Toast.makeText(Schedule.this, "Cancelled Alarm...", Toast.LENGTH_SHORT).show();
+	    		cancel_Alarm();
 	    	} default: {
 		        return super.onOptionsItemSelected(item);
 		    }
@@ -648,4 +652,33 @@ public class Schedule extends SherlockFragmentActivity {
 
     } 
 
+    private final int id = 1;
+    
+    /** DEBUG */
+	public int create_Alarm()
+	{
+		/* Instantiate a Calendar */ 
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.add(Calendar.SECOND, 5);
+		
+	    Intent AlarmIntent = new Intent(this, Schedule.class);
+	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+	    /* Scheduling the Alarm to be triggered*/
+	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+	    alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), DispIntent);
+	    
+	    return id;
+	}
+	
+	public void cancel_Alarm()
+	{
+		/* Recreate the alarm creation data */
+		Intent AlarmIntent = new Intent(this, Schedule.class);
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+		/* Instead of setting an alarm, use cancel on the pending Intent*/
+		alarmManager.cancel(DispIntent);
+	}
 }
