@@ -30,15 +30,18 @@ public class Date{
 	}
 
 	// accessors
-	public int getStartTime() {
+	public int getStartTime() 
+	{
 		return startTime;
 	}
 	
-	public int getEndTime() {
+	public int getEndTime() 
+	{
 		return endTime;
 	}
 	
-	public int getDay() {
+	public int getDay() 
+	{
 		return date.get_day();
 	}
 	
