@@ -47,6 +47,14 @@ public class Cal_Module{
 		C_Calendar = Calendar.getInstance();
 	}
 	
+	public void setDate(Date d)
+	{
+		C_Calendar.set(d.getYear(), d.getMonth(), d.getDay());
+		int temp = d.getStartTime();
+		C_Calendar.set(Calendar.HOUR, extract_HOUR(temp));
+		C_Calendar.set(Calendar.MINUTE, extract_MINUTES(temp));
+	}
+	
 	public Cal_Module(Date d)
 	{
 		C_Calendar = Calendar.getInstance();
