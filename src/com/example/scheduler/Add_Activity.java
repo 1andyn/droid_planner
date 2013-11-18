@@ -56,6 +56,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static int THIRD = 2;
 	private final static String NO_OVERLAP = "N";
 	private final static long NONE_L = -1;
+	
+	private String original_Alarm = null; 
 
 	private final static String CHECKED = "Y";
 	
@@ -178,6 +180,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			end_tp.setCurrentHour(extract_HOUR(temp.GetEnd()));
 			end_tp.setCurrentMinute(extract_MINUTES(temp.GetEnd()));
 			r_dp.updateDate(temp.GetYear(), temp.GetMonth(), temp.GetDay());
+			original_Alarm = temp.getAlarm();
 			
 			/* Repetition Module */
 			Rep_Mod = new Repetition_Module();
@@ -374,12 +377,20 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		start_tp.requestFocus();
 	}
 	
-	private void create_Alarm(Event e, int time, int id)
+	private long timeExtraction(String alarm_string)
 	{
-		/* Instantiate a Calendar */ 
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.add(Calendar.SECOND, 5);
+		long temp = 0;
+		return temp;
+	}
+	
+	
+	private void construct_Alarm(Event e)
+	{
 		
+	}
+	
+	private void create_Alarm(Event e, int time, int id)
+	{		
 	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
 	    AlarmIntent.setData(Uri.parse("custom://" + id));
 	    AlarmIntent.setAction(String.valueOf(id));
@@ -393,9 +404,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 
 	    /* Scheduling the Alarm to be triggered*/
 	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	    alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), DispIntent);
+	    alarmManager.set(AlarmManager.RTC, time, DispIntent);
 	    
-	    Toast.makeText(this,"Created Alarm...wait 5 seconds" ,Toast.LENGTH_SHORT).show();
 	}
 	
 	private void cancel_Alarm(int id)
