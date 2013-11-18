@@ -5,6 +5,15 @@ import java.util.GregorianCalendar;
 
 public class Cal_Module{
 	
+	/* Time Extraction Variables*/
+	private final int MIN_TIME_DIGITS = 3;	
+	private final static int MIN_DIGITS = 2;
+	private final static int TEN_MINUTES = 10;
+	private final static int ZERO = 0;
+	private final static int SECOND = 1;
+	private final static int THIRD = 2;
+	
+	/* Weekday Enumerations */
 	private final static int FAIL = 0;
 	private final static int sun = 0;
 	private final static int mon = 1;
@@ -43,8 +52,10 @@ public class Cal_Module{
 	public Cal_Module(Date d)
 	{
 		C_Calendar = Calendar.getInstance();
-		C_Calendar.set(d.get_CDate().get, d.get_month(), d.get_day());
-		C_Calendar.set(Calendar.HOUR, d.get)
+		C_Calendar.set(d.getYear(), d.getMonth(), d.getDay());
+		int temp = d.getStartTime();
+		C_Calendar.set(Calendar.HOUR, extract_HOUR(temp));
+		C_Calendar.set(Calendar.MINUTE, extract_MINUTES(temp));
 	}
 	
 	public long getMilliseconds()
@@ -139,6 +150,28 @@ public class Cal_Module{
 		d.set_day(C_Calendar.get(Calendar.DAY_OF_MONTH));
 		d.set_month(C_Calendar.get(Calendar.MONTH));
 		d.set_year(C_Calendar.get(Calendar.YEAR));
+	}
+	
+	protected int extract_MINUTES(int time)
+	{
+		String my_time = "" + time;
+		String nu_time = my_time.length() > MIN_DIGITS ? 
+				my_time.substring(my_time.length() - MIN_DIGITS) : my_time;
+		return Integer.parseInt(nu_time);
+	}
+	
+	protected int extract_HOUR(int time)
+	{		
+		String my_time = "" + time;
+		if(my_time.length() <= MIN_DIGITS){
+			return ZERO;
+		} else if(my_time.length() == MIN_TIME_DIGITS){
+			String nu_time = my_time.substring(ZERO, SECOND);
+			return Integer.parseInt(nu_time);
+		} else {
+			String nu_time = my_time.substring(ZERO, THIRD);
+			return Integer.parseInt(nu_time);
+		}	
 	}
 	
 }
