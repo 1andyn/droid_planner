@@ -16,6 +16,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.haarman.listviewanimations.swinginadapters.prepared.ScaleInAnimationAdapter;
 
+import android.net.Uri;
 /* Basic Android Imports*/
 import android.os.Bundle;
 import android.os.Handler;
@@ -657,11 +658,20 @@ public class Schedule extends SherlockFragmentActivity {
     /** DEBUG */
 	public int create_Alarm()
 	{
+		/* Bundle or Extra Keys */
+		final String EV_NAME = "event_name";
+		final String EV_DESC = "event_desc";
+		
 		/* Instantiate a Calendar */ 
 	    Calendar calendar = Calendar.getInstance();
 	    calendar.add(Calendar.SECOND, 5);
 		
 	    Intent AlarmIntent = new Intent(this, Receiver_Module.class);
+	    AlarmIntent.setData(Uri.parse("custom://" + id));
+	    AlarmIntent.setAction(String.valueOf(id));
+
+	    AlarmIntent.putExtra(EV_NAME, "This is an event name!");
+	    AlarmIntent.putExtra(EV_DESC, "This is a description!");
 	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 	    /* Scheduling the Alarm to be triggered*/
