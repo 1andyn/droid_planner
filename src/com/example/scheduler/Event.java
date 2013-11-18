@@ -12,6 +12,7 @@ public class Event{
 	private Date eventDate;
 	private String alarm;
 	private String rep_STRING;
+	private long alarm_sec;
 
 	/* Constructor */
 	public Event(long id, String name)
@@ -136,6 +137,11 @@ public class Event{
 	public void set_Rep(String rep_string)
 	{
 		rep_STRING = rep_string;
+	}
+	
+	public void set_Asec(long time)
+	{
+		alarm_sec = time;
 	}
 	
 }

@@ -18,7 +18,8 @@ public class SQLHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_START = "start_time";
 	public static final String COLUMN_END = "end_time";
 	public static final String COLUMN_COLOR = "color";
-	public static final String COLUMN_REP ="repetition";
+	public static final String COLUMN_REP = "repetition";
+	public static final String COLUMN_ASEC = "alarm_second";
 	 
 	private static final int DATABASE_VERSION = 2;
     public static final String TABLE_NAME = "USREVENTS";
@@ -36,7 +37,8 @@ public class SQLHelper extends SQLiteOpenHelper {
 		      + COLUMN_START + " INT NOT NULL, "
 		      + COLUMN_END + " INT NOT NULL, "
 		      + COLUMN_COLOR + " INT NOT NULL," 
-		      +	COLUMN_REP + " TEXT NOT NULL" + " );";
+		      +	COLUMN_REP + " TEXT NOT NULL,"
+		      + COLUMN_ASEC + " BIGINT " + " );";
 	
 	  public SQLHelper(Context context) {
 		    super(context, "/mnt/sdcard/" + DATABASE_NAME, null, DATABASE_VERSION);

@@ -22,6 +22,7 @@ public class SQL_DataSource {
 	private int COL_END = 8;
 	private int COL_COL = 9;
 	private int COL_REP = 10;
+	private int COL_ALA = 11;
 	private int START = 0;
 	
 	private final static String NO_OVERLAP = "N";
@@ -33,7 +34,8 @@ public class SQL_DataSource {
 	private SQLiteDatabase database;
 	private String[] allColumns = { SQLHelper.COLUMN_ID, SQLHelper.COLUMN_NAME, SQLHelper.COLUMN_DESC, 
 			SQLHelper.COLUMN_ALARM, SQLHelper.COLUMN_MONTH, SQLHelper.COLUMN_DAY, SQLHelper.COLUMN_YEAR, 
-			SQLHelper.COLUMN_START, SQLHelper.COLUMN_END, SQLHelper.COLUMN_COLOR, SQLHelper.COLUMN_REP };
+			SQLHelper.COLUMN_START, SQLHelper.COLUMN_END, SQLHelper.COLUMN_COLOR, SQLHelper.COLUMN_REP,
+			SQLHelper.COLUMN_ASEC};
 	
 	public SQL_DataSource(Context context)
 	{
@@ -62,6 +64,7 @@ public class SQL_DataSource {
 		values.put(SQLHelper.COLUMN_END, e.GetEnd());
 		values.put(SQLHelper.COLUMN_COLOR, e.getColor());
 		values.put(SQLHelper.COLUMN_REP, e.getRep());
+		values.put(SQLHelper.COLUMN_ASEC, value)
 		
 		/* Supposedly adds all values in ContentValues values to database*/
 		long insertId = database.insert(SQLHelper.TABLE_NAME, null, values);
