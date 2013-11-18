@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 
 public class Cal_Module{
 	
+	private final static int FAIL = 0;
 	private final static int sun = 0;
 	private final static int mon = 1;
 	private final static int tue = 2;
@@ -34,6 +35,29 @@ public class Cal_Module{
 		return temp;
 	}
 	
+	public Cal_Module()
+	{
+		C_Calendar = Calendar.getInstance();
+	}
+	
+	public Cal_Module(Date d)
+	{
+		C_Calendar = Calendar.getInstance();
+		C_Calendar.set(d.get_CDate().get, d.get_month(), d.get_day());
+		C_Calendar.set(Calendar.HOUR, d.get)
+	}
+	
+	public long getMilliseconds()
+	{
+		if(C_Calendar != null)
+		{
+			return C_Calendar.getTimeInMillis();
+		}
+		else 
+		{
+			return FAIL;
+		}
+	}
 	
 	/* returns weekday as a String */
 	public String dayToString(Cal_Date d) 
