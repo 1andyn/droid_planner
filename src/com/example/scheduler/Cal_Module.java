@@ -13,7 +13,6 @@ public class Cal_Module{
 	private final static int THIRD = 2;
 	
 	/* Weekday Enumerations */
-	private final static int FAIL = 0;
 	private final static int sun = 0;
 	private final static int mon = 1;
 	private final static int tue = 2;
@@ -65,7 +64,8 @@ public class Cal_Module{
 		}
 		else 
 		{
-			return FAIL;
+			C_Calendar = Calendar.getInstance();
+			return C_Calendar.getTimeInMillis();
 		}
 	}
 	
