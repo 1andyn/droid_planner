@@ -57,7 +57,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static String NO_OVERLAP = "N";
 	private final static long NONE_L = -1;
 	
-	private String original_Alarm = null; 
+	private long EMPTY = 0;
+	private long ASEC = 0; 
 
 	private final static String CHECKED = "Y";
 	
@@ -180,7 +181,9 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			end_tp.setCurrentHour(extract_HOUR(temp.GetEnd()));
 			end_tp.setCurrentMinute(extract_MINUTES(temp.GetEnd()));
 			r_dp.updateDate(temp.GetYear(), temp.GetMonth(), temp.GetDay());
-			original_Alarm = temp.getAlarm();
+			
+			/* Acquire Original Alarm Data */
+			ASEC = temp.get_Asec();
 			
 			/* Repetition Module */
 			Rep_Mod = new Repetition_Module();
@@ -287,8 +290,23 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			if(b_id != NONE_L){
 				datasource.deleteEvent(b_id);
 			}
-			/* SQL_Database Code */
-			datasource.createEvent(temp);
+			
+			/* Configure Alarm only if Checked*/
+			if(alarm_tb.isChecked()){
+				Cal_Module C_MOD = new Cal_Module(time);
+				temp.set_Asec(C_MOD.getMilliseconds());
+				C_MOD = null; // Delete CMOD
+			}
+			
+			/* Insert into SQL_Database */
+			long id; // Acquire new ID number
+			id = datasource.createEvent(temp).GetID();
+			
+			/* Configure Alarm*/
+			if(alarm_tb.isChecked()){
+				construct_Alarm(temp, id);
+			}
+			
 			/* Return to Primary Activity*/
 			finish();
 		}
@@ -377,20 +395,20 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		start_tp.requestFocus();
 	}
 	
-	private long timeExtraction(String alarm_string)
+	private void construct_Alarm(Event e, long id)
 	{
-		long temp = 0;
-		return temp;
+		int newid = safeLongToInt(id);
+		/* If Old Alarm Exists */
+		if(ASEC != EMPTY){
+			cancel_Alarm(newid);
+		}
+		create_Alarm(e, newid);
 	}
 	
-	
-	private void construct_Alarm(Event e)
-	{
-		
-	}
-	
-	private void create_Alarm(Event e, int time, int id)
+	private void create_Alarm(Event e, int id)
 	{		
+		long time = e.get_Asec();
+		
 	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
 	    AlarmIntent.setData(Uri.parse("custom://" + id));
 	    AlarmIntent.setAction(String.valueOf(id));
@@ -422,6 +440,14 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		alarmManager.cancel(DispIntent);
 		
 		Toast.makeText(this,"Alarm Cancelled." ,Toast.LENGTH_SHORT).show();
+	}
+	
+	private static int safeLongToInt(long l) {
+	    if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+	        throw new IllegalArgumentException
+	            (l + " cannot be cast to int without changing its value.");
+	    }
+	    return (int) l;
 	}
 	
 }
