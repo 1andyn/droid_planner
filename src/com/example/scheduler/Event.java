@@ -144,6 +144,11 @@ public class Event{
 		alarm_sec = time;
 	}
 	
+	public long get_Asec()
+	{
+		return alarm_sec;
+	}
+	
 }
 	
 

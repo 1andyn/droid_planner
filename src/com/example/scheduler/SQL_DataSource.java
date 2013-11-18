@@ -35,7 +35,7 @@ public class SQL_DataSource {
 	private String[] allColumns = { SQLHelper.COLUMN_ID, SQLHelper.COLUMN_NAME, SQLHelper.COLUMN_DESC, 
 			SQLHelper.COLUMN_ALARM, SQLHelper.COLUMN_MONTH, SQLHelper.COLUMN_DAY, SQLHelper.COLUMN_YEAR, 
 			SQLHelper.COLUMN_START, SQLHelper.COLUMN_END, SQLHelper.COLUMN_COLOR, SQLHelper.COLUMN_REP,
-			SQLHelper.COLUMN_ASEC};
+			SQLHelper.COLUMN_ASEC };
 	
 	public SQL_DataSource(Context context)
 	{
@@ -64,7 +64,7 @@ public class SQL_DataSource {
 		values.put(SQLHelper.COLUMN_END, e.GetEnd());
 		values.put(SQLHelper.COLUMN_COLOR, e.getColor());
 		values.put(SQLHelper.COLUMN_REP, e.getRep());
-		values.put(SQLHelper.COLUMN_ASEC, value)
+		values.put(SQLHelper.COLUMN_ASEC, e.get_Asec());
 		
 		/* Supposedly adds all values in ContentValues values to database*/
 		long insertId = database.insert(SQLHelper.TABLE_NAME, null, values);
@@ -239,7 +239,7 @@ public class SQL_DataSource {
 		newEvent.setAlarm(curs.getString(COL_ALARM));
 		newEvent.setColor(curs.getInt(COL_COL));
 		newEvent.set_Rep(curs.getString(COL_REP));
-		
+		newEvent.set_Asec(curs.getLong(COL_ALA));
 		Date newDate = new Date();
 		newDate.setMth(curs.getInt(COL_MONTH));
 		newDate.setDay(curs.getInt(COL_DAY));
