@@ -288,6 +288,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		if(!timeIssues(temp, b_id)){
 			if(b_id != NONE_L){
+				/* Deletes old event before inserting new one if Editing */
 				datasource.deleteEvent(b_id);
 			}
 			

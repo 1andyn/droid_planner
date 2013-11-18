@@ -6,4 +6,6 @@
         android:title="@string/test_item"/>
       <item android:id="@+id/test_cancel"
           android:title="Cancel Alarm"/>
+      <item android:id="@+id/get_mill"
+          android:title="Get Milliseconds"/>
 </menu>

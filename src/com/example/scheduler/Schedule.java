@@ -135,6 +135,7 @@ public class Schedule extends SherlockFragmentActivity {
 			switch(item.getItemId()){
 			case R.id.menu_remove:
             	Toast.makeText(Schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
+            	remove_Alarm(selected_event.GetID());
             	remove_event(selected_event);
 				mode.finish();
 				return true;
@@ -178,6 +179,7 @@ public class Schedule extends SherlockFragmentActivity {
 			switch(item.getItemId()){
 			case R.id.menu_remove:
             	Toast.makeText(Schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
+            	remove_Alarm(selected_event.GetID());
             	remove_todo(selected_event);
 				mode.finish();
 				return true;
@@ -239,6 +241,8 @@ public class Schedule extends SherlockFragmentActivity {
 	    	} case R.id.test_cancel:{
 	    		Toast.makeText(Schedule.this, "Cancelled Alarm...", Toast.LENGTH_SHORT).show();
 	    		cancel_Alarm();
+	    	} case R.id.get_mill:{
+	    		show_milli();
 	    	} default: {
 		        return super.onOptionsItemSelected(item);
 		    }
@@ -656,7 +660,7 @@ public class Schedule extends SherlockFragmentActivity {
     private final int id = 1;
     
     /** DEBUG */
-	public int create_Alarm()
+	private int create_Alarm()
 	{
 		/* Bundle or Extra Keys */
 		final String EV_NAME = "event_name";
@@ -681,7 +685,7 @@ public class Schedule extends SherlockFragmentActivity {
 	    return id;
 	}
 	
-	public void cancel_Alarm()
+	private void cancel_Alarm()
 	{
 		/* Recreate the alarm creation data */
 		Intent AlarmIntent = new Intent(this, Receiver_Module.class);
@@ -691,4 +695,34 @@ public class Schedule extends SherlockFragmentActivity {
 		/* Instead of setting an alarm, use cancel on the pending Intent*/
 		alarmManager.cancel(DispIntent);
 	}
+	
+	private void show_milli()
+	{
+		Cal_Module temp = new Cal_Module();
+		String s = String.valueOf(temp.getMilliseconds());
+		Toast.makeText(Schedule.this, s, Toast.LENGTH_SHORT).show();
+		temp = null;
+	}
+	
+	/* NON DEBUG CANCEL, DON'T DELETE*/
+	private void remove_Alarm(long id)
+	{
+		int newid = safeLongToInt(id);
+		/* Recreate the alarm creation data */
+		Intent AlarmIntent = new Intent(this, Receiver_Module.class);
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		PendingIntent DispIntent = PendingIntent.getBroadcast(this, newid, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+		/* Instead of setting an alarm, use cancel on the pending Intent*/
+		alarmManager.cancel(DispIntent);
+	}
+	
+	private static int safeLongToInt(long l) {
+	    if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+	        throw new IllegalArgumentException
+	            (l + " cannot be cast to int without changing its value.");
+	    }
+	    return (int) l;
+	}
+	
 }
