@@ -8,7 +8,6 @@ public class Cal_Module{
 	/* Time Extraction Variables*/
 	private final int MIN_TIME_DIGITS = 3;	
 	private final static int MIN_DIGITS = 2;
-	private final static int TEN_MINUTES = 10;
 	private final static int ZERO = 0;
 	private final static int SECOND = 1;
 	private final static int THIRD = 2;
