@@ -13,6 +13,10 @@ import java.util.Calendar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +29,11 @@ import android.widget.ToggleButton;
 
 public class TD_Add_Activity extends SherlockFragmentActivity {
 	
+	/* Bundle or Extra Keys */
+	private final static String EV_NAME = "event_name";
+	private final static String EV_DESC = "event_desc";
+	private final static String EV_COLR = "event_colr";
+	
 	private final int MIN_TIME_DIGITS = 3;	
 	private final static int MIN_DIGITS = 2;
 	private final static int TEN_MINUTES = 10;
@@ -35,6 +44,10 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	private final static String NO_OVERLAP = "N";
 	private final static long NONE_L = -1;
 	private final static String CHECKED = "Y";
+	
+	private int TODO_TRUE = 1;
+	private long EMPTY = 0;
+	private long ASEC = 0; 
 	
 	private SQL_DataSource datasource;
 	
@@ -133,6 +146,10 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 			if(temp.getAlarm() == CHECKED)alarm_tb.setChecked(true);
 			else alarm_tb.setChecked(false);
 			c_Picker.setColor(temp.getColor());
+			
+			/* Acquire Original Alarm Data */
+			ASEC = temp.get_Asec();
+			
 		}
 		
 	}
@@ -205,8 +222,23 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 			{
 				datasource.deleteEvent(b_id);
 			}
+			
+			/* Configure Alarm only if Checked*/
+			if(alarm_tb.isChecked()){
+				Cal_Module C_MOD = new Cal_Module(time, TODO_TRUE);
+				temp.set_Asec(C_MOD.getMilliseconds());
+				C_MOD = null; // Delete CMOD
+			}
+			
 			/* SQL_Database Code */
-			datasource.createEvent(temp);
+			long id; // Acquire new ID number
+			id = datasource.createEvent(temp).GetID();
+			
+			/* Configure Alarm*/
+			if(alarm_tb.isChecked()){
+				construct_Alarm(temp, id);
+			}
+			
 			/* Return to Primary Activity*/
 			finish();
 		}
@@ -296,4 +328,56 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 		end_tp.requestFocus();
 	}
 
+	private void construct_Alarm(Event e, long id)
+	{
+		int newid = safeLongToInt(id);
+		/* If Old Alarm Exists */
+		if(ASEC != EMPTY){
+			cancel_Alarm(newid);
+		}
+		create_Alarm(e, newid);
+	}
+	
+	private void create_Alarm(Event e, int id)
+	{		
+	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
+	    AlarmIntent.setData(Uri.parse("custom://" + id));
+	    AlarmIntent.setAction(String.valueOf(id));
+
+	    AlarmIntent.putExtra(EV_NAME, e.getName());
+	   // AlarmIntent.putExtra(EV_DESC, e.getDescription());
+	    AlarmIntent.putExtra(EV_COLR, e.getColor());
+	    
+	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
+	    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+	    /* Scheduling the Alarm to be triggered*/
+	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+	    alarmManager.set(AlarmManager.RTC, e.get_Asec(), DispIntent);
+	    //alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), DispIntent);
+	}
+	
+	private void cancel_Alarm(int id)
+	{
+		/* Recreate the alarm creation data */
+		Intent AlarmIntent = new Intent(this, Receiver_Module.class);    
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		AlarmIntent.setData(Uri.parse("custom://" + id));
+		AlarmIntent.setAction(String.valueOf(id));
+		PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
+				AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+		/* Instead of setting an alarm, use cancel on the pending Intent*/
+		alarmManager.cancel(DispIntent);
+		//Toast.makeText(this,"Alarm Cancelled." ,Toast.LENGTH_SHORT).show();
+	}
+	
+	private static int safeLongToInt(long l) {
+	    if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+	        throw new IllegalArgumentException
+	            (l + " cannot be cast to int without changing its value.");
+	    }
+	    return (int) l;
+	}
+	
 }

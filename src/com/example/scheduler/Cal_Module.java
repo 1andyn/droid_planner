@@ -64,6 +64,15 @@ public class Cal_Module{
 		C_Calendar.set(Calendar.MINUTE, extract_MINUTES(temp));
 	}
 	
+	public Cal_Module(Date d, int todo_flag)
+	{
+		C_Calendar = Calendar.getInstance();
+		C_Calendar.set(d.getYear(), d.getMonth(), d.getDay());
+		int temp = d.getEndTime();
+		C_Calendar.set(Calendar.HOUR_OF_DAY, extract_HOUR(temp));
+		C_Calendar.set(Calendar.MINUTE, extract_MINUTES(temp));
+	}
+	
 	public long getMilliseconds()
 	{
 		if(C_Calendar != null)
