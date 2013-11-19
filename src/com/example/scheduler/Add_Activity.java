@@ -408,7 +408,6 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	private void create_Alarm(Event e, int id)
 	{		
-		long time = e.get_Asec();
 		
 	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
 	    AlarmIntent.setData(Uri.parse("custom://" + id));
@@ -418,13 +417,13 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	    AlarmIntent.putExtra(EV_DESC, e.getDescription());
 	    AlarmIntent.putExtra(EV_COLR, e.getColor());
 	    
-	    PendingIntent DispIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, 
+	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
 	    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 	    /* Scheduling the Alarm to be triggered*/
 	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	    alarmManager.set(AlarmManager.RTC, time, DispIntent);
-	    
+	    alarmManager.set(AlarmManager.RTC, e.get_Asec(), DispIntent);
+	    //alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), DispIntent);
 	}
 	
 	private void cancel_Alarm(int id)
@@ -434,13 +433,12 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		AlarmIntent.setData(Uri.parse("custom://" + id));
 		AlarmIntent.setAction(String.valueOf(id));
-		PendingIntent DispIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, 
+		PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
 				AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
 		/* Instead of setting an alarm, use cancel on the pending Intent*/
 		alarmManager.cancel(DispIntent);
-		
-		Toast.makeText(this,"Alarm Cancelled." ,Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this,"Alarm Cancelled." ,Toast.LENGTH_SHORT).show();
 	}
 	
 	private static int safeLongToInt(long l) {
