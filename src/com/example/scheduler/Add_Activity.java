@@ -309,8 +309,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			} else {
 			/* Disable Alarm if was previous triggered*/
 			/* Tries to cancel alarm anyways */
-				int newid = safeLongtoInt(id);
-				cancel_Alarm(id);
+				int newid = safeLongToInt(id);
+				cancel_Alarm(newid);
 			}
 			
 			/* Return to Primary Activity*/
