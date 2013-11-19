@@ -408,7 +408,6 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	private void create_Alarm(Event e, int id)
 	{		
-		
 	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
 	    AlarmIntent.setData(Uri.parse("custom://" + id));
 	    AlarmIntent.setAction(String.valueOf(id));
