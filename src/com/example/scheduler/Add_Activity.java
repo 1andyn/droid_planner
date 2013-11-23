@@ -40,7 +40,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static String EV_NAME = "event_name";
 	private final static String EV_DESC = "event_desc";
 	private final static String EV_COLR = "event_colr";
-	private final static String EV_REPS = "event_reps";
+//	private final static String EV_REPS = "event_reps";
 	private final static String NO_REP = "NNNNNNN";
 	/* Attempts to prevent overlapping Alarm IDs*/
 	private final static String BUGFIX = "1337";

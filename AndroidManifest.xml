@@ -49,7 +49,9 @@
         <service android:name="com.example.scheduler.Alarm_Module"
                  android:enabled="true" />
         <receiver android:name="com.example.scheduler.Receiver_Module"/>
-        <receiver android:name="com.example.scheduler.Boot_Module" >
+        <receiver android:name="com.example.scheduler.Boot_Module"
+           			android:enabled="true" 
+            		android:exported="false" >
    			<intent-filter>
        		 	<action android:name="android.intent.action.BOOT_COMPLETED" />
    			</intent-filter>
