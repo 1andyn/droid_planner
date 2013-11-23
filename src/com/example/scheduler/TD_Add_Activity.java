@@ -371,7 +371,7 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 
 	    /* Scheduling the Alarm to be triggered*/
 	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	    alarmManager.set(AlarmManager.RTC, e.get_Asec(), DispIntent);
+	    alarmManager.set(AlarmManager.RTC_WAKEUP, e.get_Asec(), DispIntent);
 	    //alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), DispIntent);
 	}
 	
