@@ -37,12 +37,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class Schedule extends SherlockFragmentActivity {
 	
 	/** Get email for SQLite DB name */
     private final Email_Module email_MODULE = new Email_Module();
     private String identifier;
+    
+    private final static String BUGFIX = "1337";
     
     /* DPI Metrics */
     private int REL_SWIPE_MIN_DISTANCE; 
@@ -113,6 +116,8 @@ public class Schedule extends SherlockFragmentActivity {
 	final static String SELECT_KEY = "CURRENT_DATE";
 	final static String SELECT_ID_KEY = "SELECT_ID";
 	
+	private final static String NO_REP = "NNNNNNN";
+	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
 	protected com.actionbarsherlock.view.ActionMode m_Action; 
@@ -136,6 +141,9 @@ public class Schedule extends SherlockFragmentActivity {
 			case R.id.menu_remove:
             	Toast.makeText(Schedule.this, "Deleting selection", Toast.LENGTH_SHORT).show();
             	remove_Alarm(selected_event.GetID());
+            	if(!selected_event.getRep().equals(NO_REP)){
+            		cancel_repAlarm(selected_event);
+            	}
             	remove_event(selected_event);
 				mode.finish();
 				return true;
@@ -717,6 +725,32 @@ public class Schedule extends SherlockFragmentActivity {
 		alarmManager.cancel(DispIntent);
 	}
 	
+	private void cancel_repAlarm(Event e)
+	{
+		int newid = safeLongToInt(e.GetID());
+		
+		Repetition_Module repmod = new Repetition_Module();
+		repmod.set_RepString(e.getRep());
+		List<Integer> temp = repmod.get_RepArray();
+		
+		for(int x = 0; x < temp.size(); x++){
+		
+		String S = "" + newid + BUGFIX + newid + temp.get(x);	
+		int newids = Integer.parseInt(S);
+		
+		/* Recreate the alarm creation data */
+		Intent AlarmIntent = new Intent(this, Receiver_Module.class);    
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		AlarmIntent.setData(Uri.parse("rep://" + newids));
+		AlarmIntent.setAction(String.valueOf(newids));
+		PendingIntent DispIntent = PendingIntent.getBroadcast(this, newids, 
+				AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+		/* Instead of setting an alarm, use cancel on the pending Intent*/
+		alarmManager.cancel(DispIntent);
+		}
+	}
+	
 	private static int safeLongToInt(long l) {
 	    if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
 	        throw new IllegalArgumentException
@@ -724,5 +758,6 @@ public class Schedule extends SherlockFragmentActivity {
 	    }
 	    return (int) l;
 	}
+
 	
 }
