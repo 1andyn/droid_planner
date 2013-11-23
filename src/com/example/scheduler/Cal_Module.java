@@ -53,6 +53,8 @@ public class Cal_Module{
 		int temp = d.getStartTime();
 		C_Calendar.set(Calendar.HOUR, extract_HOUR(temp));
 		C_Calendar.set(Calendar.MINUTE, extract_MINUTES(temp));
+		C_Calendar.set(Calendar.SECOND, ZERO);
+		C_Calendar.set(Calendar.MILLISECOND, ZERO);
 	}
 	
 	public Cal_Module(Date d)
@@ -62,6 +64,8 @@ public class Cal_Module{
 		int temp = d.getStartTime();
 		C_Calendar.set(Calendar.HOUR_OF_DAY, extract_HOUR(temp));
 		C_Calendar.set(Calendar.MINUTE, extract_MINUTES(temp));
+		C_Calendar.set(Calendar.SECOND, ZERO);
+		C_Calendar.set(Calendar.MILLISECOND, ZERO);
 	}
 	
 	public Cal_Module(Date d, int todo_flag)
@@ -71,6 +75,8 @@ public class Cal_Module{
 		int temp = d.getEndTime();
 		C_Calendar.set(Calendar.HOUR_OF_DAY, extract_HOUR(temp));
 		C_Calendar.set(Calendar.MINUTE, extract_MINUTES(temp));
+		C_Calendar.set(Calendar.SECOND, ZERO);
+		C_Calendar.set(Calendar.MILLISECOND, ZERO);
 	}
 	
 	public long getMilliseconds()
