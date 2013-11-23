@@ -242,13 +242,6 @@ public class Schedule extends SherlockFragmentActivity {
 	    		CLEAR_EVERYTHING();
 	    		Toast.makeText(Schedule.this, "All events have been cleared!", Toast.LENGTH_LONG).show();
 	    		return false;
-	    	} case R.id.test_item:{
-		    	Toast.makeText(Schedule.this, "Created test alarm...wait 5 seconds", Toast.LENGTH_SHORT).show();
-		    	create_Alarm();
-		    	return false;
-	    	} case R.id.test_cancel:{
-	    		Toast.makeText(Schedule.this, "Cancelled Alarm...", Toast.LENGTH_SHORT).show();
-	    		cancel_Alarm();
 	    	} case R.id.get_mill:{
 	    		show_milli();
 	    	} default: {
@@ -674,45 +667,6 @@ public class Schedule extends SherlockFragmentActivity {
         } 
 
     } 
-
-    private final int id = 1;
-    
-    /** DEBUG */
-	private int create_Alarm()
-	{
-		/* Bundle or Extra Keys */
-		final String EV_NAME = "event_name";
-		final String EV_DESC = "event_desc";
-		
-		/* Instantiate a Calendar */ 
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.add(Calendar.SECOND, 5);
-		
-	    Intent AlarmIntent = new Intent(this, Receiver_Module.class);
-	    AlarmIntent.setData(Uri.parse("custom://" + id));
-	    AlarmIntent.setAction(String.valueOf(id));
-
-	    AlarmIntent.putExtra(EV_NAME, "This is an event name!");
-	    AlarmIntent.putExtra(EV_DESC, "This is a description!");
-	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-	    /* Scheduling the Alarm to be triggered*/
-	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	    alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), DispIntent);
-	    
-	    return id;
-	}
-	
-	private void cancel_Alarm()
-	{
-		/* Recreate the alarm creation data */
-		Intent AlarmIntent = new Intent(this, Receiver_Module.class);
-		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		
-		/* Instead of setting an alarm, use cancel on the pending Intent*/
-		alarmManager.cancel(DispIntent);
-	}
 	
 	private void show_milli()
 	{
@@ -728,6 +682,8 @@ public class Schedule extends SherlockFragmentActivity {
 		int newid = safeLongToInt(id);
 		/* Recreate the alarm creation data */
 		Intent AlarmIntent = new Intent(this, Receiver_Module.class);
+		AlarmIntent.setData(Uri.parse("custom://" + newid));
+		AlarmIntent.setAction(String.valueOf(newid));
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		PendingIntent DispIntent = PendingIntent.getBroadcast(this, newid, AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		

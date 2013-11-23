@@ -2,10 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
       <item android:id="@+id/full_clear"
         android:title="@string/clear_all"/>
-      <item android:id="@+id/test_item"
-        android:title="@string/test_item"/>
-      <item android:id="@+id/test_cancel"
-          android:title="Cancel Alarm"/>
       <item android:id="@+id/get_mill"
           android:title="Get Milliseconds"/>
 </menu>
