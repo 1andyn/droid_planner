@@ -70,6 +70,9 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	protected ToggleButton alarm_tb;
 	protected Button creation_b;
 	
+	/* Alarm cancel Fix*/
+	private String original_Alarm = "N";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -146,9 +149,16 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 			if(temp.getAlarm() == CHECKED)alarm_tb.setChecked(true);
 			else alarm_tb.setChecked(false);
 			c_Picker.setColor(temp.getColor());
+			original_Alarm = temp.getAlarm();
 			
 			/* Acquire Original Alarm Data */
 			ASEC = temp.get_Asec();
+			
+			if(temp.getAlarm().equals(CHECKED)) {
+				alarm_tb.setChecked(true);
+			} else {
+				alarm_tb.setChecked(false);
+			}
 			
 		}
 		
@@ -237,7 +247,15 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 			/* Configure Alarm*/
 			if(alarm_tb.isChecked()){
 				construct_Alarm(temp, id);
-			}
+			} else {
+				/* Disable Alarm if was previous triggered*/
+				/* Tries to cancel alarm anyways */
+					if(original_Alarm.equals(CHECKED)){
+						/* Cancel Previous Alarm */
+						int newid = safeLongToInt(b_id);
+						cancel_Alarm(newid);
+					}
+				}
 			
 			/* Return to Primary Activity*/
 			finish();
