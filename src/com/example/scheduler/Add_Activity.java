@@ -97,6 +97,9 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	/* Repetition Module */
 	private Repetition_Module Rep_Mod;
 	
+	/* Alarm cancel Fix*/
+	private String original_Alarm = "N";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -181,6 +184,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			end_tp.setCurrentHour(extract_HOUR(temp.GetEnd()));
 			end_tp.setCurrentMinute(extract_MINUTES(temp.GetEnd()));
 			r_dp.updateDate(temp.GetYear(), temp.GetMonth(), temp.GetDay());
+			original_Alarm = temp.getAlarm();
 			
 			/* Acquire Original Alarm Data */
 			ASEC = temp.get_Asec();
@@ -309,8 +313,11 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			} else {
 			/* Disable Alarm if was previous triggered*/
 			/* Tries to cancel alarm anyways */
-				int newid = safeLongToInt(id);
-				cancel_Alarm(newid);
+				if(original_Alarm.equals(CHECKED)){
+					/* Cancel Previous Alarm */
+					int newid = safeLongToInt(b_id);
+					cancel_Alarm(newid);
+				}
 			}
 			
 			/* Return to Primary Activity*/
