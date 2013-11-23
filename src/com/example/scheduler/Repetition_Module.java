@@ -12,7 +12,7 @@ public class Repetition_Module {
 	private final static String TRUE_REP = "Y";
 	private final static String FALSE_REP = "N";
 	private final static int SIZE_OF_ARRAY = 7;
-	private final static int Sunday = 6;
+	private final static int Saturday = 6;
 	
 	/* Data */
 	private ArrayList<ToggleButton> RepeatedDays;
@@ -62,7 +62,7 @@ public class Repetition_Module {
 		strEnd = strStart + 1;
 		
 		String nu_time;
-		if(day == Sunday) nu_time = RepetitionString.substring(Sunday);
+		if(day == Saturday) nu_time = RepetitionString.substring(Saturday);
 		else nu_time = RepetitionString.substring(strStart,strEnd);
 		
 		if(nu_time.equals(TRUE_REP)){
@@ -82,8 +82,8 @@ public class Repetition_Module {
 		
 		for(int x = 0; x < 7; x++){
 			String nu_time;
-			if(x == Sunday){
-				nu_time = RepetitionString.substring(Sunday);
+			if(x == Saturday){
+				nu_time = RepetitionString.substring(Saturday);
 			} else {
 				nu_time = RepetitionString.substring(x,x+1);
 			}

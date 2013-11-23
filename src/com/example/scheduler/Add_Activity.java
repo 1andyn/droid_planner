@@ -42,6 +42,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static String EV_COLR = "event_colr";
 	private final static String EV_REPS = "event_reps";
 	private final static String NO_REP = "NNNNNNN";
+	/* Attempts to prevent overlapping Alarm IDs*/
+	private final static String BUGFIX = "1337";
 	
 	private final static int SUN = 0;
 	private final static int MON = 1;
@@ -50,6 +52,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static int THU = 4;
 	private final static int FRI = 5;
 	private final static int SAT = 6;
+	private final static int DAY_OFFSET = 1;
+	private final static int WEEK_INTERVAL = 1*60*60*1000;
 	
 	private final int MIN_TIME_DIGITS = 3;	
 	private final static int MIN_DIGITS = 2;
@@ -60,6 +64,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static String NO_OVERLAP = "N";
 	private final static long NONE_L = -1;
 	
+	private int NONE = 0;
 	private long EMPTY = 0;
 	private long ASEC = 0; 
 
@@ -322,6 +327,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 					/* Cancel Previous Alarm */
 					int newid = safeLongToInt(b_id);
 					cancel_Alarm(newid);
+					cancel_repAlarm(newid, original_Repstring);
 				}
 			}
 			
@@ -479,42 +485,67 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		repmod.set_RepString(e.getRep());
 		List<Integer> temp = repmod.get_RepArray();
 		
-		/* Calendar Limitation, Days_of_Week starts at 1 rather than 0 */
+		Toast.makeText(this,Integer.toString(temp.size()) +" Alarms will be created." ,Toast.LENGTH_LONG).show();
 		
+		/* Calendar Limitation, Days_of_Week starts at 1 rather than 0 */
 		for(int x = 0; x < temp.size(); x++){
 		
+		String S = "" + id + BUGFIX + id + temp.get(x);	
+		int newid = Integer.parseInt(S);
+		
+		/* Instantiate Calendar */	
+		Calendar Cal = Calendar.getInstance();
+		
+	    Cal.set(Calendar.DAY_OF_WEEK, (temp.get(x) + DAY_OFFSET));
+	    Cal.set(Calendar.HOUR_OF_DAY, extract_HOUR(e.GetStart()));
+	    Cal.set(Calendar.MINUTE, extract_MINUTES(e.GetStart()));
+	    Cal.set(Calendar.SECOND, NONE);
+	    Cal.set(Calendar.MILLISECOND, NONE);
 			
 	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
-	    AlarmIntent.setData(Uri.parse("rep://" + id));
-	    AlarmIntent.setAction(String.valueOf(id));
+	    AlarmIntent.setData(Uri.parse("rep://" + newid));
+	    AlarmIntent.setAction(String.valueOf(newid));
 
 	    AlarmIntent.putExtra(EV_NAME, e.getName());
 	    AlarmIntent.putExtra(EV_DESC, e.getDescription());
 	    AlarmIntent.putExtra(EV_COLR, e.getColor());
-	    AlarmIntent.putExtra(EV_REPS, CHECKED);
+	    //AlarmIntent.putExtra(EV_REPS, CHECKED); Not sure if needed through this style of implementation
 	    
-	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
+	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, newid, 
 	    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 	    /* Scheduling the Alarm to be triggered*/
 	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	    alarmManager.set(AlarmManager.RTC_WAKEUP, e.get_Asec(), DispIntent);
+	    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Cal.getTimeInMillis(), WEEK_INTERVAL, DispIntent);
+	    
+	    Cal = null; //Delete Calendar
 		}
+		
+		repmod = null; //Delete repmod
 	}
 	
 	private void cancel_repAlarm(int id, String ori_repstring)
 	{
+		Repetition_Module repmod = new Repetition_Module();
+		repmod.set_RepString(ori_repstring);
+		List<Integer> temp = repmod.get_RepArray();
+		
+		for(int x = 0; x < temp.size(); x++){
+		
+		String S = "" + id + BUGFIX + id + temp.get(x);	
+		int newid = Integer.parseInt(S);
+		
 		/* Recreate the alarm creation data */
 		Intent AlarmIntent = new Intent(this, Receiver_Module.class);    
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		AlarmIntent.setData(Uri.parse("rep://" + id));
-		AlarmIntent.setAction(String.valueOf(id));
-		PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
+		AlarmIntent.setData(Uri.parse("rep://" + newid));
+		AlarmIntent.setAction(String.valueOf(newid));
+		PendingIntent DispIntent = PendingIntent.getBroadcast(this, newid, 
 				AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
 		/* Instead of setting an alarm, use cancel on the pending Intent*/
 		alarmManager.cancel(DispIntent);
+		}
 	}
-	
 	
 }
