@@ -53,7 +53,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static int FRI = 5;
 	private final static int SAT = 6;
 	private final static int DAY_OFFSET = 1;
-	private final static int WEEK_INTERVAL = 1*60*60*1000;
+	private final static long WEEK_INTERVAL = 1*60*60*1000;
 	
 	private final int MIN_TIME_DIGITS = 3;	
 	private final static int MIN_DIGITS = 2;
@@ -323,6 +323,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			} else {
 			/* Disable Alarm if was previous triggered*/
 			/* Tries to cancel alarm anyways */
+				System.out.println("ORIREP: " + original_Repstring);
 				if(original_Alarm.equals(CHECKED)){
 					/* Cancel Previous Alarm */
 					int newid = safeLongToInt(b_id);
@@ -432,6 +433,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		/* Create Repeated Notifications */
 		if(!e.getRep().equals(NO_REP)){
+			System.out.println("EventREPS: " + e.getRep());
 			create_repAlarm(e, newid);	
 		}
 		
@@ -485,7 +487,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		repmod.set_RepString(e.getRep());
 		List<Integer> temp = repmod.get_RepArray();
 		
-		Toast.makeText(this,Integer.toString(temp.size()) +" Alarms will be created." ,Toast.LENGTH_LONG).show();
+		Toast.makeText(this,Integer.toString(temp.size()) +" repeating Alarms will be created." ,Toast.LENGTH_LONG).show();
 		
 		/* Calendar Limitation, Days_of_Week starts at 1 rather than 0 */
 		for(int x = 0; x < temp.size(); x++){
@@ -495,6 +497,11 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		/* Instantiate Calendar */	
 		Calendar Cal = Calendar.getInstance();
+		
+		System.out.println("Event: " + newid + " Count: " + x);
+		System.out.println("DOW: " + (temp.get(x) + DAY_OFFSET));
+		System.out.println("HROD: " + extract_HOUR(e.GetStart()));
+		System.out.println("MNOD: " + extract_MINUTES(e.GetStart()));
 		
 	    Cal.set(Calendar.DAY_OF_WEEK, (temp.get(x) + DAY_OFFSET));
 	    Cal.set(Calendar.HOUR_OF_DAY, extract_HOUR(e.GetStart()));
