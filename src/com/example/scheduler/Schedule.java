@@ -574,6 +574,16 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	protected void CLEAR_EVERYTHING()
 	{
+		/* Deletes Repeated Alarms */
+		ArrayList<Event> temp = datasource.getAllEvents();
+		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
+		{
+			if(!temp.get(INDEX).getRep().equals(NO_REP)){
+				remove_Alarm(temp.get(INDEX).GetID());
+				cancel_repAlarm(temp.get(INDEX));
+			}
+		}
+		
 		/* Clears ALL Containers, ALL of the DB Table*/
 		datasource.clear_table();
     	todos_visible.clear();
