@@ -10,6 +10,7 @@
     
     <!-- Uses email to identify database Table name on Cloud -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -45,11 +46,14 @@
             android:theme="@style/Theme.Sherlock"
             android:label="@string/title_activity_month_activity">
         </activity>
-        
         <service android:name="com.example.scheduler.Alarm_Module"
                  android:enabled="true" />
         <receiver android:name="com.example.scheduler.Receiver_Module"/>
-        
+        <receiver android:name="com.example.scheduler.Boot_Module" >
+   			<intent-filter>
+       		 	<action android:name="android.intent.action.BOOT_COMPLETED" />
+   			</intent-filter>
+		</receiver>
     </application>
 
 </manifest>
