@@ -13,6 +13,7 @@ import com.parse.ParseAnalytics;
 
 /* Java Base Imports */
 import java.util.Calendar;
+import java.util.List;
 
 /* ABS Based Imports */
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -39,6 +40,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static String EV_NAME = "event_name";
 	private final static String EV_DESC = "event_desc";
 	private final static String EV_COLR = "event_colr";
+	private final static String EV_REPS = "event_reps";
 	private final static String NO_REP = "NNNNNNN";
 	
 	private final static int SUN = 0;
@@ -473,22 +475,31 @@ public class Add_Activity  extends SherlockFragmentActivity {
 
 	private void create_repAlarm(Event e, int id)
 	{		
+		Repetition_Module repmod = new Repetition_Module();
+		repmod.set_RepString(e.getRep());
+		List<Integer> temp = repmod.get_RepArray();
 		
+		/* Calendar Limitation, Days_of_Week starts at 1 rather than 0 */
 		
+		for(int x = 0; x < temp.size(); x++){
+		
+			
 	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
-	    AlarmIntent.setData(Uri.parse("custom://" + id));
+	    AlarmIntent.setData(Uri.parse("rep://" + id));
 	    AlarmIntent.setAction(String.valueOf(id));
 
 	    AlarmIntent.putExtra(EV_NAME, e.getName());
 	    AlarmIntent.putExtra(EV_DESC, e.getDescription());
 	    AlarmIntent.putExtra(EV_COLR, e.getColor());
+	    AlarmIntent.putExtra(EV_REPS, CHECKED);
 	    
 	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
 	    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 	    /* Scheduling the Alarm to be triggered*/
 	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	    alarmManager.set(AlarmManager.RTC, e.get_Asec(), DispIntent);
+	    alarmManager.set(AlarmManager.RTC_WAKEUP, e.get_Asec(), DispIntent);
+		}
 	}
 	
 	private void cancel_repAlarm(int id, String ori_repstring)
@@ -496,7 +507,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		/* Recreate the alarm creation data */
 		Intent AlarmIntent = new Intent(this, Receiver_Module.class);    
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		AlarmIntent.setData(Uri.parse("custom://" + id));
+		AlarmIntent.setData(Uri.parse("rep://" + id));
 		AlarmIntent.setAction(String.valueOf(id));
 		PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
 				AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
