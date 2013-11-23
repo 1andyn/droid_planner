@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.widget.Toast;
 
 public class Boot_Module extends BroadcastReceiver {
 
@@ -78,6 +76,7 @@ public class Boot_Module extends BroadcastReceiver {
 		
 	}
 	
+	@SuppressWarnings("static-access")
 	private void create_Alarm(Event e, int id, Context C)
 	{		
 	    Intent AlarmIntent = new Intent().setClass(C, Receiver_Module.class);
@@ -104,6 +103,7 @@ public class Boot_Module extends BroadcastReceiver {
 	    return (int) l;
 	}
 
+	 @SuppressWarnings("static-access")
 	private void create_repAlarm(Event e, int id, Context C)
 	{		
 		Repetition_Module repmod = new Repetition_Module();
@@ -143,7 +143,7 @@ public class Boot_Module extends BroadcastReceiver {
 	    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 	    /* Scheduling the Alarm to be triggered*/
-	    AlarmManager alarmManager = (AlarmManager)C.getSystemService(C.ALARM_SERVICE);
+		AlarmManager alarmManager = (AlarmManager)C.getSystemService(C.ALARM_SERVICE);
 	    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Cal.getTimeInMillis(), WEEK_INTERVAL, DispIntent);
 	    
 	    Cal = null; //Delete Calendar
