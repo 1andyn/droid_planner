@@ -39,6 +39,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static String EV_NAME = "event_name";
 	private final static String EV_DESC = "event_desc";
 	private final static String EV_COLR = "event_colr";
+	private final static String NO_REP = "NNNNNNN";
 	
 	private final static int SUN = 0;
 	private final static int MON = 1;
@@ -99,6 +100,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	/* Alarm cancel Fix*/
 	private String original_Alarm = "N";
+	private String original_Repstring = "NNNNNNN";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +187,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			end_tp.setCurrentMinute(extract_MINUTES(temp.GetEnd()));
 			r_dp.updateDate(temp.GetYear(), temp.GetMonth(), temp.GetDay());
 			original_Alarm = temp.getAlarm();
+			original_Repstring = temp.getRep();
 			
 			/* Acquire Original Alarm Data */
 			ASEC = temp.get_Asec();
@@ -415,7 +418,15 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		if(ASEC != EMPTY){
 			cancel_Alarm(newid);
 		}
+		
+		/* Create Alarm (Seed) */ 
 		create_Alarm(e, newid);
+		
+		/* Create Repeated Notifications */
+		if(!e.getRep().equals(NO_REP)){
+			create_repAlarm(e, newid);	
+		}
+		
 	}
 	
 	private void create_Alarm(Event e, int id)
@@ -459,5 +470,40 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	    }
 	    return (int) l;
 	}
+
+	private void create_repAlarm(Event e, int id)
+	{		
+		
+		
+	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
+	    AlarmIntent.setData(Uri.parse("custom://" + id));
+	    AlarmIntent.setAction(String.valueOf(id));
+
+	    AlarmIntent.putExtra(EV_NAME, e.getName());
+	    AlarmIntent.putExtra(EV_DESC, e.getDescription());
+	    AlarmIntent.putExtra(EV_COLR, e.getColor());
+	    
+	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
+	    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+	    /* Scheduling the Alarm to be triggered*/
+	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+	    alarmManager.set(AlarmManager.RTC, e.get_Asec(), DispIntent);
+	}
+	
+	private void cancel_repAlarm(int id, String ori_repstring)
+	{
+		/* Recreate the alarm creation data */
+		Intent AlarmIntent = new Intent(this, Receiver_Module.class);    
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		AlarmIntent.setData(Uri.parse("custom://" + id));
+		AlarmIntent.setAction(String.valueOf(id));
+		PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
+				AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+		/* Instead of setting an alarm, use cancel on the pending Intent*/
+		alarmManager.cancel(DispIntent);
+	}
+	
 	
 }
