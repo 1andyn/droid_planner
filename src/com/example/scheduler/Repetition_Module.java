@@ -2,6 +2,7 @@ package com.example.scheduler;
 
 /* Library Imports */
 import java.util.ArrayList;
+import java.util.List;
 
 import android.widget.ToggleButton;
 
@@ -21,6 +22,12 @@ public class Repetition_Module {
 	public Repetition_Module()
 	{
 		RepetitionString = NO_REP;
+		RepeatedDays = new ArrayList<ToggleButton>();
+	}
+	
+	public Repetition_Module(String rep)
+	{
+		RepetitionString = rep;
 		RepeatedDays = new ArrayList<ToggleButton>();
 	}
 	
@@ -56,10 +63,9 @@ public class Repetition_Module {
 		
 		String nu_time;
 		if(day == Sunday) nu_time = RepetitionString.substring(Sunday);
-		else  nu_time = RepetitionString.substring(strStart,strEnd);
+		else nu_time = RepetitionString.substring(strStart,strEnd);
 		
-		if(nu_time.equals(TRUE_REP))
-		{
+		if(nu_time.equals(TRUE_REP)){
 			return true;
 		}
 		return false;
@@ -68,6 +74,24 @@ public class Repetition_Module {
 	public void set_RepString(String RepString)
 	{
 		RepetitionString = RepString;
+	}
+	
+	public List<Integer> get_RepArray()
+	{
+		List<Integer> temp = new ArrayList<Integer>();
+		
+		for(int x = 0; x < 7; x++){
+			String nu_time;
+			if(x == Sunday){
+				nu_time = RepetitionString.substring(Sunday);
+			} else {
+				nu_time = RepetitionString.substring(x,x+1);
+			}
+			if(nu_time.equals(TRUE_REP)){
+				temp.add(x);
+			}
+		}
+		return temp;
 	}
 	
 	
