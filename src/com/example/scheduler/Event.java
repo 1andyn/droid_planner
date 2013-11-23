@@ -13,7 +13,7 @@ public class Event{
 	private String alarm;
 	private String rep_STRING;
 	private long alarm_sec;
-
+	
 	/* Constructor */
 	public Event(long id, String name)
 	{
