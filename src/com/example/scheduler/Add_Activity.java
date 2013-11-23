@@ -53,7 +53,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static int FRI = 5;
 	private final static int SAT = 6;
 	private final static int DAY_OFFSET = 1;
-	private final static long WEEK_INTERVAL = 1*60*60*1000;
+	private final static long WEEK_INTERVAL = 7*24*60*60*1000;
 	
 	private final int MIN_TIME_DIGITS = 3;	
 	private final static int MIN_DIGITS = 2;
