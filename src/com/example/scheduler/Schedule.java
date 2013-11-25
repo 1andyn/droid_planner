@@ -665,7 +665,6 @@ public class Schedule extends SherlockFragmentActivity {
             }
             return false; 
         } 
-
     } 
 	
 	private void show_milli()
