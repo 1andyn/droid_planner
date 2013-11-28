@@ -345,7 +345,7 @@ public class Schedule extends SherlockFragmentActivity{
 	
 	protected void parse_cloud_init()
 	{
-		Parse.initialize(this, appid, clientid);
+		Parse.initialize(this, "oUi6DEolQ95K8EyHni3HlWNJWyUYeQZG7G142RdQ", "9k0t1vS9INswCXDd7EeLpeGWQJ0RMoyPBxnMjsYi"); //appid, clientid
 		ParseAnalytics.trackAppOpened(getIntent());
 		ParseObject testObject = new ParseObject("TestObject");
 		testObject.put("foo", "bar");
@@ -708,20 +708,19 @@ public class Schedule extends SherlockFragmentActivity{
 		List<Integer> temp = repmod.get_RepArray();
 		
 		for(int x = 0; x < temp.size(); x++){
-		
-		String S = "" + newid + BUGFIX + newid + temp.get(x);	
-		int newids = Integer.parseInt(S);
-		
-		/* Recreate the alarm creation data */
-		Intent AlarmIntent = new Intent(this, Receiver_Module.class);    
-		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		AlarmIntent.setData(Uri.parse("rep://" + newids));
-		AlarmIntent.setAction(String.valueOf(newids));
-		PendingIntent DispIntent = PendingIntent.getBroadcast(this, newids, 
-				AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		
-		/* Instead of setting an alarm, use cancel on the pending Intent*/
-		alarmManager.cancel(DispIntent);
+			String S = "" + newid + BUGFIX + newid + temp.get(x);	
+			int newids = Integer.parseInt(S);
+			
+			/* Recreate the alarm creation data */
+			Intent AlarmIntent = new Intent(this, Receiver_Module.class);    
+			AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+			AlarmIntent.setData(Uri.parse("rep://" + newids));
+			AlarmIntent.setAction(String.valueOf(newids));
+			PendingIntent DispIntent = PendingIntent.getBroadcast(this, newids, 
+					AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			
+			/* Instead of setting an alarm, use cancel on the pending Intent*/
+			alarmManager.cancel(DispIntent);
 		}
 	}
 	

@@ -323,7 +323,6 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			} else {
 			/* Disable Alarm if was previous triggered*/
 			/* Tries to cancel alarm anyways */
-				System.out.println("ORIREP: " + original_Repstring);
 				if(original_Alarm.equals(CHECKED)){
 					/* Cancel Previous Alarm */
 					int newid = safeLongToInt(b_id);
