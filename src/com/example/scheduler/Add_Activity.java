@@ -440,21 +440,26 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	private void create_Alarm(Event e, int id)
 	{		
-	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
-	    AlarmIntent.setData(Uri.parse("custom://" + id));
-	    AlarmIntent.setAction(String.valueOf(id));
-
-	    AlarmIntent.putExtra(EV_NAME, e.getName());
-	    AlarmIntent.putExtra(EV_DESC, e.getDescription());
-	    AlarmIntent.putExtra(EV_COLR, e.getColor());
+		Calendar Cal = Calendar.getInstance();
+		if(Cal.getTimeInMillis() < e.get_Asec()){
+		    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
+		    AlarmIntent.setData(Uri.parse("custom://" + id));
+		    AlarmIntent.setAction(String.valueOf(id));
+	
+		    AlarmIntent.putExtra(EV_NAME, e.getName());
+		    AlarmIntent.putExtra(EV_DESC, e.getDescription());
+		    AlarmIntent.putExtra(EV_COLR, e.getColor());
+		    
+		    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
+		    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+	
+		    /* Scheduling the Alarm to be triggered*/
+		    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+		    alarmManager.set(AlarmManager.RTC, e.get_Asec(), DispIntent);
+		}
+		
+		Cal = null; // Delete Calendar
 	    
-	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
-	    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-	    /* Scheduling the Alarm to be triggered*/
-	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	    alarmManager.set(AlarmManager.RTC, e.get_Asec(), DispIntent);
-	    //alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), DispIntent);
 	}
 	
 	private void cancel_Alarm(int id)
@@ -490,41 +495,39 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		
 		/* Calendar Limitation, Days_of_Week starts at 1 rather than 0 */
 		for(int x = 0; x < temp.size(); x++){
-		
-		String S = "" + id + BUGFIX + id + temp.get(x);	
-		int newid = Integer.parseInt(S);
-		
-		/* Instantiate Calendar */	
-		Calendar Cal = Calendar.getInstance();
-		
-		System.out.println("Event: " + newid + " Count: " + x);
-		System.out.println("DOW: " + (temp.get(x) + DAY_OFFSET));
-		System.out.println("HROD: " + extract_HOUR(e.GetStart()));
-		System.out.println("MNOD: " + extract_MINUTES(e.GetStart()));
-		
-	    Cal.set(Calendar.DAY_OF_WEEK, (temp.get(x) + DAY_OFFSET));
-	    Cal.set(Calendar.HOUR_OF_DAY, extract_HOUR(e.GetStart()));
-	    Cal.set(Calendar.MINUTE, extract_MINUTES(e.GetStart()));
-	    Cal.set(Calendar.SECOND, NONE);
-	    Cal.set(Calendar.MILLISECOND, NONE);
+			String S = "" + id + BUGFIX + id + temp.get(x);	
+			int newid = Integer.parseInt(S);
 			
-	    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
-	    AlarmIntent.setData(Uri.parse("rep://" + newid));
-	    AlarmIntent.setAction(String.valueOf(newid));
-
-	    AlarmIntent.putExtra(EV_NAME, e.getName());
-	    AlarmIntent.putExtra(EV_DESC, e.getDescription());
-	    AlarmIntent.putExtra(EV_COLR, e.getColor());
-	    //AlarmIntent.putExtra(EV_REPS, CHECKED); Not sure if needed through this style of implementation
-	    
-	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, newid, 
-	    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-	    /* Scheduling the Alarm to be triggered*/
-	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-	    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Cal.getTimeInMillis(), WEEK_INTERVAL, DispIntent);
-	    
-	    Cal = null; //Delete Calendar
+			/* Instantiate Calendar */	
+			Calendar Cal = Calendar.getInstance();
+			
+			System.out.println("Event: " + newid + " Count: " + x);
+			System.out.println("DOW: " + (temp.get(x) + DAY_OFFSET));
+			System.out.println("HROD: " + extract_HOUR(e.GetStart()));
+			System.out.println("MNOD: " + extract_MINUTES(e.GetStart()));
+			
+		    Cal.set(Calendar.DAY_OF_WEEK, (temp.get(x) + DAY_OFFSET));
+		    Cal.set(Calendar.HOUR_OF_DAY, extract_HOUR(e.GetStart()));
+		    Cal.set(Calendar.MINUTE, extract_MINUTES(e.GetStart()));
+		    Cal.set(Calendar.SECOND, NONE);
+		    Cal.set(Calendar.MILLISECOND, NONE);
+				
+		    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
+		    AlarmIntent.setData(Uri.parse("rep://" + newid));
+		    AlarmIntent.setAction(String.valueOf(newid));
+	
+		    AlarmIntent.putExtra(EV_NAME, e.getName());
+		    AlarmIntent.putExtra(EV_DESC, e.getDescription());
+		    AlarmIntent.putExtra(EV_COLR, e.getColor());
+		    
+		    PendingIntent DispIntent = PendingIntent.getBroadcast(this, newid, 
+		    		AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+	
+		    /* Scheduling the Alarm to be triggered*/
+		    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+		    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Cal.getTimeInMillis(), WEEK_INTERVAL, DispIntent);
+		    
+		    Cal = null; //Delete Calendar
 		}
 		
 		repmod = null; //Delete repmod
@@ -537,20 +540,19 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		List<Integer> temp = repmod.get_RepArray();
 		
 		for(int x = 0; x < temp.size(); x++){
-		
-		String S = "" + id + BUGFIX + id + temp.get(x);	
-		int newid = Integer.parseInt(S);
-		
-		/* Recreate the alarm creation data */
-		Intent AlarmIntent = new Intent(this, Receiver_Module.class);    
-		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		AlarmIntent.setData(Uri.parse("rep://" + newid));
-		AlarmIntent.setAction(String.valueOf(newid));
-		PendingIntent DispIntent = PendingIntent.getBroadcast(this, newid, 
-				AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		
-		/* Instead of setting an alarm, use cancel on the pending Intent*/
-		alarmManager.cancel(DispIntent);
+			String S = "" + id + BUGFIX + id + temp.get(x);	
+			int newid = Integer.parseInt(S);
+			
+			/* Recreate the alarm creation data */
+			Intent AlarmIntent = new Intent(this, Receiver_Module.class);    
+			AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+			AlarmIntent.setData(Uri.parse("rep://" + newid));
+			AlarmIntent.setAction(String.valueOf(newid));
+			PendingIntent DispIntent = PendingIntent.getBroadcast(this, newid, 
+					AlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			
+			/* Instead of setting an alarm, use cancel on the pending Intent*/
+			alarmManager.cancel(DispIntent);
 		}
 	}
 	
