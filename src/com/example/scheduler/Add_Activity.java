@@ -54,7 +54,7 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	private final static int SAT = 6;
 	private final static int DAY_OFFSET = 1;
 	private final static long WEEK_INTERVAL = 7*24*60*60*1000;
-	
+	private final static int INTERVAL = 7*24*60*60*1000;
 	private final int MIN_TIME_DIGITS = 3;	
 	private final static int MIN_DIGITS = 2;
 	private final static int TEN_MINUTES = 10;
@@ -500,17 +500,17 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			
 			/* Instantiate Calendar */	
 			Calendar Cal = Calendar.getInstance();
-			
-			System.out.println("Event: " + newid + " Count: " + x);
-			System.out.println("DOW: " + (temp.get(x) + DAY_OFFSET));
-			System.out.println("HROD: " + extract_HOUR(e.GetStart()));
-			System.out.println("MNOD: " + extract_MINUTES(e.GetStart()));
-			
 		    Cal.set(Calendar.DAY_OF_WEEK, (temp.get(x) + DAY_OFFSET));
 		    Cal.set(Calendar.HOUR_OF_DAY, extract_HOUR(e.GetStart()));
 		    Cal.set(Calendar.MINUTE, extract_MINUTES(e.GetStart()));
 		    Cal.set(Calendar.SECOND, NONE);
 		    Cal.set(Calendar.MILLISECOND, NONE);
+		    
+			Calendar Cal2 = Calendar.getInstance();
+			
+			if(Cal2.getTimeInMillis() > Cal.getTimeInMillis()){
+				Cal.add(Calendar.MILLISECOND, INTERVAL);
+			}
 				
 		    Intent AlarmIntent = new Intent().setClass(this, Receiver_Module.class);
 		    AlarmIntent.setData(Uri.parse("rep://" + newid));
@@ -525,8 +525,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 		    /* Scheduling the Alarm to be triggered*/
 		    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-		    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Cal.getTimeInMillis(), WEEK_INTERVAL, DispIntent);
-		    
+		    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Cal.getTimeInMillis(), WEEK_INTERVAL, DispIntent); 
+
 		    Cal = null; //Delete Calendar
 		}
 		
