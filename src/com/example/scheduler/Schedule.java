@@ -209,7 +209,6 @@ public class Schedule extends SherlockFragmentActivity{
 		public void onDestroyActionMode(ActionMode mode) {
 			m_Action2 = null;
 		}
-		
 	};
 	
 	
@@ -248,6 +247,7 @@ public class Schedule extends SherlockFragmentActivity{
 	    		return false;
 	    	} case R.id.get_mill:{
 	    		show_milli();
+	    		Toast.makeText(Schedule.this, "Email: " + identifier, Toast.LENGTH_LONG).show();
 	    	} default: {
 		        return super.onOptionsItemSelected(item);
 		    }
@@ -341,6 +341,15 @@ public class Schedule extends SherlockFragmentActivity{
 		r_Layout.setOnTouchListener(glt);
 		
 		load_from_database(selected_CD);
+	}
+	
+	protected void parse_cloud_init()
+	{
+		Parse.initialize(this, appid, clientid);
+		ParseAnalytics.trackAppOpened(getIntent());
+		ParseObject testObject = new ParseObject("TestObject");
+		testObject.put("foo", "bar");
+		testObject.saveInBackground();
 	}
 
 	private void setUpMetrics()
@@ -458,15 +467,6 @@ public class Schedule extends SherlockFragmentActivity{
 				// Set Selection back to Null Event
 				selected_event = empty_event;
 			}
-	}
-	
-	protected void parse_cloud_init()
-	{
-		Parse.initialize(this, appid, clientid);
-		ParseAnalytics.trackAppOpened(getIntent());
-		ParseObject database = new ParseObject("test_database");
-		database.put("foo", "bar");
-		database.saveInBackground();
 	}
 	
 	protected void switch_activity(int USR_CASE, long id)
