@@ -3,6 +3,7 @@ package com.example.scheduler;
 /* Parse Cloud Imports */
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 
@@ -36,16 +37,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-public class Schedule extends SherlockFragmentActivity {
+public class Schedule extends SherlockFragmentActivity{
 	
 	/** Get email for SQLite DB name */
-    private final Email_Module email_MODULE = new Email_Module();
+    private final static Email_Module email_MODULE = new Email_Module();
     private String identifier;
     
     private final static String BUGFIX = "1337";
+    
+    /* Parse Cloud */
+    private final static String appid = "oUi6DEolQ95K8EyHni3HlWNJWyUYeQZG7G142RdQ";
+    private final static String clientid = "9k0t1vS9INswCXDd7EeLpeGWQJ0RMoyPBxnMjsYi";
     
     /* DPI Metrics */
     private int REL_SWIPE_MIN_DISTANCE; 
@@ -250,10 +254,15 @@ public class Schedule extends SherlockFragmentActivity {
 	    }
 	}
 	
+	@SuppressWarnings("static-access")
+	private void acquireEmail()
+	{
+		identifier = email_MODULE.getEmail(this);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		parse_cloud_init();
 		initalizeLayout();
 		
 		/* Set Up Metrics */
@@ -268,16 +277,16 @@ public class Schedule extends SherlockFragmentActivity {
 		selected_CM = new Cal_Module();
 		init_SelectedCD();
 		
+		/* Acquire Email for ClientID */
+		acquireEmail();
+		parse_cloud_init(); // Set up cloud
+		
 		/* Primary List */
 		events_visible = new ArrayList<Event>();
 		
 		e_adapter = new EventListAdapter(this, events_visible);
-		//e_listview.setAdapter(e_adapter);
 		e_listview.setLongClickable(true);
 		e_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		
-//		final GestureDetector gdt = new GestureDetector(this, new Gesture_Module(this, e_listview, 
-//				REL_SWIPE_MAX_OFF_PATH, REL_SWIPE_MAX_OFF_PATH, REL_SWIPE_MAX_OFF_PATH));
 		
 		final GestureDetector gdt = new GestureDetector(this, new Gest_Module());
 		View.OnTouchListener glt = new View.OnTouchListener() {
@@ -453,11 +462,11 @@ public class Schedule extends SherlockFragmentActivity {
 	
 	protected void parse_cloud_init()
 	{
-		Parse.initialize(this, "oUi6DEolQ95K8EyHni3HlWNJWyUYeQZG7G142RdQ", "9k0t1vS9INswCXDd7EeLpeGWQJ0RMoyPBxnMjsYi");
+		Parse.initialize(this, appid, clientid);
 		ParseAnalytics.trackAppOpened(getIntent());
-		//ParseObject testObject = new ParseObject("TestObject");
-		//testObject.put("foo", "bar");
-		//testObject.saveInBackground();
+		ParseObject database = new ParseObject("test_database");
+		database.put("foo", "bar");
+		database.saveInBackground();
 	}
 	
 	protected void switch_activity(int USR_CASE, long id)

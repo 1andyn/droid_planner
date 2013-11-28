@@ -41,7 +41,8 @@ public class SQLHelper extends SQLiteOpenHelper {
 		      + COLUMN_ASEC + " BIGINT " + " );";
 	
 	  public SQLHelper(Context context) {
-		    super(context, "/mnt/sdcard/" + DATABASE_NAME, null, DATABASE_VERSION);
+		    super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		    //super(context, "/mnt/sdcard/" + DATABASE_NAME, null, DATABASE_VERSION);
 		  }
 	
 	  @Override
