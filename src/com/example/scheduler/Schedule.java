@@ -580,8 +580,8 @@ public class Schedule extends SherlockFragmentActivity{
 		ArrayList<Event> temp = datasource.getAllEvents();
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
 		{
+			remove_Alarm(temp.get(INDEX).GetID());
 			if(!temp.get(INDEX).getRep().equals(NO_REP)){
-				remove_Alarm(temp.get(INDEX).GetID());
 				cancel_repAlarm(temp.get(INDEX));
 			}
 		}

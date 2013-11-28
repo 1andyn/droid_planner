@@ -527,6 +527,8 @@ public class Add_Activity  extends SherlockFragmentActivity {
 		    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 		    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, Cal.getTimeInMillis(), WEEK_INTERVAL, DispIntent); 
 
+		    
+		    
 		    Cal = null; //Delete Calendar
 		}
 		
