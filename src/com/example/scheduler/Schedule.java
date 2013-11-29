@@ -39,17 +39,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Schedule extends SherlockFragmentActivity{
+public class Schedule extends SherlockFragmentActivity implements Parse_Interface, Intent_Interface {
 	
 	/** Get email for SQLite DB name */
     private final static Email_Module email_MODULE = new Email_Module();
     private String identifier;
     
     private final static String BUGFIX = "1337";
-    
-    /* Parse Cloud */
-    private final static String appid = "oUi6DEolQ95K8EyHni3HlWNJWyUYeQZG7G142RdQ";
-    private final static String clientid = "9k0t1vS9INswCXDd7EeLpeGWQJ0RMoyPBxnMjsYi";
     
     /* DPI Metrics */
     private int REL_SWIPE_MIN_DISTANCE; 
@@ -109,16 +105,6 @@ public class Schedule extends SherlockFragmentActivity{
 	/* Data for Storing Selected Date */ 
 	protected Cal_Date selected_CD;
 	protected Cal_Module selected_CM;
-	
-	/* Intent Codes */
-	final static int month_REQUESTCODE = 1;
-	final static int REQUEST_CANCELLED = -1;
-	final static int RESULT_OK = 1;
-	final static String SCHEDULE_DAY = "S_DAY";
-	final static String SCHEDULE_MONTH = "S_MON";
-	final static String SCHEDULE_YEAR = "S_YR";
-	final static String SELECT_KEY = "CURRENT_DATE";
-	final static String SELECT_ID_KEY = "SELECT_ID";
 	
 	private final static String NO_REP = "NNNNNNN";
 	
@@ -348,14 +334,35 @@ public class Schedule extends SherlockFragmentActivity{
 	{
 		Parse.initialize(getApplicationContext(), appid, clientid);
 		ParseAnalytics.trackAppOpened(getIntent());
-		ParseObject testObject = new ParseObject("EventDatabase");
-		testObject.put("test", "bar");
-		testObject.saveInBackground();
+		push_to_parse();
+	}
+	
+	private void push_to_parse()
+	{
+		ArrayList<Event> temp = datasource.getAllEvents();
+		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
+		{
+			construct_parse_event(temp.get(INDEX));
+		}
 	}
 
-	private void store_cloud()
+	private void construct_parse_event(Event e)
 	{
-		
+		String ID = String.valueOf(e.GetID());
+		ParseObject db_event = new ParseObject(identifier + "_" + ID);
+		db_event.put(id, e.GetID());
+		db_event.put(name, e.GetID());
+		db_event.put(desc, e.GetID());
+		db_event.put(alarm, e.GetID());
+		db_event.put(month, e.GetID());
+		db_event.put(day, e.GetID());
+		db_event.put(year, e.GetID());
+		db_event.put(start, e.GetID());
+		db_event.put(end, e.GetID());
+		db_event.put(color, e.GetID());
+		db_event.put(rep, e.GetID());
+		db_event.put(asec, e.GetID());		
+		db_event.saveInBackground();
 	}
 	
 	private void setUpMetrics()
@@ -529,7 +536,7 @@ public class Schedule extends SherlockFragmentActivity{
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if(resultCode != REQUEST_CANCELLED && resultCode == RESULT_OK)
+		if(resultCode != REQUEST_CANCELLED && resultCode == RESULT_OKAY)
 		{
 			if(requestCode == month_REQUESTCODE)
 			{
@@ -549,7 +556,9 @@ public class Schedule extends SherlockFragmentActivity{
 		
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
 		{
-			if(temp.get(INDEX).GetStart() == NONE) todos_visible.add(temp.get(INDEX));
+			if(temp.get(INDEX).GetStart() == NONE) {
+				todos_visible.add(temp.get(INDEX));
+			}
 			else events_visible.add(temp.get(INDEX));
 		}
 		
