@@ -263,6 +263,11 @@ public class Schedule extends SherlockFragmentActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		/* Acquire Email for ClientID */
+		acquireEmail();
+		parse_cloud_init(); // Set up cloud
+		
 		initalizeLayout();
 		
 		/* Set Up Metrics */
@@ -276,10 +281,6 @@ public class Schedule extends SherlockFragmentActivity{
 		selected_CD = new Cal_Date();
 		selected_CM = new Cal_Module();
 		init_SelectedCD();
-		
-		/* Acquire Email for ClientID */
-		acquireEmail();
-		parse_cloud_init(); // Set up cloud
 		
 		/* Primary List */
 		events_visible = new ArrayList<Event>();
@@ -345,13 +346,18 @@ public class Schedule extends SherlockFragmentActivity{
 	
 	protected void parse_cloud_init()
 	{
-		Parse.initialize(this, "oUi6DEolQ95K8EyHni3HlWNJWyUYeQZG7G142RdQ", "9k0t1vS9INswCXDd7EeLpeGWQJ0RMoyPBxnMjsYi"); //appid, clientid
+		Parse.initialize(getApplicationContext(), appid, clientid);
 		ParseAnalytics.trackAppOpened(getIntent());
-		ParseObject testObject = new ParseObject("TestObject");
-		testObject.put("foo", "bar");
+		ParseObject testObject = new ParseObject("EventDatabase");
+		testObject.put("test", "bar");
 		testObject.saveInBackground();
 	}
 
+	private void store_cloud()
+	{
+		
+	}
+	
 	private void setUpMetrics()
 	{
 	    DisplayMetrics dm = getResources().getDisplayMetrics();
@@ -642,8 +648,6 @@ public class Schedule extends SherlockFragmentActivity{
 		    public void run(){
 		        e_anima_adapter.reset();
 		        e_anima_adapter.setAbsListView(e_listview);
-//		        t_anima_adapter.reset();
-//		        t_anima_adapter.setAbsListView(t_listview);
 		    }
 		}, FORCED_DELAY_ANIMA);
 	}
