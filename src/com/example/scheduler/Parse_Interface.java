@@ -7,7 +7,8 @@ public interface Parse_Interface {
     final static String clientid = "9k0t1vS9INswCXDd7EeLpeGWQJ0RMoyPBxnMjsYi";
 	
     /* Data Keys */
-    final static String id = "_id";
+    final static String email = "owner";
+    final static String id = "event_id";
     final static String name = "name";
     final static String desc = "description";
     final static String alarm = "alarm_enabled";

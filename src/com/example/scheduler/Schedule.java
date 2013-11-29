@@ -248,11 +248,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		/* Acquire Email for ClientID */
-		acquireEmail();
-		parse_cloud_init(); // Set up cloud
-		
 		initalizeLayout();
 		
 		/* Set Up Metrics */
@@ -261,6 +256,12 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		/* SQL Source */
 		datasource = new SQL_DataSource(this);
 		datasource.open();
+		
+		/* Acquire Email for ClientID */
+		acquireEmail();
+		
+		/* Initialize Cloud */
+		parse_cloud_init(); // Set up cloud
 		
 		/* Initialize Selected Date to Today */
 		selected_CD = new Cal_Date();
@@ -339,7 +340,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	private void push_to_parse()
 	{
 		ArrayList<Event> temp = datasource.getAllEvents();
-		System.out.println("Size of Temp: " + temp.size());
+		System.out.println("Size of Current Database: " + temp.size());
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++){
 			construct_parse_event(temp.get(INDEX));
 		}
@@ -347,21 +348,21 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 
 	private void construct_parse_event(Event e)
 	{
-		String ID = String.valueOf(e.GetID());
-		ParseObject db_event = new ParseObject(identifier + "_" + ID);
-		db_event.put(id, e.GetID());
-		db_event.put(name, e.getName());
-		db_event.put(desc, e.getDescription());
-		db_event.put(alarm, e.getAlarm());
-		db_event.put(month, e.GetMonth());
-		db_event.put(day, e.GetDay());
-		db_event.put(year, e.GetYear());
-		db_event.put(start, e.GetStart());
-		db_event.put(end, e.GetEnd());
-		db_event.put(color, e.getColor());
-		db_event.put(rep, e.getRep());
-		db_event.put(asec, e.get_Asec());		
-		db_event.saveInBackground();
+		ParseObject db_event = new ParseObject("EventDatabase");
+		db_event.put(id, String.valueOf(e.GetID()));
+		db_event.put(email, identifier);
+		db_event.put(name, String.valueOf(e.getName()));
+		db_event.put(desc, String.valueOf(e.getDescription()));
+		db_event.put(alarm, String.valueOf(e.getAlarm()));
+		db_event.put(month, String.valueOf(e.GetMonth()));
+		db_event.put(day, String.valueOf(e.GetDay()));
+		db_event.put(year, String.valueOf(e.GetYear()));
+		db_event.put(start, String.valueOf(e.GetStart()));
+		db_event.put(end, String.valueOf(e.GetEnd()));
+		db_event.put(color, String.valueOf(e.getColor()));
+		db_event.put(rep, String.valueOf(e.getRep()));
+		db_event.put(asec, String.valueOf(e.get_Asec()));		
+		db_event.saveEventually();
 	}
 	
 	private void setUpMetrics()
@@ -388,11 +389,9 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		
 		empty_todo = (ViewStub) findViewById(R.id.empty_todo);
 		empty_events = (ViewStub) findViewById(R.id.empty_event);
-		
 		e_listview = (ListView)findViewById(R.id.eventViewGroup);
 		t_listview = (ListView)findViewById(R.id.todoViewGroup);
         sliderText = (TextView) findViewById(R.id.todo_slider);
-        
         r_Layout = (RelativeLayout) findViewById(R.id.topLL);
         
 		config_actionbar();
