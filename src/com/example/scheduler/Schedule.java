@@ -60,7 +60,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
     private final static int EDT_EVENT_CASE = 4;
     
     private final static int TodoPanelHeight = 75;
-    //private final static int CLEAR_CASE = 0;
+    private static int FORCED_DELAY_ANIMA = 175;
     
     /* TODO SIZE CASES */
     private final static int EMPTY = 0;
@@ -72,7 +72,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	protected EventListAdapter e_adapter;
 	
 	private TextView sliderText;
-	private static int FORCED_DELAY_ANIMA = 175;
 	
 	protected ListView e_listview; /* Contains list of Views that displays each Event */
 	protected ListView t_listview; /* Contains list of Views that displays each ToDo */
@@ -340,8 +339,8 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	private void push_to_parse()
 	{
 		ArrayList<Event> temp = datasource.getAllEvents();
-		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
-		{
+		System.out.println("Size of Temp: " + temp.size());
+		for(int INDEX = 0; INDEX < temp.size(); INDEX++){
 			construct_parse_event(temp.get(INDEX));
 		}
 	}
@@ -351,17 +350,17 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		String ID = String.valueOf(e.GetID());
 		ParseObject db_event = new ParseObject(identifier + "_" + ID);
 		db_event.put(id, e.GetID());
-		db_event.put(name, e.GetID());
-		db_event.put(desc, e.GetID());
-		db_event.put(alarm, e.GetID());
-		db_event.put(month, e.GetID());
-		db_event.put(day, e.GetID());
-		db_event.put(year, e.GetID());
-		db_event.put(start, e.GetID());
-		db_event.put(end, e.GetID());
-		db_event.put(color, e.GetID());
-		db_event.put(rep, e.GetID());
-		db_event.put(asec, e.GetID());		
+		db_event.put(name, e.getName());
+		db_event.put(desc, e.getDescription());
+		db_event.put(alarm, e.getAlarm());
+		db_event.put(month, e.GetMonth());
+		db_event.put(day, e.GetDay());
+		db_event.put(year, e.GetYear());
+		db_event.put(start, e.GetStart());
+		db_event.put(end, e.GetEnd());
+		db_event.put(color, e.getColor());
+		db_event.put(rep, e.getRep());
+		db_event.put(asec, e.get_Asec());		
 		db_event.saveInBackground();
 	}
 	
