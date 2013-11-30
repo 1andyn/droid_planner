@@ -9,7 +9,6 @@ import com.larswerkman.holocolorpicker.SVBar;
 /* Cloud Based Imports */
 
 import com.parse.Parse;
-import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
 
 /* Java Base Imports */
@@ -110,6 +109,7 @@ public class Add_Activity  extends SherlockFragmentActivity implements Parse_Int
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.creation_activity);
 		config_resources();
+		Parse.initialize(getApplicationContext(), appid, clientid);
 		//config_actionbar();
 	}
 	
@@ -327,6 +327,10 @@ public class Add_Activity  extends SherlockFragmentActivity implements Parse_Int
 					cancel_repAlarm(newid, original_Repstring);
 				}
 			}
+			
+			/* Upload Data if Possible */
+			temp.setID(id);
+			construct_parse_event(temp);
 			
 			/* Return to Primary Activity*/
 			finish();
