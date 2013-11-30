@@ -19,4 +19,6 @@ public interface Time_Interface {
 	final static int THIRD = 2;
 	final static String NO_OVERLAP = "N";
 	final static long NONE_L = -1;
+	final static String CHECKED = "Y";
+	final static int NONE = -1;
 }
