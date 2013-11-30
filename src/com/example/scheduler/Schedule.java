@@ -23,7 +23,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
@@ -46,6 +48,8 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
     private String identifier;
     
     private final static String BUGFIX = "1337";
+    private SharedPreferences UserPrefs;
+    private final static String usr_email = "email";
     
     /* DPI Metrics */
     private int REL_SWIPE_MIN_DISTANCE; 
@@ -243,12 +247,17 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	private void acquireEmail()
 	{
 		identifier = email_MODULE.getEmail(this);
+		/* Saves user email to local preferences */
+		UserPrefs.edit().putString(usr_email, identifier).commit();
 	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initalizeLayout();
+		
+		SharedPreferences UserPrefs = this.getSharedPreferences(
+			      "com.example.scheduler", Context.MODE_PRIVATE);
 		
 		/* Set Up Metrics */
 		setUpMetrics();
