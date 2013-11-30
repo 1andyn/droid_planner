@@ -246,8 +246,8 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	@SuppressWarnings("static-access")
 	private void acquireEmail()
 	{
-		identifier = email_MODULE.getEmail(this);
 		/* Saves user email to local preferences */
+		identifier = email_MODULE.getEmail(this);
 		UserPrefs.edit().putString(usr_email, identifier).commit();
 	}
 	
@@ -284,8 +284,8 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		e_listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		
 		final GestureDetector gdt = new GestureDetector(this, new Gest_Module());
-		View.OnTouchListener glt = new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
+		View.OnTouchListener glt = new View.OnTouchListener(){
+			public boolean onTouch(View v, MotionEvent event){
 				return gdt.onTouchEvent(event);
 			}
 		};
@@ -342,7 +342,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	{
 		Parse.initialize(getApplicationContext(), appid, clientid);
 		ParseAnalytics.trackAppOpened(getIntent());
-		push_to_parse();
+		//push_to_parse();
 	}
 	
 	private void push_to_parse()
