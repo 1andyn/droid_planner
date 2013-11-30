@@ -43,14 +43,13 @@ public class Month_Activity extends SherlockFragmentActivity {
 		cal_VIEW.setDate(selected_CM.dateToLong(selected_CD));
 	}
 	
-	protected void setCalendarView() {
+	protected void setCalendarView() 
+	{
 		cal_VIEW.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
 			@Override
 			public void onSelectedDayChange(CalendarView view, int year, int month,
 					int day) {
-				
-				if(compareTrigger(month, day, year))
-				{
+				if(compareTrigger(month, day, year)){
 					return_INTENT.putExtra(Schedule.SCHEDULE_DAY, day);
 					return_INTENT.putExtra(Schedule.SCHEDULE_MONTH, month);
 					return_INTENT.putExtra(Schedule.SCHEDULE_YEAR, year);
@@ -66,8 +65,7 @@ public class Month_Activity extends SherlockFragmentActivity {
 	{
 		trigger_CD = new Cal_Date(month ,day ,year);
 		
-		if(selected_CD.isEqual(trigger_CD))
-		{
+		if(selected_CD.isEqual(trigger_CD)){
 			return false;
 		}
 		return true;
