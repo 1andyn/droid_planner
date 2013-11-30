@@ -10,6 +10,7 @@ import com.larswerkman.holocolorpicker.SVBar;
 
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
 
 /* Java Base Imports */
 import java.util.Calendar;
@@ -21,7 +22,9 @@ import com.actionbarsherlock.view.Window;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 /* Android based Imports */
 import android.os.Bundle;
@@ -34,35 +37,20 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class Add_Activity  extends SherlockFragmentActivity {
+public class Add_Activity  extends SherlockFragmentActivity implements Parse_Interface,
+	Time_Interface, PrefKey_Interface {
+	
+	private SharedPreferences UserPrefs;
+	private String identifier;
 	
 	/* Bundle or Extra Keys */
 	private final static String EV_NAME = "event_name";
 	private final static String EV_DESC = "event_desc";
 	private final static String EV_COLR = "event_colr";
-//	private final static String EV_REPS = "event_reps";
 	private final static String NO_REP = "NNNNNNN";
+	
 	/* Attempts to prevent overlapping Alarm IDs*/
 	private final static String BUGFIX = "1337";
-	
-	private final static int SUN = 0;
-	private final static int MON = 1;
-	private final static int TUE = 2;
-	private final static int WED = 3;
-	private final static int THU = 4;
-	private final static int FRI = 5;
-	private final static int SAT = 6;
-	private final static int DAY_OFFSET = 1;
-	private final static long WEEK_INTERVAL = 7*24*60*60*1000;
-	private final static int INTERVAL = 7*24*60*60*1000;
-	private final int MIN_TIME_DIGITS = 3;	
-	private final static int MIN_DIGITS = 2;
-	private final static int TEN_MINUTES = 10;
-	private final static int ZERO = 0;
-	private final static int SECOND = 1;
-	private final static int THIRD = 2;
-	private final static String NO_OVERLAP = "N";
-	private final static long NONE_L = -1;
 	
 	private int NONE = 0;
 	private long EMPTY = 0;
@@ -127,12 +115,16 @@ public class Add_Activity  extends SherlockFragmentActivity {
 	
 	protected void config_resources()
 	{		
+		UserPrefs = getSharedPreferences(app_id, Context.MODE_PRIVATE);
+		
 		/* SQL Configuration */
 		datasource = new SQL_DataSource(this);
 		datasource.open();
 		
 		Bundle Schedule_Date = getIntent().getExtras();
 		b_id = Schedule_Date.getLong(Schedule.SELECT_ID_KEY);
+		
+		retrieve_user();
 		
 		if(b_id == NONE_L){
 			sel_CD = Schedule_Date.getParcelable(Schedule.SELECT_KEY);
@@ -179,6 +171,11 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			r_dp.updateDate(sel_CD.get_year(), sel_CD.get_month(), sel_CD.get_day());
 		}
 		check_EDIT_MODE();
+	}
+	
+	private void retrieve_user()
+	{
+		identifier = UserPrefs.getString(usr_email, null_email);
 	}
 	
 	private void check_EDIT_MODE()
@@ -556,6 +553,25 @@ public class Add_Activity  extends SherlockFragmentActivity {
 			/* Instead of setting an alarm, use cancel on the pending Intent*/
 			alarmManager.cancel(DispIntent);
 		}
+	}
+	
+	private void construct_parse_event(Event e)
+	{
+		ParseObject db_event = new ParseObject("EventDatabase");
+		db_event.put(id, String.valueOf(e.GetID()));
+		db_event.put(email, identifier);
+		db_event.put(name, String.valueOf(e.getName()));
+		db_event.put(desc, String.valueOf(e.getDescription()));
+		db_event.put(alarm, String.valueOf(e.getAlarm()));
+		db_event.put(month, String.valueOf(e.GetMonth()));
+		db_event.put(day, String.valueOf(e.GetDay()));
+		db_event.put(year, String.valueOf(e.GetYear()));
+		db_event.put(start, String.valueOf(e.GetStart()));
+		db_event.put(end, String.valueOf(e.GetEnd()));
+		db_event.put(color, String.valueOf(e.getColor()));
+		db_event.put(rep, String.valueOf(e.getRep()));
+		db_event.put(asec, String.valueOf(e.get_Asec()));		
+		db_event.saveEventually();
 	}
 	
 }

@@ -41,7 +41,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Schedule extends SherlockFragmentActivity implements Parse_Interface, Intent_Interface {
+public class Schedule extends SherlockFragmentActivity implements Parse_Interface, Intent_Interface,
+	PrefKey_Interface {
 	
 	/** Get email for SQLite DB name */
     private final static Email_Module email_MODULE = new Email_Module();
@@ -49,7 +50,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
     
     private final static String BUGFIX = "1337";
     private SharedPreferences UserPrefs;
-    private final static String usr_email = "email";
     
     /* DPI Metrics */
     private int REL_SWIPE_MIN_DISTANCE; 
@@ -256,8 +256,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		super.onCreate(savedInstanceState);
 		initalizeLayout();
 		
-		SharedPreferences UserPrefs = this.getSharedPreferences(
-			      "com.example.scheduler", Context.MODE_PRIVATE);
+		UserPrefs = this.getSharedPreferences(app_id, Context.MODE_PRIVATE);
 		
 		/* Set Up Metrics */
 		setUpMetrics();
