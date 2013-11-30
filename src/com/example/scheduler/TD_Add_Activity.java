@@ -3,6 +3,7 @@ package com.example.scheduler;
 /* Cloud Based Imports */
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
 
 /* Color Selector Imports */
 import com.larswerkman.holocolorpicker.ColorPicker;
@@ -15,7 +16,9 @@ import com.actionbarsherlock.view.Window;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -27,23 +30,15 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class TD_Add_Activity extends SherlockFragmentActivity {
+public class TD_Add_Activity extends SherlockFragmentActivity implements Time_Interface,
+	Parse_Interface, PrefKey_Interface{
+	
+	private SharedPreferences UserPrefs;
+	private String identifier;
 	
 	/* Bundle or Extra Keys */
 	private final static String EV_NAME = "event_name";
-	private final static String EV_DESC = "event_desc";
 	private final static String EV_COLR = "event_colr";
-	
-	private final int MIN_TIME_DIGITS = 3;	
-	private final static int MIN_DIGITS = 2;
-	private final static int TEN_MINUTES = 10;
-	private final static int ZERO = 0;
-	private final static int SECOND = 1;
-	private final static int THIRD = 2;
-	private final static int NONE = -1;
-	private final static String NO_OVERLAP = "N";
-	private final static long NONE_L = -1;
-	private final static String CHECKED = "Y";
 	
 	private int TODO_TRUE = 1;
 	private long EMPTY = 0;
@@ -91,6 +86,8 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	
 	protected void config_resources()
 	{
+		UserPrefs = getSharedPreferences(app_id, Context.MODE_PRIVATE);
+	
 		/* SQL Configuration */
 		datasource = new SQL_DataSource(this);
 		datasource.open();
@@ -98,8 +95,9 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 		Bundle Schedule_Date = getIntent().getExtras();
 		b_id = Schedule_Date.getLong(Schedule.SELECT_ID_KEY);
 		
-		if(b_id == NONE_L)
-		{
+		retrieve_user();
+		
+		if(b_id == NONE_L){
 			sel_CD = Schedule_Date.getParcelable(Schedule.SELECT_KEY);
 		}
 		
@@ -123,23 +121,25 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 		
 		/* Set Default End Time to 1 hr ahead of current Time if it doesn't Pass into Next Day */
 		final Calendar c = Calendar.getInstance();
-		if(c.get(Calendar.HOUR_OF_DAY) < 23)
-		{
+		if(c.get(Calendar.HOUR_OF_DAY) < 23){
 			end_tp.setCurrentHour(c.get(Calendar.HOUR_OF_DAY) + 1);
 		}
 		
-		if(b_id == NONE_L)
-		{
+		if(b_id == NONE_L){
 			r_dp.updateDate(sel_CD.get_year(), sel_CD.get_month(), sel_CD.get_day());
 		}
 	
 		check_EDIT_MODE();
 	}
 	
+	private void retrieve_user()
+	{
+		identifier = UserPrefs.getString(usr_email, null_email);
+	}
+	
 	private void check_EDIT_MODE()
 	{
-		if(b_id != NONE_L)
-		{
+		if(b_id != NONE_L){
 			creation_b.setText(getResources().getString(R.string.edt_ev));
 			Event temp = datasource.getEvent(b_id);
 			name_et.setText(temp.getName());
@@ -257,6 +257,10 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 					}
 				}
 			
+			/* Save to Parse*/
+			temp.setID(id);
+			construct_parse_event(temp);
+			
 			/* Return to Primary Activity*/
 			finish();
 		}
@@ -274,13 +278,10 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	{		
 		String my_time = "" + time;
 		if(my_time.length() <= MIN_DIGITS) return ZERO;
-		else if(my_time.length() == MIN_TIME_DIGITS)
-		{
+		else if(my_time.length() == MIN_TIME_DIGITS){
 			String nu_time = my_time.substring(ZERO, SECOND);
 			return Integer.parseInt(nu_time);
-		}
-		else
-		{
+		}else{
 			String nu_time = my_time.substring(ZERO, THIRD);
 			return Integer.parseInt(nu_time);
 		}	
@@ -290,13 +291,10 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	protected String minutes(int min)
 	{
 		String time;
-		if(min < TEN_MINUTES)
-		{
+		if(min < TEN_MINUTES){
 			time = "" + ZERO + min;
 			return time; 
-		}
-		else
-		{
+		}else{
 			time = "" + min;
 			return time;
 		}
@@ -304,12 +302,9 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	
 	protected String check_toggle()
 	{
-		if(alarm_tb.isChecked())
-		{
+		if(alarm_tb.isChecked()){
 			return "Y";
-		}
-		else
-		{
+		}else{
 			return "N";
 		}
 	}
@@ -330,10 +325,10 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	
 	protected boolean timeIssues(Date d, long id)
 	{
-		if(datasource.endTimeExists(d, id) != NO_OVERLAP)
-		{
+		if(datasource.endTimeExists(d, id) != NO_OVERLAP){
 			focus_Time();
-			Toast.makeText(TD_Add_Activity.this,"A ToDo at this time already exists with name: " + datasource.endTimeExists(d ,id),
+			Toast.makeText(TD_Add_Activity.this,"A ToDo at this time already exists with name: " + 
+			datasource.endTimeExists(d ,id),
                     Toast.LENGTH_LONG).show();
 			return true;
 		}
@@ -363,7 +358,6 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	    AlarmIntent.setAction(String.valueOf(id));
 
 	    AlarmIntent.putExtra(EV_NAME, e.getName());
-	   // AlarmIntent.putExtra(EV_DESC, e.getDescription());
 	    AlarmIntent.putExtra(EV_COLR, e.getColor());
 	    
 	    PendingIntent DispIntent = PendingIntent.getBroadcast(this, id, 
@@ -372,7 +366,6 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	    /* Scheduling the Alarm to be triggered*/
 	    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 	    alarmManager.set(AlarmManager.RTC_WAKEUP, e.get_Asec(), DispIntent);
-	    //alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), DispIntent);
 	}
 	
 	private void cancel_Alarm(int id)
@@ -387,7 +380,6 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 		
 		/* Instead of setting an alarm, use cancel on the pending Intent*/
 		alarmManager.cancel(DispIntent);
-		//Toast.makeText(this,"Alarm Cancelled." ,Toast.LENGTH_SHORT).show();
 	}
 	
 	private static int safeLongToInt(long l) {
@@ -396,6 +388,25 @@ public class TD_Add_Activity extends SherlockFragmentActivity {
 	            (l + " cannot be cast to int without changing its value.");
 	    }
 	    return (int) l;
+	}
+	
+	private void construct_parse_event(Event e)
+	{
+		ParseObject db_event = new ParseObject("EventDatabase");
+		db_event.put(id, String.valueOf(e.GetID()));
+		db_event.put(email, identifier);
+		db_event.put(name, String.valueOf(e.getName()));
+		db_event.put(desc, String.valueOf(e.getDescription()));
+		db_event.put(alarm, String.valueOf(e.getAlarm()));
+		db_event.put(month, String.valueOf(e.GetMonth()));
+		db_event.put(day, String.valueOf(e.GetDay()));
+		db_event.put(year, String.valueOf(e.GetYear()));
+		db_event.put(start, String.valueOf(e.GetStart()));
+		db_event.put(end, String.valueOf(e.GetEnd()));
+		db_event.put(color, String.valueOf(e.getColor()));
+		db_event.put(rep, String.valueOf(e.getRep()));
+		db_event.put(asec, String.valueOf(e.get_Asec()));		
+		db_event.saveEventually();
 	}
 	
 }
