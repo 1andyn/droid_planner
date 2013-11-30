@@ -51,7 +51,6 @@ public class Add_Activity  extends SherlockFragmentActivity implements Parse_Int
 	/* Attempts to prevent overlapping Alarm IDs*/
 	private final static String BUGFIX = "1337";
 	
-	private int NONE = 0;
 	private long EMPTY = 0;
 	private long ASEC = 0; 
 
@@ -504,8 +503,8 @@ public class Add_Activity  extends SherlockFragmentActivity implements Parse_Int
 		    Cal.set(Calendar.DAY_OF_WEEK, (temp.get(x) + DAY_OFFSET));
 		    Cal.set(Calendar.HOUR_OF_DAY, extract_HOUR(e.GetStart()));
 		    Cal.set(Calendar.MINUTE, extract_MINUTES(e.GetStart()));
-		    Cal.set(Calendar.SECOND, NONE);
-		    Cal.set(Calendar.MILLISECOND, NONE);
+		    Cal.set(Calendar.SECOND, ZERO);
+		    Cal.set(Calendar.MILLISECOND, ZERO);
 		    
 			Calendar Cal2 = Calendar.getInstance();
 			
