@@ -300,6 +300,8 @@ public class Add_Activity  extends SherlockFragmentActivity implements Parse_Int
 			if(b_id != NONE_L){
 				/* Deletes old event before inserting new one if Editing */
 				datasource.deleteEvent(b_id);
+				ParseObject.createWithoutData(parse_class, 
+						datasource.acquireObjectId(b_id)).deleteEventually();
 				datasource.deleteEventObj(b_id);
 			}
 			
@@ -561,7 +563,7 @@ public class Add_Activity  extends SherlockFragmentActivity implements Parse_Int
 	
 	private String construct_parse_event(Event e)
 	{
-		ParseObject db_event = new ParseObject("EventDatabase");
+		ParseObject db_event = new ParseObject(parse_class);
 		db_event.put(id, String.valueOf(e.GetID()));
 		db_event.put(email, identifier);
 		db_event.put(name, String.valueOf(e.getName()));

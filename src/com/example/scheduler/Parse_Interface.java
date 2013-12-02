@@ -7,6 +7,7 @@ public interface Parse_Interface {
     final static String clientid = "9k0t1vS9INswCXDd7EeLpeGWQJ0RMoyPBxnMjsYi";
 	
     /* Data Keys */
+    final static String parse_class = "DatabaseObject";
     final static String email = "owner";
     final static String id = "event_id";
     final static String name = "name";

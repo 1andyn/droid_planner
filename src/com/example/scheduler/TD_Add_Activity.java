@@ -231,6 +231,8 @@ public class TD_Add_Activity extends SherlockFragmentActivity implements Time_In
 			if(b_id != NONE_L)
 			{
 				datasource.deleteEvent(b_id);
+				ParseObject.createWithoutData(parse_class, 
+						datasource.acquireObjectId(b_id)).deleteEventually();
 				datasource.deleteEventObj(b_id);
 			}
 			
@@ -393,7 +395,7 @@ public class TD_Add_Activity extends SherlockFragmentActivity implements Time_In
 	
 	private String construct_parse_event(Event e)
 	{
-		ParseObject db_event = new ParseObject("EventDatabase");
+		ParseObject db_event = new ParseObject(parse_class);
 		db_event.put(id, String.valueOf(e.GetID()));
 		db_event.put(email, identifier);
 		db_event.put(name, String.valueOf(e.getName()));
