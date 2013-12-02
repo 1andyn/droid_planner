@@ -578,6 +578,7 @@ public class Add_Activity  extends SherlockFragmentActivity implements Parse_Int
 		db_event.put(rep, String.valueOf(e.getRep()));
 		db_event.put(asec, String.valueOf(e.get_Asec()));		
 		db_event.saveEventually();
+		System.out.println("ObjectID: " + db_event.getObjectId());
 		return db_event.getObjectId();
 	}
 	

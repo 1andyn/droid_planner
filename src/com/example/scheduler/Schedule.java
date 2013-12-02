@@ -479,7 +479,10 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 						todos_visible.remove(x);
 					}
 				}
-				datasource.deleteEvent(e);		
+				datasource.deleteEvent(e);
+				ParseObject.createWithoutData(parse_class, 
+						datasource.acquireObjectId(e.GetID())).deleteEventually();
+				datasource.deleteEventObj(e.GetID());
 				// Update View List
 				t_adapter.notifyDataSetChanged();
 				// Set Selection back to Null Event
