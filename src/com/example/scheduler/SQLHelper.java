@@ -48,7 +48,7 @@ public class SQLHelper extends SQLiteOpenHelper {
 		      + OBJECT_TABLE_NAME
 		      + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 		      + COLUMN_EVENT_ID + " BIGINT NOT NULL, "
-		      +	COLUMN_OBJECT_ID + " TEXT NOT NULL," + " );";
+		      +	COLUMN_OBJECT_ID + " TEXT NOT NULL " + " );";
 	
 	  public SQLHelper(Context context) 
 	  {
