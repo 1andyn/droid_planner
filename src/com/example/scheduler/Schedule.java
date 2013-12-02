@@ -382,7 +382,8 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	}
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.topbar, menu);
 		inflater.inflate(R.menu.settings_menu, menu);
@@ -449,14 +450,10 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	protected void remove_event(Event e)
 	{
 		// Check if Selected Event is not an Empty Event
-			if(!e.isEqual(empty_event))
-			{
+			if(!e.isEqual(empty_event)){
 				// Remove Event from Visible List
-				for(int x = 0; x < events_visible.size(); x++)
-				{
-					if(events_visible.get(x).equals(e))
-					{
-						
+				for(int x = 0; x < events_visible.size(); x++){
+					if(events_visible.get(x).equals(e)){
 						events_visible.remove(x);
 					}
 				}
@@ -475,13 +472,10 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	protected void remove_todo(Event e)
 	{
 		// Check if Selected Event is not an Empty Event
-			if(!e.isEqual(empty_event))
-			{
+			if(!e.isEqual(empty_event)){
 				// Remove Event from Visible List
-				for(int x = 0; x < todos_visible.size(); x++)
-				{
-					if(todos_visible.get(x).equals(e))
-					{
+				for(int x = 0; x < todos_visible.size(); x++){
+					if(todos_visible.get(x).equals(e)){
 						todos_visible.remove(x);
 					}
 				}
@@ -495,46 +489,36 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	
 	protected void switch_activity(int USR_CASE, long id)
 	{
-		switch(USR_CASE)
-		{
-			case EDT_EVENT_CASE:
-			{
+		switch(USR_CASE){
+			case EDT_EVENT_CASE:{
 				event_INTENT = new Intent(this, Add_Activity.class);
 				event_INTENT.putExtra(SELECT_KEY, selected_CD);
 				event_INTENT.putExtra(SELECT_ID_KEY, (long)id);
 				startActivity(event_INTENT);
 				load_from_database(selected_CD);
 				break;
-			}
-			case EDT_TODO_CASE:
-			{
+			}case EDT_TODO_CASE:{
 				todo_INTENT = new Intent(this, TD_Add_Activity.class);
 				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
 				todo_INTENT.putExtra(SELECT_ID_KEY, (long)id);
 				startActivity(todo_INTENT);
 				load_from_database(selected_CD);
 				break;
-			}
-			case EVENT_CASE:
-			{
+			}case EVENT_CASE:{
 				event_INTENT = new Intent(this, Add_Activity.class);
 				event_INTENT.putExtra(SELECT_KEY, selected_CD);
 				event_INTENT.putExtra(SELECT_ID_KEY, (long)NONE_L);
 				startActivity(event_INTENT);
 				load_from_database(selected_CD);
 				break;
-			}
-			case TODO_CASE:
-			{
+			}case TODO_CASE:{
 				todo_INTENT = new Intent(this, TD_Add_Activity.class);
 				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
 				todo_INTENT.putExtra(SELECT_ID_KEY, (long)NONE_L);
 				startActivity(todo_INTENT);
 				load_from_database(selected_CD);
 				break;
-			}
-			case MONTH_CASE:
-			{
+			}case MONTH_CASE:{
 				month_INTENT = new Intent(this, Month_Activity.class);
 				month_INTENT.putExtra(SELECT_KEY, selected_CD);
 				startActivityForResult(month_INTENT, month_REQUESTCODE);
@@ -547,10 +531,8 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if(resultCode != REQUEST_CANCELLED && resultCode == RESULT_OKAY)
-		{
-			if(requestCode == month_REQUESTCODE)
-			{
+		if(resultCode != REQUEST_CANCELLED && resultCode == RESULT_OKAY){
+			if(requestCode == month_REQUESTCODE){
 				selected_CD.set_day(data.getIntExtra(SCHEDULE_DAY, EMPTY));
 				selected_CD.set_month(data.getIntExtra(SCHEDULE_MONTH, EMPTY));
 				selected_CD.set_year(data.getIntExtra(SCHEDULE_YEAR, EMPTY));
@@ -565,8 +547,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		events_visible.clear();
 		todos_visible.clear();
 		
-		for(int INDEX = 0; INDEX < temp.size(); INDEX++)
-		{
+		for(int INDEX = 0; INDEX < temp.size(); INDEX++){
 			if(temp.get(INDEX).GetStart() == NONE) {
 				todos_visible.add(temp.get(INDEX));
 			}
