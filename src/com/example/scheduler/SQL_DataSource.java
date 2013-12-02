@@ -90,7 +90,7 @@ public class SQL_DataSource {
 		
 		/* Supposedly adds all values in ContenValues values to second table*/
 		long insertId = database.insert(SQLHelper.OBJECT_TABLE_NAME, null, values);
-		Cursor curse = database.query(SQLHelper.OBJECT_TABLE_NAME, allColumns, 
+		Cursor curse = database.query(SQLHelper.OBJECT_TABLE_NAME, allColumnsObj, 
 				SQLHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
 		curse.moveToFirst();
 
@@ -102,14 +102,20 @@ public class SQL_DataSource {
 	public void deleteEvent(Event e)
 	{
 		long id = e.GetID();
-		System.out.println("Comment deleted with id: " + id);
+		System.out.println("Deleted event with id: " + id);
 		database.delete(SQLHelper.TABLE_NAME, SQLHelper.COLUMN_ID + " = " + id, null);
 	}
 	
 	public void deleteEvent(long id)
 	{
-		System.out.println("Comment deleted with id: " + id);
+		System.out.println("Deleted event with id: " + id);
 		database.delete(SQLHelper.TABLE_NAME, SQLHelper.COLUMN_ID + " = " + id, null);
+	}
+	
+	public void deleteEventObj(long id)
+	{
+		System.out.print("Deleted objectid with event id " + id);
+		database.delete(SQLHelper.OBJECT_TABLE_NAME, SQLHelper.COLUMN_EVENT_ID + " = " + id, null);
 	}
 	
 	public Event getEvent(long id)
