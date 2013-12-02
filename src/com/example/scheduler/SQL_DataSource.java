@@ -139,7 +139,7 @@ public class SQL_DataSource {
 	{
 	    ArrayList<String> table_objid = new ArrayList<String>();
 
-	    Cursor curse = database.query(SQLHelper.OBJECT_TABLE_NAME, allColumns, null, null, null, null, null);
+	    Cursor curse = database.query(SQLHelper.OBJECT_TABLE_NAME, allColumnsObj, null, null, null, null, null);
 
 	    curse.moveToFirst();
 	    while (!curse.isAfterLast()) {
@@ -150,6 +150,21 @@ public class SQL_DataSource {
 	    
 	    return table_objid; 
 	      
+	}
+	
+	public String acquireObjectId (long id)
+	{
+		String s = null;
+		boolean stop = false;
+		Cursor curse = database.query(SQLHelper.OBJECT_TABLE_NAME, allColumnsObj, null, null, null, null, null);
+	    while (!curse.isAfterLast() && !stop) {
+	    	  if(curse.getInt(COL_E_ID) == id){
+	    		  s = curse.getString(COL_OBJ_ID);
+	    		  stop = true;
+	    	  }
+		      curse.moveToNext();
+	    }
+	    return s;
 	}
 	
 	public ArrayList<Event> getAllEvents()
