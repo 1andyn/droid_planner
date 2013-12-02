@@ -456,10 +456,13 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				{
 					if(events_visible.get(x).equals(e))
 					{
+						
 						events_visible.remove(x);
 					}
 				}
 				datasource.deleteEvent(e);
+				datasource.deleteEventObj(e.GetID());
+				
 				// Update View List
 				e_adapter.notifyDataSetChanged();
 				// Set Selection back to Null Event
