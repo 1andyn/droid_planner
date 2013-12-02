@@ -23,7 +23,12 @@ public class SQL_DataSource {
 	private int COL_COL = 9;
 	private int COL_REP = 10;
 	private int COL_ALA = 11;
+	
 	private int START = 0;
+	private int COL_E_ID = 1;
+	private int COL_OBJ_ID = 2;
+	
+	private String []allColumnsObj = {SQLHelper.COLUMN_ID, SQLHelper.COLUMN_EVENT_ID, SQLHelper.COLUMN_OBJECT_ID};
 	
 	private final static String NO_OVERLAP = "N";
 	private final static String nofaultEvent = NO_OVERLAP;
@@ -76,6 +81,23 @@ public class SQL_DataSource {
 		
 		return newEvent;
 	}
+	
+	public String saveObjectID(long id, String ObjectID)
+	{
+		ContentValues values = new ContentValues();
+		values.put(SQLHelper.COLUMN_EVENT_ID, id);
+		values.put(SQLHelper.COLUMN_OBJECT_ID, ObjectID);
+		
+		/* Supposedly adds all values in ContenValues values to second table*/
+		long insertId = database.insert(SQLHelper.OBJECT_TABLE_NAME, null, values);
+		Cursor curse = database.query(SQLHelper.OBJECT_TABLE_NAME, allColumns, 
+				SQLHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
+		curse.moveToFirst();
+
+		curse.close();
+		
+		return ObjectID;
+	}
 		
 	public void deleteEvent(Event e)
 	{
@@ -105,6 +127,23 @@ public class SQL_DataSource {
 		}
 		curse.close();
 		return my_event;
+	}
+	
+	public ArrayList<String> getAllObjects()
+	{
+	    ArrayList<String> table_objid = new ArrayList<String>();
+
+	    Cursor curse = database.query(SQLHelper.OBJECT_TABLE_NAME, allColumns, null, null, null, null, null);
+
+	    curse.moveToFirst();
+	    while (!curse.isAfterLast()) {
+	      String ob_id = cursorToObjID(curse);
+	      table_objid.add(ob_id);
+	      curse.moveToNext();
+	    }
+	    
+	    return table_objid; 
+	      
 	}
 	
 	public ArrayList<Event> getAllEvents()
@@ -251,9 +290,22 @@ public class SQL_DataSource {
 		return newEvent;
 	}
 	
+	private String cursorToObjID(Cursor curs)
+	{
+		String s = curs.getString(COL_OBJ_ID);
+		return s;
+	}
+	
+	private long cursorToID(Cursor curs)
+	{
+		long id = curs.getLong(COL_E_ID);
+		return id;
+	}
+	
 	public void clear_table()
 	{
 		database.delete(SQLHelper.TABLE_NAME, null, null);
+		database.delete(SQLHelper.OBJECT_TABLE_NAME, null, null);
 		System.out.println("Removed all Table Elements");
 	}
 	
