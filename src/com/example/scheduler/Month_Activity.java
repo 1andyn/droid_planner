@@ -26,7 +26,7 @@ public class Month_Activity extends SherlockFragmentActivity implements Intent_I
 		return_INTENT = new Intent();
 		
 		Bundle Schedule_Date = getIntent().getExtras();
-		selected_CD = Schedule_Date.getParcelable(Schedule.SELECT_KEY);
+		selected_CD = Schedule_Date.getParcelable(SELECT_KEY);
 		
 		initalizeLayout();
 		setCalendarView();
@@ -50,10 +50,10 @@ public class Month_Activity extends SherlockFragmentActivity implements Intent_I
 			public void onSelectedDayChange(CalendarView view, int year, int month,
 					int day) {
 				if(compareTrigger(month, day, year)){
-					return_INTENT.putExtra(Schedule.SCHEDULE_DAY, day);
-					return_INTENT.putExtra(Schedule.SCHEDULE_MONTH, month);
-					return_INTENT.putExtra(Schedule.SCHEDULE_YEAR, year);
-					setResult(Schedule.RESULT_OK, return_INTENT);
+					return_INTENT.putExtra(SCHEDULE_DAY, day);
+					return_INTENT.putExtra(SCHEDULE_MONTH, month);
+					return_INTENT.putExtra(SCHEDULE_YEAR, year);
+					setResult(RESULT_OK, return_INTENT);
 					finish();
 				}
 			}
