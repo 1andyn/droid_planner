@@ -3,7 +3,9 @@ package com.example.scheduler;
 /* Cloud Based Imports */
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 /* Color Selector Imports */
 import com.larswerkman.holocolorpicker.ColorPicker;
@@ -43,6 +45,10 @@ public class TD_Add_Activity extends SherlockFragmentActivity implements Time_In
 	private int TODO_TRUE = 1;
 	private long EMPTY = 0;
 	private long ASEC = 0; 
+	
+	/* Temporary Data */
+	private ParseObject db_event;
+	private Event temp;
 	
 	private SQL_DataSource datasource;
 	
@@ -206,7 +212,7 @@ public class TD_Add_Activity extends SherlockFragmentActivity implements Time_In
 
 	protected void add_event()
 	{
-		Event temp = new Event();
+		temp = new Event();
 		Date time = new Date();
 		temp.setName(name_et.getText().toString());
 		temp.setDescription(null);
@@ -262,7 +268,7 @@ public class TD_Add_Activity extends SherlockFragmentActivity implements Time_In
 			
 			/* Save to Parse*/
 			temp.setID(id);
-			datasource.saveObjectID(id, construct_parse_event(temp));
+			construct_parse_event();
 			
 			/* Return to Primary Activity*/
 			finish();
@@ -393,24 +399,34 @@ public class TD_Add_Activity extends SherlockFragmentActivity implements Time_In
 	    return (int) l;
 	}
 	
-	private String construct_parse_event(Event e)
+	private void construct_parse_event()
 	{
-		ParseObject db_event = new ParseObject(parse_class);
-		db_event.put(id, String.valueOf(e.GetID()));
+		db_event = new ParseObject(parse_class);
+		db_event.put(id, String.valueOf(temp.GetID()));
 		db_event.put(email, identifier);
-		db_event.put(name, String.valueOf(e.getName()));
-		db_event.put(desc, String.valueOf(e.getDescription()));
-		db_event.put(alarm, String.valueOf(e.getAlarm()));
-		db_event.put(month, String.valueOf(e.GetMonth()));
-		db_event.put(day, String.valueOf(e.GetDay()));
-		db_event.put(year, String.valueOf(e.GetYear()));
-		db_event.put(start, String.valueOf(e.GetStart()));
-		db_event.put(end, String.valueOf(e.GetEnd()));
-		db_event.put(color, String.valueOf(e.getColor()));
-		db_event.put(rep, String.valueOf(e.getRep()));
-		db_event.put(asec, String.valueOf(e.get_Asec()));		
-		db_event.saveEventually();
-		return db_event.getObjectId();
+		db_event.put(name, String.valueOf(temp.getName()));
+		db_event.put(desc, String.valueOf(temp.getDescription()));
+		db_event.put(alarm, String.valueOf(temp.getAlarm()));
+		db_event.put(month, String.valueOf(temp.GetMonth()));
+		db_event.put(day, String.valueOf(temp.GetDay()));
+		db_event.put(year, String.valueOf(temp.GetYear()));
+		db_event.put(start, String.valueOf(temp.GetStart()));
+		db_event.put(end, String.valueOf(temp.GetEnd()));
+		db_event.put(color, String.valueOf(temp.getColor()));
+		db_event.put(rep, String.valueOf(temp.getRep()));
+		db_event.put(asec, String.valueOf(temp.get_Asec()));
+		db_event.saveEventually(new SaveCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                	SQL_DataSource ds = new SQL_DataSource(getApplicationContext());
+                	ds.open();
+                	ds.saveObjectID(temp.GetID(), db_event.getObjectId());
+                	ds.close();
+                } else {
+                    // The save failed.
+                }
+            }
+        });
 	}
 	
 }

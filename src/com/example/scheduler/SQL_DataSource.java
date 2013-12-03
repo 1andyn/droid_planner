@@ -157,7 +157,8 @@ public class SQL_DataSource {
 		String s = null;
 		boolean stop = false;
 		Cursor curse = database.query(SQLHelper.OBJECT_TABLE_NAME, allColumnsObj, null, null, null, null, null);
-	    while (!curse.isAfterLast() && !stop) {
+		curse.moveToFirst();
+		while (!curse.isAfterLast() && !stop) {
 	    	  if(curse.getInt(COL_E_ID) == id){
 	    		  s = curse.getString(COL_OBJ_ID);
 	    		  stop = true;

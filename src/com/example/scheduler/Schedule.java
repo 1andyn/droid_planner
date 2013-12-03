@@ -1,9 +1,12 @@
 package com.example.scheduler;
 
 /* Parse Cloud Imports */
+import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 
@@ -28,6 +31,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -490,6 +494,29 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			}
 	}
 	
+	private void parse_clean()
+	{
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(parse_class);
+		query.whereEqualTo(email, identifier);
+		query.findInBackground(new FindCallback<ParseObject>() {
+			@Override
+			public void done(List<ParseObject> eventList, ParseException e) {
+		        if (e == null) {
+		           System.out.println("PPLUS" + "Removing " + eventList.size() + " events");
+		    		for(int x = 0; x < eventList.size(); x++) {
+						ParseObject.createWithoutData(parse_class, 
+								eventList.get(x).getObjectId()).deleteEventually();
+		    		}
+		        } else {
+		        	System.out.println("Error: " + e.getMessage());
+		        }
+		    }
+		});
+		
+
+		
+	}
+	
 	protected void switch_activity(int USR_CASE, long id)
 	{
 		switch(USR_CASE){
@@ -596,6 +623,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			}
 		}
 		
+		parse_clean();
 		/* Clears ALL Containers, ALL of the DB Table*/
 		datasource.clear_table();
     	todos_visible.clear();
