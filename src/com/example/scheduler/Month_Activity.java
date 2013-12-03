@@ -53,7 +53,7 @@ public class Month_Activity extends SherlockFragmentActivity implements Intent_I
 					return_INTENT.putExtra(SCHEDULE_DAY, day);
 					return_INTENT.putExtra(SCHEDULE_MONTH, month);
 					return_INTENT.putExtra(SCHEDULE_YEAR, year);
-					setResult(RESULT_OK, return_INTENT);
+					setResult(RESULT_OKAY, return_INTENT);
 					finish();
 				}
 			}
