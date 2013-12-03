@@ -7,7 +7,7 @@ import android.view.Window;
 import android.widget.CalendarView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-public class Month_Activity extends SherlockFragmentActivity {
+public class Month_Activity extends SherlockFragmentActivity implements Intent_Interface {
 	
 	private CalendarView cal_VIEW;
 	private Cal_Module selected_CM;
