@@ -8,8 +8,8 @@ Current features include:
   - Editing and removing created Events
   - Easy Clearing all of Events
   - SQLite Database Storage
-  - Future: Cloud Storage (Parse)
-  - Future: Class Planner
+  - Cloud Storage (Parse)
+  - Weekly Activity
 
 Dependencies: (Required Libraries)
 ----------
@@ -17,7 +17,7 @@ Dependencies: (Required Libraries)
 	-	**HoloColorPicker** [https://github.com/LarsWerkman/HoloColorPicker]
 	-	**AndroidSlidingUpPanel** [https://github.com/umano/AndroidSlidingUpPanel]
 	-	**ListViewAnimations** [https://github.com/nhaarman/ListViewAnimations]
-	-	**ParseSDK** [https://parse.com/docs/api_libraries] [Future Implementation]
+	-	**ParseSDK** [https://parse.com/docs/api_libraries]
 	
 If you have Problems/Issues
 ----------
