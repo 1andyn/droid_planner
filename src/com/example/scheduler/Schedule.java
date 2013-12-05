@@ -71,7 +71,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
     private final static int TodoPanelHeight = 75;
     private static int FORCED_DELAY_ANIMA = 175;
     
-    /* TODO SIZE CASES */
+    /* TO DO SIZE CASES */
     private final static int EMPTY = 0;
     private final static int NONE = -1;
     private final static long NONE_L = -1;
@@ -122,6 +122,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	private ParseObject cntrl_v;
 	private ParseObject event_obj;
 	private long temp_id;
+	private long temp_version;
 	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
@@ -387,10 +388,10 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				public void done(ParseObject object, ParseException e) {
 			        if (object == null) {
 			        	System.out.println("Detected first time run, or couldn't reach cloud!");
-						int initial_version = 0;
 						UserPrefs.edit().putString(db_version, String.valueOf(initial_version)).commit();
 						cntrl_v = new ParseObject(ver_class);
 						cntrl_v.put(db_ver, String.valueOf(initial_version));
+						cntrl_v.put(email, identifier);
 						cntrl_v.saveEventually(new SaveCallback() {
 				            public void done(ParseException e) {
 				                if (e == null) {
@@ -408,6 +409,8 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			    }
 			});
 		}
+		String end = UserPrefs.getString(db_version, user_first_run);
+		System.out.println("Current version is: " + end);
 	}
 	
 	private void retrieve_parse_events()
@@ -577,6 +580,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				e_adapter.notifyDataSetChanged();
 				// Set Selection back to Null Event
 				selected_event = empty_event;
+				increment_version();
 			}
 	}
 	
@@ -598,6 +602,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				t_adapter.notifyDataSetChanged();
 				// Set Selection back to Null Event
 				selected_event = empty_event;
+				increment_version();
 			}
 	}
 	
@@ -612,6 +617,22 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		           System.out.println("PPLUS" + "Removing " + eventList.size() + " events");
 		    		for(int x = 0; x < eventList.size(); x++) {
 						ParseObject.createWithoutData(parse_class, 
+								eventList.get(x).getObjectId()).deleteEventually();
+		    		}
+		        } else {
+		        	System.out.println("Error: " + e.getMessage());
+		        }
+		    }
+		});
+		ParseQuery<ParseObject> query2 = ParseQuery.getQuery(ver_class);
+		query2.whereEqualTo(email, identifier);
+		query2.findInBackground(new FindCallback<ParseObject>() {
+			@Override
+			public void done(List<ParseObject> eventList, ParseException e) {
+		        if (e == null) {
+		           System.out.println("PPLUS" + "Removing " + eventList.size() + " control classes");
+		    		for(int x = 0; x < eventList.size(); x++) {
+						ParseObject.createWithoutData(ver_class, 
 								eventList.get(x).getObjectId()).deleteEventually();
 		    		}
 		        } else {
@@ -852,6 +873,25 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			/* Instead of setting an alarm, use cancel on the pending Intent*/
 			alarmManager.cancel(DispIntent);
 		}
+	}
+	
+	private void increment_version()
+	{
+		temp_version = Integer.parseInt(UserPrefs.getString(db_version, ver_zero));
+		temp_version++; // Increment Version
+		/* Save new version locally */
+		UserPrefs.edit().putString(db_version, String.valueOf(temp_version)).commit();
+		String saved_key = UserPrefs.getString(cntrl_key, still_missing_key);
+		/* Save version onto cloud */
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(ver_class);
+		query.getInBackground(saved_key, new GetCallback<ParseObject>() {
+			  public void done(ParseObject control, ParseException e) {
+			    if (e == null) {
+			      control.put(db_ver, String.valueOf(temp_version));
+			      control.saveEventually();
+			    }
+			  }
+			});
 	}
 	
 	private static int safeLongToInt(long l) {

@@ -10,4 +10,6 @@ public interface PrefKey_Interface {
     final static String user_first_run = "true";
     final static String still_missing_key = "no_key";
     final static String cntrl_key = "control_key";
+    final static int initial_version = 0;
+    final static String ver_zero = "0";
 }
