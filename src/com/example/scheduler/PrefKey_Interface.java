@@ -6,5 +6,6 @@ public interface PrefKey_Interface {
     final static String null_email = "john@doe.com";
     final static String db_version = "database_version";
     final static String first_run = "first_run";
+    final static String not_first_run = "false";
     
 }
