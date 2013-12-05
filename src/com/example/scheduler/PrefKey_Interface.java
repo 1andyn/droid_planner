@@ -7,5 +7,6 @@ public interface PrefKey_Interface {
     final static String db_version = "database_version";
     final static String first_run = "first_run";
     final static String not_first_run = "false";
+    final static String user_first_run = "true";
     
 }
