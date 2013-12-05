@@ -2,6 +2,7 @@ package com.example.scheduler;
 
 /* Parse Cloud Imports */
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
@@ -21,7 +22,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.haarman.listviewanimations.swinginadapters.prepared.ScaleInAnimationAdapter;
 
-import android.net.Uri;
 /* Basic Android Imports*/
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,6 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
+import android.net.Uri;
 
 public class Schedule extends SherlockFragmentActivity implements Parse_Interface, Intent_Interface,
 	PrefKey_Interface {
@@ -264,19 +265,21 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		super.onCreate(savedInstanceState);
 		initalizeLayout();
 		
-		UserPrefs = this.getSharedPreferences(app_id, Context.MODE_PRIVATE);
-		
-		check_first_run();
-		
-		/* Set Up Metrics */
-		setUpMetrics();
-		
 		/* SQL Source */
 		datasource = new SQL_DataSource(this);
 		datasource.open();
 		
+		/* Setup User Preferences */
+		UserPrefs = this.getSharedPreferences(app_id, Context.MODE_PRIVATE);
+		
 		/* Acquire Email for ClientID */
 		acquireEmail();
+		
+		/* Check for First Run*/
+		check_first_run();
+		
+		/* Set Up Metrics */
+		setUpMetrics();
 		
 		/* Initialize Cloud */
 		parse_cloud_init(); // Set up cloud
@@ -373,10 +376,33 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		if(first.equals(user_first_run)){
 			/* Change to not first run*/
 			UserPrefs.edit().putString(first_run, not_first_run).commit();
-			/* Initialize Version */
-			int initial_version = 0;
-			UserPrefs.edit().putString(db_version, String.valueOf(initial_version)).commit();
+			
+			/* Attempt to get ControlVersion from CLOUD */
+			ParseQuery<ParseObject> query = ParseQuery.getQuery(ver_class);
+			query.whereEqualTo(email, identifier);
+			query.getFirstInBackground(new GetCallback<ParseObject>() {
+				@Override
+				public void done(ParseObject object, ParseException e) {
+			        if (object == null) {
+			        	System.out.println("Detected first time run, or couldn't reach cloud!");
+						int initial_version = 0;
+						UserPrefs.edit().putString(db_version, String.valueOf(initial_version)).commit();
+						ParseObject cntrl_v = new ParseObject(ver_class);
+						cntrl_v.add(db_ver, String.valueOf(initial_version));
+			        } else {
+						 System.out.println("Detected Control Version on Cloud");
+						 String version = object.getString(db_ver);
+						 UserPrefs.edit().putString(db_version, String.valueOf(version)).commit();
+						 retrieve_parse_events();
+			        }
+			    }
+			});
 		}
+	}
+	
+	private void retrieve_parse_events()
+	{
+		
 	}
 	
 	private void construct_parse_event(Event ev)
