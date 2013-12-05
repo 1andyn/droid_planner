@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="ret_cloud">Retrieve from Cloud</string>
     <string name="force_cloud">Force Cloud Sync</string>
     <string name="app_name">Planner Plus</string>
     <string name="action_settings">Settings</string>
