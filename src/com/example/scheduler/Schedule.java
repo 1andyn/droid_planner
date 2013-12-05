@@ -244,7 +244,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	    		return false;
 	    	} case R.id.force_sync:{
 	    		push_to_parse();
-	    		Toast.makeText(Schedule.this, "Pushing local data to cloud!", Toast.LENGTH_LONG).show();
+	    		Toast.makeText(Schedule.this, "Updating data stored in Cloud!", Toast.LENGTH_LONG).show();
 	    	} default: {
 		        return super.onOptionsItemSelected(item);
 		    }
@@ -352,12 +352,12 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	{
 		Parse.initialize(getApplicationContext(), appid, clientid);
 		ParseAnalytics.trackAppOpened(getIntent());
-		//push_to_parse();
 	}
 	
 	private void push_to_parse()
 	{
 		parse_clean(); //Cleans Cloud
+		datasource.clear_object_table(); //Cleans original object table
 		ArrayList<Event> temp = datasource.getAllEvents();
 		System.out.println("Size of Current Database: " + temp.size());
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++){
