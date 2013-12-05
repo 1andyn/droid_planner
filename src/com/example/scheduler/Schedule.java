@@ -31,7 +31,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -213,6 +212,9 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		return super.onPrepareOptionsMenu(menu);
 	}
 	
+	
+	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
@@ -351,6 +353,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	
 	private void push_to_parse()
 	{
+		parse_clean(); //Cleans Cloud
 		ArrayList<Event> temp = datasource.getAllEvents();
 		System.out.println("Size of Current Database: " + temp.size());
 		for(int INDEX = 0; INDEX < temp.size(); INDEX++){
@@ -358,9 +361,14 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		}
 	}
 
+	private void check_first_run()
+	{
+		
+	}
+	
 	private void construct_parse_event(Event e)
 	{
-		ParseObject db_event = new ParseObject("EventDatabase");
+		ParseObject db_event = new ParseObject(parse_class);
 		db_event.put(id, String.valueOf(e.GetID()));
 		db_event.put(email, identifier);
 		db_event.put(name, String.valueOf(e.getName()));
@@ -427,21 +435,17 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
                     }
                 }
             }
-
             @Override
             public void onPanelExpanded(View panel) {
             }
-
             @Override
             public void onPanelCollapsed(View panel) {
             }
-
             @Override
             public void onPanelAnchored(View panel) {
             }
         });
         sliderText.setMovementMethod(LinkMovementMethod.getInstance());
-		
 	}
 	
 	/* ActionBar Configuration */
@@ -512,9 +516,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		        }
 		    }
 		});
-		
-
-		
 	}
 	
 	protected void switch_activity(int USR_CASE, long id)
@@ -583,12 +584,9 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			}
 			else events_visible.add(temp.get(INDEX));
 		}
-		
 		trigger_ViewStub();
-		
 		t_adapter.notifyDataSetChanged();
 		e_adapter.notifyDataSetChanged();
-		
 		delay_Animation();
 	}
 	
@@ -622,7 +620,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				cancel_repAlarm(temp.get(INDEX));
 			}
 		}
-		
 		parse_clean();
 		/* Clears ALL Containers, ALL of the DB Table*/
 		datasource.clear_table();
@@ -767,6 +764,4 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	    }
 	    return (int) l;
 	}
-
-	
 }
