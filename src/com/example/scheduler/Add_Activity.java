@@ -8,9 +8,11 @@ import com.larswerkman.holocolorpicker.SVBar;
 
 /* Cloud Based Imports */
 
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 /* Java Base Imports */
@@ -53,6 +55,7 @@ public class Add_Activity  extends SherlockFragmentActivity implements Parse_Int
 	/* Temporary Data */
 	private ParseObject db_event;
 	private Event temp;
+	private long temp_version;
 	
 	/* Attempts to prevent overlapping Alarm IDs*/
 	private final static String BUGFIX = "1337";
@@ -338,6 +341,7 @@ public class Add_Activity  extends SherlockFragmentActivity implements Parse_Int
 			
 			/* Upload Data if Possible */
 			temp.setID(id);
+			increment_version();
 			construct_parse_event();
 			
 			/* Return to Primary Activity*/
@@ -596,4 +600,24 @@ public class Add_Activity  extends SherlockFragmentActivity implements Parse_Int
             }
         });
 	}
+	
+	private void increment_version()
+	{
+		temp_version = Integer.parseInt(UserPrefs.getString(db_version, ver_zero));
+		temp_version++; // Increment Version
+		/* Save new version locally */
+		UserPrefs.edit().putString(db_version, String.valueOf(temp_version)).commit();
+		String saved_key = UserPrefs.getString(cntrl_key, still_missing_key);
+		/* Save version onto cloud */
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(ver_class);
+		query.getInBackground(saved_key, new GetCallback<ParseObject>() {
+			  public void done(ParseObject control, ParseException e) {
+			    if (e == null) {
+			      control.put(db_ver, String.valueOf(temp_version));
+			      control.saveEventually();
+			    }
+			  }
+			});
+	}
+	
 }

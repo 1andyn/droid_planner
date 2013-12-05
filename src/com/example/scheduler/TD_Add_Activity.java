@@ -1,10 +1,9 @@
 package com.example.scheduler;
 
-/* Cloud Based Imports */
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 /* Color Selector Imports */
@@ -49,6 +48,7 @@ public class TD_Add_Activity extends SherlockFragmentActivity implements Time_In
 	/* Temporary Data */
 	private ParseObject db_event;
 	private Event temp;
+	private long temp_version;
 	
 	private SQL_DataSource datasource;
 	
@@ -268,6 +268,7 @@ public class TD_Add_Activity extends SherlockFragmentActivity implements Time_In
 			
 			/* Save to Parse*/
 			temp.setID(id);
+			increment_version();
 			construct_parse_event();
 			
 			/* Return to Primary Activity*/
@@ -427,6 +428,25 @@ public class TD_Add_Activity extends SherlockFragmentActivity implements Time_In
                 }
             }
         });
+	}
+	
+	private void increment_version()
+	{
+		temp_version = Integer.parseInt(UserPrefs.getString(db_version, ver_zero));
+		temp_version++; // Increment Version
+		/* Save new version locally */
+		UserPrefs.edit().putString(db_version, String.valueOf(temp_version)).commit();
+		String saved_key = UserPrefs.getString(cntrl_key, still_missing_key);
+		/* Save version onto cloud */
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(ver_class);
+		query.getInBackground(saved_key, new GetCallback<ParseObject>() {
+			  public void done(ParseObject control, ParseException e) {
+			    if (e == null) {
+			      control.put(db_ver, String.valueOf(temp_version));
+			      control.saveEventually();
+			    }
+			  }
+			});
 	}
 	
 }
