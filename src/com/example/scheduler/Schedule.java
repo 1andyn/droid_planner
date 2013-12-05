@@ -249,6 +249,9 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	    	} case R.id.force_sync:{
 	    		push_to_parse();
 	    		Toast.makeText(Schedule.this, "Updating data stored in Cloud!", Toast.LENGTH_LONG).show();
+	    	} case R.id.ret_sync:{
+	    		retrieve_parse_events();
+	    		Toast.makeText(Schedule.this, "Pulling data stored in Cloud!", Toast.LENGTH_LONG).show();
 	    	} default: {
 		        return super.onOptionsItemSelected(item);
 		    }
