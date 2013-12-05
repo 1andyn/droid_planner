@@ -4,4 +4,6 @@
         android:title="@string/clear_all"/>
       <item android:id="@+id/force_sync"
         android:title="@string/force_cloud"/>
+      <item android:id="@+id/ret_sync"
+        android:title="@string/ret_cloud"/>
 </menu>
