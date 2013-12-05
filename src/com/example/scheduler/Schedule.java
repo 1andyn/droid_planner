@@ -270,6 +270,8 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		
 		UserPrefs = this.getSharedPreferences(app_id, Context.MODE_PRIVATE);
 		
+		check_first_run();
+		
 		/* Set Up Metrics */
 		setUpMetrics();
 		
@@ -371,7 +373,14 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 
 	private void check_first_run()
 	{
-		UserPrefs.edit().putString(usr_email, identifier).commit();
+		String first = UserPrefs.getString(first_run, user_first_run);
+		if(first.equals(user_first_run)){
+			/* Change to not first run*/
+			UserPrefs.edit().putString(first_run, not_first_run).commit();
+			/* Initialize Version */
+			int initial_version = 0;
+			UserPrefs.edit().putString(db_version, String.valueOf(initial_version)).commit();
+		}
 	}
 	
 	private void construct_parse_event(Event ev)
