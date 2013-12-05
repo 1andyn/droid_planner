@@ -122,7 +122,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	private ParseObject cntrl_v;
 	private ParseObject event_obj;
 	private long temp_id;
-	private long temp_version;
+	private int temp_version;
 	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
@@ -374,7 +374,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			temp_event = temp.get(INDEX);
 			construct_parse_event(temp_event);
 		}
-		sync_version();
+		sync_version(current_version());
 	}
 
 	private void check_first_run()
@@ -387,12 +387,13 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			/* Attempt to get ControlVersion from CLOUD */
 			ParseQuery<ParseObject> query = ParseQuery.getQuery(ver_class);
 			query.whereEqualTo(email, identifier);
+			
 			query.getFirstInBackground(new GetCallback<ParseObject>() {
 				@Override
 				public void done(ParseObject object, ParseException e) {
 			        if (object == null) {
-			        	System.out.println("Detected first time run, or couldn't reach cloud!");
-						UserPrefs.edit().putString(db_version, String.valueOf(initial_version)).commit();
+			        	System.out.println("Couldn't find VersionControl..");
+						UserPrefs.edit().putInt(db_version, initial_version).commit();
 						cntrl_v = new ParseObject(ver_class);
 						cntrl_v.put(db_ver, String.valueOf(initial_version));
 						cntrl_v.put(email, identifier);
@@ -407,13 +408,15 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			        } else {
 						 System.out.println("Detected Control Version on Cloud");
 						 String version = object.getString(db_ver);
-						 UserPrefs.edit().putString(db_version, String.valueOf(version)).commit();
+						 UserPrefs.edit().putString(cntrl_key, cntrl_v.getObjectId()).commit();
+						 UserPrefs.edit().putInt(db_version, Integer.valueOf(version)).commit();
 						 retrieve_parse_events();
 			        }
 			    }
 			});
 		}
-		String end = UserPrefs.getString(db_version, user_first_run);
+		
+		int end = UserPrefs.getInt(db_version, initial_version);
 		System.out.println("Current version is: " + end);
 	}
 	
@@ -446,24 +449,17 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 						increment_version();
 						eventList.get(x).put(id, String.valueOf(temp_id));
 						event_obj = eventList.get(x);
-						eventList.get(x).saveEventually(new SaveCallback() {
-				            public void done(ParseException e) {
-			                if (e == null) {
-			                	SQL_DataSource ds = new SQL_DataSource(getApplicationContext());
-			                	ds.open();
-			                	ds.saveObjectID(temp_id, event_obj.getClassName());
-			                	ds.close();
-			                } else {
-			                    // The save failed.
-			                }
-			            }
-			        });		
+						eventList.get(x).saveInBackground();
+						datasource.saveObjectID(temp_id, eventList.get(x).getObjectId());
 		    		}
 		        } else {
 		        	System.out.println("Cannot reach cloud, or empty Cloud DB");
+		        	Toast.makeText(Schedule.this, "Unable to reach cloud...", Toast.LENGTH_LONG).show();
 		        }
 		    }
 		});
+		
+    	load_from_database(selected_CD);
 	}
 	
 	private void construct_parse_event(Event ev)
@@ -630,19 +626,15 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		    }
 		});
 		
-		ParseQuery<ParseObject> query2 = ParseQuery.getQuery(ver_class);
-		query2.whereEqualTo(email, identifier);
-		query2.findInBackground(new FindCallback<ParseObject>() {
+		query = ParseQuery.getQuery(ver_class);
+		query.whereEqualTo(email, identifier);
+		query.getFirstInBackground(new GetCallback<ParseObject>() {
 			@Override
-			public void done(List<ParseObject> eventList, ParseException e) {
-		        if (e == null) {
-		           System.out.println("PPLUS" + "Removing " + eventList.size() + " control classes");
-		    		for(int x = 0; x < eventList.size(); x++) {
-						ParseObject.createWithoutData(ver_class, 
-								eventList.get(x).getObjectId()).deleteEventually();
-		    		}
+			public void done(ParseObject object, ParseException e) {
+		        if (object == null) {
+		        	System.out.println("Nothing to be deleted");
 		        } else {
-		        	System.out.println("Error: " + e.getMessage());
+		        	object.deleteEventually();
 		        }
 		    }
 		});
@@ -656,6 +648,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				event_INTENT.putExtra(SELECT_KEY, selected_CD);
 				event_INTENT.putExtra(SELECT_ID_KEY, (long)id);
 				startActivity(event_INTENT);
+				sync_version(current_version());
 				load_from_database(selected_CD);
 				break;
 			}case EDT_TODO_CASE:{
@@ -663,6 +656,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
 				todo_INTENT.putExtra(SELECT_ID_KEY, (long)id);
 				startActivity(todo_INTENT);
+				sync_version(current_version());
 				load_from_database(selected_CD);
 				break;
 			}case EVENT_CASE:{
@@ -670,6 +664,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				event_INTENT.putExtra(SELECT_KEY, selected_CD);
 				event_INTENT.putExtra(SELECT_ID_KEY, (long)NONE_L);
 				startActivity(event_INTENT);
+				sync_version(current_version());
 				load_from_database(selected_CD);
 				break;
 			}case TODO_CASE:{
@@ -677,6 +672,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
 				todo_INTENT.putExtra(SELECT_ID_KEY, (long)NONE_L);
 				startActivity(todo_INTENT);
+				sync_version(current_version());
 				load_from_database(selected_CD);
 				break;
 			}case MONTH_CASE:{
@@ -883,16 +879,22 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	
 	private void increment_version()
 	{
-		temp_version = Integer.parseInt(UserPrefs.getString(db_version, ver_zero));
+		temp_version = UserPrefs.getInt(db_version, initial_version);
 		temp_version++; // Increment Version
 		/* Save new version locally */
-		UserPrefs.edit().putString(db_version, String.valueOf(temp_version)).commit();
-		sync_version();
+		UserPrefs.edit().putInt(db_version, temp_version).commit();
+		sync_version(temp_version);
 		/* Save version onto cloud */
 	}
 	
-	private void sync_version() 
+	private int current_version()
 	{
+		return UserPrefs.getInt(db_version, initial_version);
+	}
+	
+	private void sync_version(int version) 
+	{
+		temp_version = version; 
 		String saved_key = UserPrefs.getString(cntrl_key, still_missing_key);
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(ver_class);
 		query.getInBackground(saved_key, new GetCallback<ParseObject>() {
@@ -904,7 +906,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			  }
 			});
 	}
-	
+
 	private static int safeLongToInt(long l) {
 	    if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
 	        throw new IllegalArgumentException
