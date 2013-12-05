@@ -117,9 +117,11 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	private final static String NO_REP = "NNNNNNN";
 	
 	/* Callback Variables */
-	
 	private Event temp_event;
 	private ParseObject db_event;
+	private ParseObject cntrl_v;
+	private ParseObject event_obj;
+	private long temp_id;
 	
 	/* Contextual menu code */
 	/** This code is used to open a menu when long-clicking an item */
@@ -387,8 +389,16 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			        	System.out.println("Detected first time run, or couldn't reach cloud!");
 						int initial_version = 0;
 						UserPrefs.edit().putString(db_version, String.valueOf(initial_version)).commit();
-						ParseObject cntrl_v = new ParseObject(ver_class);
-						cntrl_v.add(db_ver, String.valueOf(initial_version));
+						cntrl_v = new ParseObject(ver_class);
+						cntrl_v.put(db_ver, String.valueOf(initial_version));
+						cntrl_v.saveEventually(new SaveCallback() {
+				            public void done(ParseException e) {
+				                if (e == null) {
+				                	UserPrefs.edit().putString(cntrl_key, cntrl_v.getObjectId()).commit();
+				                } else {
+				                }
+				            }
+				        });
 			        } else {
 						 System.out.println("Detected Control Version on Cloud");
 						 String version = object.getString(db_ver);
@@ -402,7 +412,50 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	
 	private void retrieve_parse_events()
 	{
-		
+		/* Drop original tables */
+		datasource.clear_table();
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(parse_class);
+		query.whereEqualTo(email, identifier);
+		query.findInBackground(new FindCallback<ParseObject>() {
+			@Override
+			public void done(List<ParseObject> eventList, ParseException e) {
+		        if (e == null) {
+		    		for(int x = 0; x < eventList.size(); x++) {
+		    			Event temp = new Event();
+		    			Date temp_time = new Date();
+						temp.setName(eventList.get(x).getString(name));
+						temp.setDescription(eventList.get(x).getString(desc));
+						temp.setAlarm(eventList.get(x).getString(alarm));
+						temp.setColor(Integer.parseInt(eventList.get(x).getString(color)));
+						temp_time.setMth(Integer.parseInt(eventList.get(x).getString(month)));
+						temp_time.setDay(Integer.parseInt(eventList.get(x).getString(day)));
+						temp_time.setYr(Integer.parseInt(eventList.get(x).getString(year)));
+						temp_time.setStartTime(Integer.parseInt(eventList.get(x).getString(start)));
+						temp_time.setStartTime(Integer.parseInt(eventList.get(x).getString(end)));
+						temp.set_Rep(eventList.get(x).getString(rep));
+						temp.setDate(temp_time);
+						temp.set_Asec(Integer.parseInt(eventList.get(x).getString(asec)));	
+						temp_id = datasource.createEvent(temp).GetID();
+						eventList.get(x).put(id, String.valueOf(temp_id));
+						event_obj = eventList.get(x);
+						eventList.get(x).saveEventually(new SaveCallback() {
+				            public void done(ParseException e) {
+			                if (e == null) {
+			                	SQL_DataSource ds = new SQL_DataSource(getApplicationContext());
+			                	ds.open();
+			                	ds.saveObjectID(temp_id, event_obj.getClassName());
+			                	ds.close();
+			                } else {
+			                    // The save failed.
+			                }
+			            }
+			        });		
+		    		}
+		        } else {
+		        	System.out.println("Cannot reach cloud, or empty Cloud DB");
+		        }
+		    }
+		});
 	}
 	
 	private void construct_parse_event(Event ev)

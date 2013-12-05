@@ -8,5 +8,6 @@ public interface PrefKey_Interface {
     final static String first_run = "first_run";
     final static String not_first_run = "false";
     final static String user_first_run = "true";
-    
+    final static String still_missing_key = "no_key";
+    final static String cntrl_key = "control_key";
 }
