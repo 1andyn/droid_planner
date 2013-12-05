@@ -209,7 +209,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		}
 	};
 	
-	
 	@Override
 	public boolean onPrepareOptionsMenu (Menu menu)
 	{
@@ -217,9 +216,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		date_text.setTitle(selected_CM.DateString(selected_CD));
 		return super.onPrepareOptionsMenu(menu);
 	}
-	
-	
-	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
@@ -246,9 +242,9 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	    		CLEAR_EVERYTHING();
 	    		Toast.makeText(Schedule.this, "All events have been cleared!", Toast.LENGTH_LONG).show();
 	    		return false;
-	    	} case R.id.get_mill:{
-	    		show_milli();
-	    		Toast.makeText(Schedule.this, "Email: " + identifier, Toast.LENGTH_LONG).show();
+	    	} case R.id.force_sync:{
+	    		push_to_parse();
+	    		Toast.makeText(Schedule.this, "Pushing local data to cloud!", Toast.LENGTH_LONG).show();
 	    	} default: {
 		        return super.onOptionsItemSelected(item);
 		    }
@@ -649,6 +645,8 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			}
 		}
 		parse_clean();
+		int initial_version = 0;
+		UserPrefs.edit().putString(db_version, String.valueOf(initial_version)).commit();
 		/* Clears ALL Containers, ALL of the DB Table*/
 		datasource.clear_table();
     	todos_visible.clear();
@@ -736,14 +734,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
             return false; 
         } 
     } 
-	
-	private void show_milli()
-	{
-		Cal_Module temp = new Cal_Module();
-		String s = String.valueOf(temp.getMilliseconds());
-		Toast.makeText(Schedule.this, s, Toast.LENGTH_SHORT).show();
-		temp = null;
-	}
 	
 	/* NON DEBUG CANCEL, DON'T DELETE*/
 	private void remove_Alarm(long id)
