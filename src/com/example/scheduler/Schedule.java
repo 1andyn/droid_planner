@@ -374,6 +374,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			temp_event = temp.get(INDEX);
 			construct_parse_event(temp_event);
 		}
+		sync_version();
 	}
 
 	private void check_first_run()
@@ -437,7 +438,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 						temp_time.setDay(Integer.parseInt(eventList.get(x).getString(day)));
 						temp_time.setYr(Integer.parseInt(eventList.get(x).getString(year)));
 						temp_time.setStartTime(Integer.parseInt(eventList.get(x).getString(start)));
-						temp_time.setStartTime(Integer.parseInt(eventList.get(x).getString(end)));
+						temp_time.setEndTime(Integer.parseInt(eventList.get(x).getString(end)));
 						temp.set_Rep(eventList.get(x).getString(rep));
 						temp.setDate(temp_time);
 						temp.set_Asec(Integer.parseInt(eventList.get(x).getString(asec)));	
@@ -628,6 +629,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		        }
 		    }
 		});
+		
 		ParseQuery<ParseObject> query2 = ParseQuery.getQuery(ver_class);
 		query2.whereEqualTo(email, identifier);
 		query2.findInBackground(new FindCallback<ParseObject>() {
@@ -885,8 +887,13 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		temp_version++; // Increment Version
 		/* Save new version locally */
 		UserPrefs.edit().putString(db_version, String.valueOf(temp_version)).commit();
-		String saved_key = UserPrefs.getString(cntrl_key, still_missing_key);
+		sync_version();
 		/* Save version onto cloud */
+	}
+	
+	private void sync_version() 
+	{
+		String saved_key = UserPrefs.getString(cntrl_key, still_missing_key);
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(ver_class);
 		query.getInBackground(saved_key, new GetCallback<ParseObject>() {
 			  public void done(ParseObject control, ParseException e) {
