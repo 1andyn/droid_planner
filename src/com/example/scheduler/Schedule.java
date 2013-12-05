@@ -439,6 +439,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 						temp.setDate(temp_time);
 						temp.set_Asec(Integer.parseInt(eventList.get(x).getString(asec)));	
 						temp_id = datasource.createEvent(temp).GetID();
+						increment_version();
 						eventList.get(x).put(id, String.valueOf(temp_id));
 						event_obj = eventList.get(x);
 						eventList.get(x).saveEventually(new SaveCallback() {
