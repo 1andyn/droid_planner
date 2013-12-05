@@ -120,7 +120,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	private Event temp_event;
 	private ParseObject db_event;
 	private ParseObject cntrl_v;
-	private ParseObject event_obj;
 	private long temp_id;
 	private int temp_version;
 	
@@ -387,7 +386,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			/* Attempt to get ControlVersion from CLOUD */
 			ParseQuery<ParseObject> query = ParseQuery.getQuery(ver_class);
 			query.whereEqualTo(email, identifier);
-			
 			query.getFirstInBackground(new GetCallback<ParseObject>() {
 				@Override
 				public void done(ParseObject object, ParseException e) {
@@ -400,16 +398,17 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 						cntrl_v.saveEventually(new SaveCallback() {
 				            public void done(ParseException e) {
 				                if (e == null) {
+				                	System.out.println("Sucessfully reached callback..");
 				                	UserPrefs.edit().putString(cntrl_key, cntrl_v.getObjectId()).commit();
+				                	System.out.println("Saved version ObjectID: " + cntrl_v.getObjectId());
 				                } else {
 				                }
 				            }
 				        });
 			        } else {
 						 System.out.println("Detected Control Version on Cloud");
-						 String version = object.getString(db_ver);
-						 UserPrefs.edit().putString(cntrl_key, cntrl_v.getObjectId()).commit();
-						 UserPrefs.edit().putInt(db_version, Integer.valueOf(version)).commit();
+						 UserPrefs.edit().putString(cntrl_key, object.getObjectId()).commit();
+						 UserPrefs.edit().putInt(db_version, initial_version).commit();
 						 retrieve_parse_events();
 			        }
 			    }
@@ -448,7 +447,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 						temp_id = datasource.createEvent(temp).GetID();
 						increment_version();
 						eventList.get(x).put(id, String.valueOf(temp_id));
-						event_obj = eventList.get(x);
+						eventList.get(x);
 						eventList.get(x).saveInBackground();
 						datasource.saveObjectID(temp_id, eventList.get(x).getObjectId());
 		    		}
@@ -478,7 +477,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		db_event.put(color, String.valueOf(ev.getColor()));
 		db_event.put(rep, String.valueOf(ev.getRep()));
 		db_event.put(asec, String.valueOf(ev.get_Asec()));		
-		db_event.saveEventually(new SaveCallback() {
+		db_event.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {
                 if (e == null) {
                 	SQL_DataSource ds = new SQL_DataSource(getApplicationContext());
@@ -486,7 +485,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
                 	ds.saveObjectID(temp_event.GetID(), db_event.getObjectId());
                 	ds.close();
                 } else {
-                    // The save failed.
+                	Toast.makeText(Schedule.this, "Unable to reach cloud...", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -625,19 +624,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		        }
 		    }
 		});
-		
-		query = ParseQuery.getQuery(ver_class);
-		query.whereEqualTo(email, identifier);
-		query.getFirstInBackground(new GetCallback<ParseObject>() {
-			@Override
-			public void done(ParseObject object, ParseException e) {
-		        if (object == null) {
-		        	System.out.println("Nothing to be deleted");
-		        } else {
-		        	object.deleteEventually();
-		        }
-		    }
-		});
+		sync_version(initial_version);
 	}
 	
 	protected void switch_activity(int USR_CASE, long id)
@@ -879,12 +866,11 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	
 	private void increment_version()
 	{
-		temp_version = UserPrefs.getInt(db_version, initial_version);
+		temp_version = current_version();
 		temp_version++; // Increment Version
 		/* Save new version locally */
 		UserPrefs.edit().putInt(db_version, temp_version).commit();
 		sync_version(temp_version);
-		/* Save version onto cloud */
 	}
 	
 	private int current_version()
