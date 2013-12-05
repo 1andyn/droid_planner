@@ -8,6 +8,8 @@ public interface Parse_Interface {
 	
     /* Data Keys */
     final static String parse_class = "DatabaseObject";
+    final static String ver_class = "VersionControl";
+    final static String db_ver = "Database_Version";
     final static String email = "owner";
     final static String id = "event_id";
     final static String name = "name";
