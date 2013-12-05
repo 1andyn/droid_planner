@@ -318,17 +318,22 @@ public class SQL_DataSource {
 		return s;
 	}
 	
-	private long cursorToID(Cursor curs)
-	{
-		long id = curs.getLong(COL_E_ID);
-		return id;
-	}
+//	private long cursorToID(Cursor curs)
+//	{
+//		long id = curs.getLong(COL_E_ID);
+//		return id;
+//	}
 	
 	public void clear_table()
 	{
 		database.delete(SQLHelper.TABLE_NAME, null, null);
 		database.delete(SQLHelper.OBJECT_TABLE_NAME, null, null);
 		System.out.println("Removed all Table Elements");
+	}
+	
+	public void clear_object_table()
+	{
+		database.delete(SQLHelper.OBJECT_TABLE_NAME, null, null);
 	}
 	
 	private ArrayList<Event> getEventsOfDay(Event e)
