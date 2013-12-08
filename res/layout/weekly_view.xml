@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/tile_bg">
+        
+  	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+ 	
+    	<TextView
+    	    android:id="@+id/SundayDate"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:text="Sun, Nov 18"
+        	android:textColor="#FFFFFF"
+        	android:background="#000000"/>
+    	
+    	<LinearLayout
+    	    android:id="@+id/SundayEvents"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:orientation="vertical"
+    	    android:background="@drawable/tile_bg"/>
+    	
+    	 <ViewStub
+            android:id="@+id/SundayEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout="@layout/empty_event" />
+    	
+    	<TextView
+    	    android:id="@+id/MondayDate"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:text="Mon, Nov 19"
+        	android:textColor="#FFFFFF"
+        	android:background="#000000"/>
+    	
+    	<LinearLayout
+    	    android:id="@+id/MondayEvents"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:gravity="center"
+    	    android:orientation="vertical"
+    	    android:background="@drawable/tile_bg"/>
+    	
+    	 <ViewStub
+            android:id="@+id/MondayEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout="@layout/empty_event" />
+    	
+    	<TextView
+    	    android:id="@+id/TuesdayDate"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:text="Tue, Nov 20"
+        	android:textColor="#FFFFFF"
+        	android:background="#000000"/>
+    	
+    	<LinearLayout
+    	    android:id="@+id/TuesdayEvents"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:orientation="vertical"
+    	    android:background="@drawable/tile_bg"/>
+    	
+    	<ViewStub
+            android:id="@+id/TuesdayEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout="@layout/empty_event" />
+    	
+    	<TextView
+    	    android:id="@+id/WednesdayDate"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:text="Wed, Nov 21"
+        	android:textColor="#FFFFFF"
+        	android:background="#000000"/>
+    	
+    	<LinearLayout
+    	    android:id="@+id/WednesdayEvents"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:orientation="vertical"
+    	    android:background="@drawable/tile_bg"/>
+    	
+   	 	<ViewStub
+            android:id="@+id/WednesdayEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+			android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout="@layout/empty_event" />
+    	
+    	<TextView
+    	    android:id="@+id/ThursdayDate"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:text="Thu, Nov 22"
+        	android:textColor="#FFFFFF"
+        	android:background="#000000"/>
+    	
+    	<LinearLayout
+    	    android:id="@+id/ThursdayEvents"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:orientation="vertical"
+    	    android:background="@drawable/tile_bg"/>
+    	
+    	<ViewStub
+            android:id="@+id/ThursdayEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout="@layout/empty_event" />
+    	
+    	<TextView
+    	    android:id="@+id/FridayDate"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:text="Fri, Nov 23"
+        	android:textColor="#FFFFFF"
+        	android:background="#000000"/>
+    	
+    	<LinearLayout
+    	    android:id="@+id/FridayEvents"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:orientation="vertical"
+    	    android:background="@drawable/tile_bg"/>
+    	
+    	 <ViewStub
+            android:id="@+id/FridayEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout="@layout/empty_event" />
+    	
+    	<TextView
+    	    android:id="@+id/SaturdayDate"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:text="Sat, Nov 24"
+        	android:textColor="#FFFFFF"
+        	android:background="#000000"/>
+    	
+    	<LinearLayout
+    	    android:id="@+id/SaturdayEvents"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:orientation="vertical"
+    	    android:background="@drawable/tile_bg"/>
+    	
+    	 <ViewStub
+            android:id="@+id/SaturdayEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout="@layout/empty_event" />
+    	 
+	</LinearLayout>
+</ScrollView>
