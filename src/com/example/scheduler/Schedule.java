@@ -67,6 +67,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
     private final static int MONTH_CASE = 2;
     private final static int EDT_TODO_CASE = 3;
     private final static int EDT_EVENT_CASE = 4;
+    private final static int WEEK_CASE = 5;
     
     private final static int TodoPanelHeight = 75;
     private static int FORCED_DELAY_ANIMA = 175;
@@ -109,6 +110,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	protected Intent event_INTENT;
 	protected Intent todo_INTENT;
 	protected Intent month_INTENT;
+	protected Intent week_INTENT;
 	
 	/* Data for Storing Selected Date */ 
 	protected Cal_Date selected_CD;
@@ -181,12 +183,10 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 			inflater.inflate(R.menu.option_menu, menu);
 			return true;
 		}
-
 		@Override
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
 			return false;
 		}
-
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			switch(item.getItemId()){
@@ -205,7 +205,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				return false;
 			}
 		}
-
 		@Override
 		public void onDestroyActionMode(ActionMode mode) {
 			m_Action2 = null;
@@ -224,7 +223,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
 	    int id = item.getItemId();
-
 	    switch(id){		    
 		    case R.id.tb_month:{
 		    	switch_activity(MONTH_CASE, NONE);
@@ -240,6 +238,9 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	    		return false;
 	    	} case R.id.tb_sub_td:{
 	    		switch_activity(TODO_CASE, NONE);
+	    		return false;
+	    	} case R.id.tb_week:{
+	    		switch_activity(WEEK_CASE, NONE);
 	    		return false;
 	    	} case R.id.full_clear:{
 	    		CLEAR_EVERYTHING();
@@ -457,7 +458,6 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 		        }
 		    }
 		});
-		
     	load_from_database(selected_CD);
 	}
 	
@@ -638,7 +638,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				sync_version(current_version());
 				load_from_database(selected_CD);
 				break;
-			}case EDT_TODO_CASE:{
+			} case EDT_TODO_CASE: {
 				todo_INTENT = new Intent(this, TD_Add_Activity.class);
 				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
 				todo_INTENT.putExtra(SELECT_ID_KEY, (long)id);
@@ -646,7 +646,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				sync_version(current_version());
 				load_from_database(selected_CD);
 				break;
-			}case EVENT_CASE:{
+			} case EVENT_CASE: {
 				event_INTENT = new Intent(this, Add_Activity.class);
 				event_INTENT.putExtra(SELECT_KEY, selected_CD);
 				event_INTENT.putExtra(SELECT_ID_KEY, (long)NONE_L);
@@ -654,7 +654,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				sync_version(current_version());
 				load_from_database(selected_CD);
 				break;
-			}case TODO_CASE:{
+			} case TODO_CASE: {
 				todo_INTENT = new Intent(this, TD_Add_Activity.class);
 				todo_INTENT.putExtra(SELECT_KEY, selected_CD);
 				todo_INTENT.putExtra(SELECT_ID_KEY, (long)NONE_L);
@@ -662,11 +662,16 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 				sync_version(current_version());
 				load_from_database(selected_CD);
 				break;
-			}case MONTH_CASE:{
+			} case MONTH_CASE: {
 				month_INTENT = new Intent(this, Month_Activity.class);
 				month_INTENT.putExtra(SELECT_KEY, selected_CD);
 				startActivityForResult(month_INTENT, month_REQUESTCODE);
 				break;
+			} case WEEK_CASE: {
+               week_INTENT = new Intent(this, Weekly_Activity.class);
+               week_INTENT.putExtra(SELECT_KEY, selected_CD);
+               startActivityForResult(week_INTENT, week_REQUESTCODE);
+               break;
 			}
 		}
 	}
@@ -676,7 +681,7 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		if(resultCode != REQUEST_CANCELLED && resultCode == RESULT_OKAY){
-			if(requestCode == month_REQUESTCODE){
+			if(requestCode == month_REQUESTCODE || requestCode == week_REQUESTCODE){
 				selected_CD.set_day(data.getIntExtra(SCHEDULE_DAY, EMPTY));
 				selected_CD.set_month(data.getIntExtra(SCHEDULE_MONTH, EMPTY));
 				selected_CD.set_year(data.getIntExtra(SCHEDULE_YEAR, EMPTY));
@@ -765,11 +770,18 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	
 	private void init_SelectedCD()
 	{
-		Cal_Date temp_cd = selected_CM.getCurrentDate();
-		selected_CD.set_day(temp_cd.get_day());
-		selected_CD.set_month(temp_cd.get_month());
-		selected_CD.set_year(temp_cd.get_year());
-	}
+		Bundle weeklyDate = getIntent().getExtras();
+        if(weeklyDate == null) { 
+            Cal_Date temp_cd = selected_CM.getCurrentDate();
+            selected_CD.set_day(temp_cd.get_day());
+            selected_CD.set_month(temp_cd.get_month());
+            selected_CD.set_year(temp_cd.get_year());
+        } else {
+            selected_CD.set_day((Integer) weeklyDate.get(SCHEDULE_DAY));
+            selected_CD.set_month((Integer) weeklyDate.get(SCHEDULE_MONTH));
+            selected_CD.set_year((Integer) weeklyDate.get(SCHEDULE_YEAR));
+        }
+    }
 	
 	private void next_day()
 	{
