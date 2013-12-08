@@ -46,6 +46,11 @@
             android:theme="@style/Theme.Sherlock"
             android:label="@string/title_activity_month_activity">
         </activity>
+        <activity
+            android:name="com.example.scheduler.Weekly_Activity"
+            android:theme="@style/Theme.Sherlock"
+            android:label="@string/title_activity_weekly_activity">
+        </activity>
         <service android:name="com.example.scheduler.Alarm_Module"
                  android:enabled="true" />
         <receiver android:name="com.example.scheduler.Receiver_Module"/>
