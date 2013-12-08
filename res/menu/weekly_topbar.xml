@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/wtb_month" android:icon="@drawable/ic_action_event" android:showAsAction="always" android:title="@string/tb_month"></item>
+    <item android:id="@+id/wtb_date" android:showAsAction="always" android:title="@string/tb_date"></item>
+    <item android:id="@+id/wtb_add" android:icon="@drawable/ic_action_new_event" android:title="@string/tb_add" android:showAsAction="always">
+    		<!--  Sub Menu for Adding Events and ToDos -->
+		<menu>
+	    <item android:id="@+id/wtb_sub_ev" android:showAsAction="always" android:title="@string/tb_aev"/>
+	    <item android:id="@+id/wtb_sub_td" android:showAsAction="always" android:title="@string/tb_atd"/>
+	    <item android:id="@+id/wtb_sub_da" android:showAsAction="always" android:title="@string/tb_day"/>
+	    </menu> 
+	</item>
+
+</menu>

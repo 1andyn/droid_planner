@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="EventTitleTest">Event Title Here</string>
     <string name="ret_cloud">Retrieve from Cloud</string>
     <string name="force_cloud">Force Cloud Sync</string>
     <string name="app_name">Planner Plus</string>
@@ -31,6 +32,7 @@
     <string name="td_time">Time of Event/Time Due:</string>
     <string name="td_date">Date of ToDo:</string>
     <string name="tb_aqt">Quick ToDo</string>
+    <string name="title_activity_weekly_activity">Week</string>
     <string name="title_activity_todo_activity">Create a ToDo</string>
     <string name="title_activity_month_activity">Month View</string>
     <string name="Color_Text">Select a color for the Event</string>
@@ -47,4 +49,6 @@
     <string name="rp_fri">F</string>
     <string name="rp_sat">SA</string>
     <string name="rp_rep">Repeated Days:</string>
+    <string name="tb_week">Weekly Agenda</string>
+    <string name="tb_day">Daily Agenda</string>
 </resources>
