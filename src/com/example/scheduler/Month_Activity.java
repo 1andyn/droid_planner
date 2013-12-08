@@ -57,7 +57,6 @@ public class Month_Activity extends SherlockFragmentActivity implements Intent_I
 					finish();
 				}
 			}
-			
 		});
 	}
 	
