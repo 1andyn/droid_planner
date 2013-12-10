@@ -163,6 +163,7 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		    	switch_activity(MONTH_CASE, NONE);
 		    	return false;
 		    } case R.id.wtb_date: {
+		    	clear_everything();
 		    	init_today();
 		    	return false;
 		    } case R.id.wtb_sub_da: {
