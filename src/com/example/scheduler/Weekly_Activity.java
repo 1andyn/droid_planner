@@ -207,6 +207,7 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 			} case MONTH_CASE: {
 				Intent month_INTENT = new Intent(this, Month_Activity.class);
 				month_INTENT.putExtra(SELECT_KEY, givenDate);
+				clear_everything();
 				startActivityForResult(month_INTENT, month_REQUESTCODE);
 				initialize_week();
 				break;
