@@ -7,7 +7,7 @@
         
   	<LinearLayout 
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
  	
     	<TextView
@@ -28,11 +28,10 @@
     	
     	 <ViewStub
             android:id="@+id/SundayEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:layout="@layout/empty_event" />
     	
     	<TextView
@@ -54,11 +53,10 @@
     	
     	 <ViewStub
             android:id="@+id/MondayEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:layout="@layout/empty_event" />
     	
     	<TextView
@@ -79,11 +77,10 @@
     	
     	<ViewStub
             android:id="@+id/TuesdayEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:layout="@layout/empty_event" />
     	
     	<TextView
@@ -104,11 +101,10 @@
     	
    	 	<ViewStub
             android:id="@+id/WednesdayEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-			android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:layout="@layout/empty_event" />
     	
     	<TextView
@@ -129,12 +125,11 @@
     	
     	<ViewStub
             android:id="@+id/ThursdayEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:clickable="true"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:layout="@layout/empty_event" />
     	
     	<TextView
@@ -155,11 +150,10 @@
     	
     	 <ViewStub
             android:id="@+id/FridayEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:layout="@layout/empty_event" />
     	
     	<TextView
@@ -180,11 +174,10 @@
     	
     	 <ViewStub
             android:id="@+id/SaturdayEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:layout="@layout/empty_event" />
     	 
 	</LinearLayout>

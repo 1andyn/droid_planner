@@ -520,13 +520,13 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 	
 	protected void set_default_vis()
 	{
-		sunEmpty.setVisibility(View.INVISIBLE);
-		monEmpty.setVisibility(View.INVISIBLE);
-		tueEmpty.setVisibility(View.INVISIBLE);
-		wedEmpty.setVisibility(View.INVISIBLE);
-		thuEmpty.setVisibility(View.INVISIBLE);
-		friEmpty.setVisibility(View.INVISIBLE);
-		satEmpty.setVisibility(View.INVISIBLE);
+		sunEmpty.setVisibility(View.GONE);
+		monEmpty.setVisibility(View.GONE);
+		tueEmpty.setVisibility(View.GONE);
+		wedEmpty.setVisibility(View.GONE);
+		thuEmpty.setVisibility(View.GONE);
+		friEmpty.setVisibility(View.GONE);
+		satEmpty.setVisibility(View.GONE);
 	}
 	
 	protected void addViewToEvent(int day, WeeklyEventView wev) 
