@@ -129,6 +129,7 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 	
 	private void initialize_week()
 	{
+		clear_everything();
 		check_date();
 		load_days();
 		load_views();
@@ -163,6 +164,7 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		    	switch_activity(MONTH_CASE, NONE);
 		    	return false;
 		    } case R.id.wtb_date: {
+            	Toast.makeText(Weekly_Activity.this, "Showing agenda for current Week", Toast.LENGTH_SHORT).show();
 		    	clear_everything();
 		    	init_today();
 		    	return false;
@@ -208,7 +210,7 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 			} case MONTH_CASE: {
 				Intent month_INTENT = new Intent(this, Month_Activity.class);
 				month_INTENT.putExtra(SELECT_KEY, givenDate);
-				clear_everything();
+				//clear_everything();
 				startActivityForResult(month_INTENT, month_REQUESTCODE);
 				initialize_week();
 				break;
@@ -222,6 +224,7 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 	@Override
 	protected void onResume()
 	{
+		/* This resets database */
 		datasource.open();
 		load_from_database(givenDate);
 		super.onResume();
@@ -272,10 +275,10 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		config_actionbar();
 	}
 	
-	protected void initListeners() {
+	protected void initListeners() 
+	{
 		// listener for sunday's date
 		View.OnClickListener sunListener = new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent schedule_INTENT = new Intent(Weekly_Activity.this, Schedule.class);
@@ -291,7 +294,6 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		
 		// listener for monday's date
 		View.OnClickListener monListener = new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent schedule_INTENT = new Intent(Weekly_Activity.this, Schedule.class);
@@ -307,7 +309,6 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 
 		// listener for tuesday's date
 		View.OnClickListener tueListener = new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent schedule_INTENT = new Intent(Weekly_Activity.this, Schedule.class);
@@ -323,7 +324,6 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 
 		// listener for wednesday's date
 		View.OnClickListener wedListener = new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent schedule_INTENT = new Intent(Weekly_Activity.this, Schedule.class);
@@ -340,7 +340,6 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 
 		// listener for thursday's date
 		View.OnClickListener thuListener = new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent schedule_INTENT = new Intent(Weekly_Activity.this, Schedule.class);
@@ -356,7 +355,6 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 
 		// listener for friday's date
 		View.OnClickListener friListener = new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent schedule_INTENT = new Intent(Weekly_Activity.this, Schedule.class);
@@ -372,7 +370,6 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 
 		// listener for saturday's date
 		View.OnClickListener satListener = new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent schedule_INTENT = new Intent(Weekly_Activity.this, Schedule.class);
@@ -394,17 +391,10 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		ActionBar ab = getSupportActionBar();
 		ab.setDisplayShowTitleEnabled(false); 
 		ab.setDisplayShowHomeEnabled(false);
-		
-		/* Will re-implement last
-		LayoutInflater inflater=(LayoutInflater) main_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    View v =inflater.inflate(R.layout.top_bar_view, null, true);
-	    ab.setCustomView(v);
-		ab.setDisplayShowCustomEnabled(true);
-		
-		*/
 	}
 	
-	protected void check_date() {
+	protected void check_date() 
+	{
 		Calendar temp = Calendar.getInstance();
 		
 		temp.set(givenDate.get_year(), givenDate.get_month(),givenDate.get_day());
@@ -438,19 +428,18 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		
 	}
 	
-	protected void load_days() {
-		
+	protected void load_days() 
+	{
 		int DoW = 0;
-		
 		switch(dayOfWeek){
-		case Calendar.SUNDAY: DoW = 0; break;
-		case Calendar.MONDAY: DoW = 1; break;
-		case Calendar.TUESDAY: DoW = 2; break;
-		case Calendar.WEDNESDAY: DoW = 3; break;
-		case Calendar.THURSDAY: DoW = 4; break;
-		case Calendar.FRIDAY: DoW = 5; break;
-		case Calendar.SATURDAY: DoW = 6; break;
-		default: DoW = -1; break;
+			case Calendar.SUNDAY: DoW = 0; break;
+			case Calendar.MONDAY: DoW = 1; break;
+			case Calendar.TUESDAY: DoW = 2; break;
+			case Calendar.WEDNESDAY: DoW = 3; break;
+			case Calendar.THURSDAY: DoW = 4; break;
+			case Calendar.FRIDAY: DoW = 5; break;
+			case Calendar.SATURDAY: DoW = 6; break;
+			default: DoW = -1; break;
 		}
 	
 		int day = givenDay - DoW;
@@ -459,41 +448,32 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		int monthDays = currMonthDays;
 		
 		for(int x = 0; x < 7; x++) {
-			
 			if(day <= 0) { 
 				if(month == 1) {
 					month = 12;
 					year--;
 				}
-				
 				else month--;
-				
 				monthDays = prevMonthDays;
 				day = monthDays + day;
 			}
-
 			else if(day > monthDays) {
-				day = 1;
-					
+				day = 1;	
 				if(month == 12) {
 					month = 1;
 					year++;
 				}
-					
 				else month++;
 			}
-
-			
 			weekDates[x].set_day(day);
 			weekDates[x].set_month(month);
 			weekDates[x].set_year(year);
 			day++;
 		}
-		
 	}
 	
-	protected void load_views() {
-		
+	protected void load_views() 
+	{
 		sunDate.setText("Sunday, " + DateString(weekDates[0]));
 		monDate.setText("Monday, " + DateString(weekDates[1]));
 		tueDate.setText("Tuesday, " + DateString(weekDates[2]));
@@ -503,76 +483,70 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		satDate.setText("Saturday, " + DateString(weekDates[6]));
 	}
 	
-	protected void load_events_and_todos() {
-		
+	protected void load_events_and_todos() 
+	{
 		for(int x = 0; x < 7; x++) {
 			ArrayList<Event> temp = datasource.getEventsForDate(weekDates[x]);
-
 			if(temp.size() == 0) {
 				addEmptyView(x);
 			}
-
 			for(int a = 0; a < temp.size(); a++) {
-				
 				Event e = temp.get(a);
-				
 				if(e.GetStart() == NONE) {
 					WeeklyToDoView wtdv = new WeeklyToDoView(this, e);
 					addViewToEvent(x, wtdv);
-				}
-				
-				else {
+				} else {
 					WeeklyEventView wev = new WeeklyEventView(this, e);
 					addViewToEvent(x, wev);
 				}
 			}
 		}
-
 	}
 
 	
-	protected void addEmptyView(int day) {
-		
+	protected void addEmptyView(int day) 
+	{
 		switch(day) {
-		case 0: sunEmpty.setVisibility(View.VISIBLE); break;
-		case 1: monEmpty.setVisibility(View.VISIBLE); break;
-		case 2: tueEmpty.setVisibility(View.VISIBLE); break;
-		case 3: wedEmpty.setVisibility(View.VISIBLE); break;
-		case 4: thuEmpty.setVisibility(View.VISIBLE); break;
-		case 5: friEmpty.setVisibility(View.VISIBLE); break;
-		case 6: satEmpty.setVisibility(View.VISIBLE); break;
-		default: break;
+			case 0: sunEmpty.setVisibility(View.VISIBLE); break;
+			case 1: monEmpty.setVisibility(View.VISIBLE); break;
+			case 2: tueEmpty.setVisibility(View.VISIBLE); break;
+			case 3: wedEmpty.setVisibility(View.VISIBLE); break;
+			case 4: thuEmpty.setVisibility(View.VISIBLE); break;
+			case 5: friEmpty.setVisibility(View.VISIBLE); break;
+			case 6: satEmpty.setVisibility(View.VISIBLE); break;
+			default: break;
 		}
 	}
 	
-	protected void addViewToEvent(int day, WeeklyEventView wev) {
-		
+	protected void addViewToEvent(int day, WeeklyEventView wev) 
+	{
 		switch(day) {
-		case 0: sunEvents.addView(wev); break;
-		case 1: monEvents.addView(wev); break;
-		case 2: tueEvents.addView(wev); break;
-		case 3: wedEvents.addView(wev); break;
-		case 4: thuEvents.addView(wev); break;
-		case 5: friEvents.addView(wev); break;
-		case 6: satEvents.addView(wev); break;
-		default: break;
+			case 0: sunEvents.addView(wev); break;
+			case 1: monEvents.addView(wev); break;
+			case 2: tueEvents.addView(wev); break;
+			case 3: wedEvents.addView(wev); break;
+			case 4: thuEvents.addView(wev); break;
+			case 5: friEvents.addView(wev); break;
+			case 6: satEvents.addView(wev); break;
+			default: break;
 		}
 	}
 	
 	protected void addViewToEvent(int day, WeeklyToDoView wtdv) {
 		switch(day) {
-		case 0: sunEvents.addView(wtdv); break;
-		case 1: monEvents.addView(wtdv); break;
-		case 2: tueEvents.addView(wtdv); break;
-		case 3: wedEvents.addView(wtdv); break;
-		case 4: thuEvents.addView(wtdv); break;
-		case 5: friEvents.addView(wtdv); break;
-		case 6: satEvents.addView(wtdv); break;
-		default: break;
+			case 0: sunEvents.addView(wtdv); break;
+			case 1: monEvents.addView(wtdv); break;
+			case 2: tueEvents.addView(wtdv); break;
+			case 3: wedEvents.addView(wtdv); break;
+			case 4: thuEvents.addView(wtdv); break;
+			case 5: friEvents.addView(wtdv); break;
+			case 6: satEvents.addView(wtdv); break;
+			default: break;
 		}
 	}
 	
-	protected void clear_everything() {
+	protected void clear_everything() 
+	{
 		sunEvents.removeAllViews();
 		monEvents.removeAllViews();
 		tueEvents.removeAllViews();
@@ -591,13 +565,14 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		load_events_and_todos();
 	}
 	
-	protected String DateString(Cal_Date cd) {
+	protected String DateString(Cal_Date cd) 
+	{
 		return month_string(cd.get_month()) 
 				+ " " + cd.get_day() + ", " + cd.get_year();
 	}
 	
-	protected String month_string(int month) {
-		
+	protected String month_string(int month) 
+	{
 		switch(month) {
 			case 0: { 
 				if(isNormalOrSmallResolution()){
@@ -661,7 +636,8 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		}
 	}
 	
-	private boolean isNormalOrSmallResolution() {
+	private boolean isNormalOrSmallResolution() 
+	{
 	    boolean isNormalOrSmallResolution = false;
 	    if (this != null) {
 	        if (((this.getResources().getConfiguration().screenLayout & 
