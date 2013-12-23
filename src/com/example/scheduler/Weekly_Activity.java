@@ -210,7 +210,6 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 			} case MONTH_CASE: {
 				Intent month_INTENT = new Intent(this, Month_Activity.class);
 				month_INTENT.putExtra(SELECT_KEY, givenDate);
-				//clear_everything();
 				startActivityForResult(month_INTENT, month_REQUESTCODE);
 				initialize_week();
 				break;
@@ -485,10 +484,11 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 	
 	protected void load_events_and_todos() 
 	{
+		set_default_vis();
 		for(int x = 0; x < 7; x++) {
 			ArrayList<Event> temp = datasource.getEventsForDate(weekDates[x]);
 			if(temp.size() == 0) {
-				addEmptyView(x);
+				setEmptyView(x);
 			}
 			for(int a = 0; a < temp.size(); a++) {
 				Event e = temp.get(a);
@@ -504,7 +504,7 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 	}
 
 	
-	protected void addEmptyView(int day) 
+	protected void setEmptyView(int day) 
 	{
 		switch(day) {
 			case 0: sunEmpty.setVisibility(View.VISIBLE); break;
@@ -516,6 +516,17 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 			case 6: satEmpty.setVisibility(View.VISIBLE); break;
 			default: break;
 		}
+	}
+	
+	protected void set_default_vis()
+	{
+		sunEmpty.setVisibility(View.INVISIBLE);
+		monEmpty.setVisibility(View.INVISIBLE);
+		tueEmpty.setVisibility(View.INVISIBLE);
+		wedEmpty.setVisibility(View.INVISIBLE);
+		thuEmpty.setVisibility(View.INVISIBLE);
+		friEmpty.setVisibility(View.INVISIBLE);
+		satEmpty.setVisibility(View.INVISIBLE);
 	}
 	
 	protected void addViewToEvent(int day, WeeklyEventView wev) 
@@ -563,6 +574,7 @@ public class Weekly_Activity extends SherlockFragmentActivity implements Intent_
 		load_days();
 		load_views();
 		load_events_and_todos();
+		initListeners();
 	}
 	
 	protected String DateString(Cal_Date cd) 
