@@ -713,16 +713,16 @@ public class Schedule extends SherlockFragmentActivity implements Parse_Interfac
 	{
 		if(events_visible.isEmpty() == true){
 			empty_events.setVisibility(View.VISIBLE);
-			e_listview.setVisibility(View.INVISIBLE);
+			e_listview.setVisibility(View.GONE);
 		} else {
-			empty_events.setVisibility(View.INVISIBLE);
+			empty_events.setVisibility(View.GONE);
 			e_listview.setVisibility(View.VISIBLE);
 		}
 		if(todos_visible.isEmpty() == true){
 			empty_todo.setVisibility(View.VISIBLE);
-			t_listview.setVisibility(View.INVISIBLE);
+			t_listview.setVisibility(View.GONE);
 		} else {
-			empty_todo.setVisibility(View.INVISIBLE);
+			empty_todo.setVisibility(View.GONE);
 			t_listview.setVisibility(View.VISIBLE);
 		}
 	}
