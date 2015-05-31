@@ -7,6 +7,7 @@ Current features include:
   - Creating a Todo
   - Editing and removing created Events
   - Easy Clearing all of Events
+  - Create Notification Alerts
   - SQLite Database Storage
   - Cloud Storage (Parse)
   - Weekly Activity
